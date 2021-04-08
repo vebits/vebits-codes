@@ -10,8 +10,10 @@ import { createGlobalStyle } from "styled-components";
 
 import Home from "Home";
 import NotFound from "NotFound";
+import Footer from "Footer";
 
 import Sabers from "sabers/Sabers";
+import Bubba from "bubba/Bubba";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -60,9 +62,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/sabers" component={Sabers} />
+          <Route exact path="/bubba" component={Bubba} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </>
   );

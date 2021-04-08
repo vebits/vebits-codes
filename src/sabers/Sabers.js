@@ -11,7 +11,7 @@ const Page = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 12px 64px;
+  padding: 64px 12px;
   background-color: ${(props) => (props.inverted ? "black" : "white")};
 `;
 

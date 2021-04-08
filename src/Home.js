@@ -1,5 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
+
+import { Colors } from "utils/constants";
 
 const Page = styled.main`
   flex: 1;
@@ -16,10 +19,32 @@ const Title = styled.h2`
   margin-bottom: 24px;
 `;
 
+const StyledLink = css`
+  text-decoration: none;
+  color: ${Colors.palette.five};
+  border-bottom: solid 1px ${Colors.palette.five};
+  align-self: flex-start;
+  padding-bottom: 4px;
+  font-weight: 800;
+
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
+const StyledRRLink = styled(Link)`
+  ${StyledLink}
+`;
+
 const Home = () => {
   return (
     <Page>
-      <Title noMargin>under construction...</Title>
+      <Title>
+        <StyledRRLink to="/sabers">sabers</StyledRRLink>
+      </Title>
+      <Title>
+        <StyledRRLink to="/bubba">bubba</StyledRRLink>
+      </Title>
     </Page>
   );
 };
