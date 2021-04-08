@@ -11,6 +11,8 @@ import { createGlobalStyle } from "styled-components";
 import Home from "Home";
 import NotFound from "NotFound";
 
+import Sabers from "sabers/Sabers";
+
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -57,6 +59,7 @@ function App() {
         <ScrollToTop />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/sabers" component={Sabers} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
