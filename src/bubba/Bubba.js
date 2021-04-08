@@ -32,7 +32,7 @@ const allPalettes = tome.getAll();
 const palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
 const inverted = r.random_choice([0, 1]);
 
-const mastersColors = ["#1d5b2d", "#eeec1a", "#cd1b33"];
+//const mastersColors = ["#1d5b2d", "#eeec1a", "#cd1b33"];
 
 function Bubba() {
   const circles = [];
