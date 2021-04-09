@@ -229,8 +229,8 @@ function Bubba() {
 
     renderArc(xoff, yoff, traits, isPerfectCircle, start, end) {
       this.p.arc(
-        this.x + xoff,
-        this.y + yoff,
+        this.x + xoff * m,
+        this.y + yoff * m,
         isPerfectCircle ? 128 * m : traits[1],
         isPerfectCircle ? 128 * m : traits[2],
         start,
