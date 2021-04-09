@@ -1,9 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
+
 import Sketch from "react-p5";
 import * as tome from "chromotome";
 import Random from "utils/random";
 import { random_hash } from "utils/random";
+
+import { Colors } from "utils/constants";
 
 const Page = styled.main`
   flex: 1;
@@ -11,12 +15,30 @@ const Page = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 64px 12px;
+  padding: 32px 12px;
   background-color: ${(props) => (props.inverted ? "black" : "white")};
 `;
 
-const Title = styled.h2`
-  font-size: 3.5rem;
+const StyledLink = css`
+  text-decoration: none;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
+  border-bottom: ${(props) =>
+    props.inverted ? `solid 1px white` : `solid 1px ${Colors.palette.five}`};
+  padding-bottom: 4px;
+  margin-bottom: 24px;
+  font-weight: 800;
+
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
+const StyledRRLink = styled(Link)`
+  ${StyledLink}
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
   color: ${(props) => (props.inverted ? "white" : "#3c3c3c")};
   margin: 0;
   margin-bottom: 24px;
@@ -29,10 +51,11 @@ const r = new Random(seed);
 const allPalettes = tome.getAll();
 const palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
 const inverted = r.random_choice([0, 1]);
+console.log(inverted);
 
 var DEFAULT_SIZE = 1000;
-var width = window.innerWidth - 64;
-var height = window.innerHeight - 64;
+var width = window.innerWidth * 0.75;
+var height = window.innerHeight * 0.75;
 var dim = Math.min(width, height);
 var m = dim / DEFAULT_SIZE;
 console.log(dim, m);
@@ -49,10 +72,10 @@ function Bubba() {
     p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
     p.noLoop();
-    p.background(
+    /*    p.background(
       p.color(palette.background ? palette.background : palette.colors[0])
-    );
-    //p.background(inverted === 1 ? 0 : 255);
+    ); */
+    p.background(inverted === 1 ? 0 : 255);
 
     for (let i = 1; i < cols + 1; i++) {
       for (let j = 1; j < rows + 1; j++) {
@@ -235,6 +258,9 @@ function Bubba() {
 
   return (
     <Page inverted={inverted}>
+      <StyledRRLink to="/" inverted={inverted}>
+        back to frontpage
+      </StyledRRLink>
       <Title inverted={inverted}>bubba</Title>
       <Sketch setup={setup} draw={draw} />
     </Page>

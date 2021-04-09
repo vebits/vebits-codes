@@ -38,7 +38,7 @@ const StyledRRLink = styled(Link)`
 `;
 
 const Title = styled.h2`
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
   margin: 0;
   margin-bottom: 24px;
@@ -57,27 +57,18 @@ var width = window.innerWidth * 0.75;
 var height = window.innerHeight * 0.75;
 var dim = Math.min(width, height);
 var m = dim / DEFAULT_SIZE;
+console.log(dim, m);
 
-function Sabers() {
+function Project() {
   const setup = (p, canvasParentRef) => {
     p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
-    p.angleMode(p.DEGREES);
     p.noLoop();
 
-    p.push();
     p.background(inverted === 1 ? 0 : 255);
-    p.pop();
   };
 
   const draw = (p) => {
-    let y = 64;
-    for (let i = 1; i < dim; i++) {
-      const x = r.random_between(64, dim);
-      drawLine(p, x, y);
-      y += 10 * m;
-    }
-
     displayBorder(p, 12);
   };
 
@@ -86,21 +77,10 @@ function Sabers() {
       <StyledRRLink to="/" inverted={inverted}>
         back to frontpage
       </StyledRRLink>
-      <Title inverted={inverted}>sabers</Title>
+      <Title inverted={inverted}>unnamed project</Title>
       <Sketch setup={setup} draw={draw} />
     </Page>
   );
-}
-
-function drawLine(p, x, y) {
-  const color = palette.colors[p.floor(r.random_between(0, palette.size))];
-  p.stroke(color);
-  p.strokeWeight(r.random_between(4, 8) * m);
-  p.strokeCap(p.ROUND);
-  const x2 = x + r.random_between(12, 128) * m;
-  if (x2 < dim - 64 && y < dim - 64) {
-    p.line(x, y, x2, y);
-  }
 }
 
 function displayBorder(p, e) {
@@ -121,4 +101,4 @@ function displayBorder(p, e) {
   p.endShape(p.CLOSE);
 }
 
-export default Sabers;
+export default Project;

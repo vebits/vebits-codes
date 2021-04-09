@@ -23,6 +23,7 @@ const FooterContainerBottom = styled.section`
 
 const TopFooter = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 1280px;
@@ -43,7 +44,11 @@ function Footer() {
   return (
     <footer>
       <FooterContainerTop>
-        <TopFooter>refresh to generate art</TopFooter>
+        <TopFooter>
+          <span>how to:</span>
+          <span>1. go to a project</span>
+          <span>2. refresh to generate</span>
+        </TopFooter>
       </FooterContainerTop>
       <FooterContainerBottom>
         <BottomFooter>
