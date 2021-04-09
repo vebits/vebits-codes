@@ -31,8 +31,8 @@ const palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
 const inverted = r.random_choice([0, 1]);
 
 var DEFAULT_SIZE = 1000;
-var width = window.innerWidth;
-var height = window.innerHeight;
+var width = window.innerWidth - 64;
+var height = window.innerHeight - 64;
 var dim = Math.min(width, height);
 var m = dim / DEFAULT_SIZE;
 console.log(dim, m);

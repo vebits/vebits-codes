@@ -26,15 +26,19 @@ const tokenData = { hash: random_hash() };
 const seed = parseInt(tokenData.hash.slice(0, 16), 16);
 //const r = new Random(41126607537855070);
 const r = new Random(seed);
-const width = 1024;
-const height = 1024;
 const allPalettes = tome.getAll();
 const palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
 const inverted = r.random_choice([0, 1]);
 
+var DEFAULT_SIZE = 1000;
+var width = window.innerWidth - 64;
+var height = window.innerHeight - 64;
+var dim = Math.min(width, height);
+var m = dim / DEFAULT_SIZE;
+
 function Sabers() {
   const setup = (p, canvasParentRef) => {
-    p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
+    p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
     p.angleMode(p.DEGREES);
     p.noLoop();
@@ -46,13 +50,13 @@ function Sabers() {
 
   const draw = (p) => {
     let y = 64;
-    for (let i = 1; i < height; i++) {
-      const x = r.random_between(64, width);
+    for (let i = 1; i < dim; i++) {
+      const x = r.random_between(64, dim);
       drawLine(p, x, y);
-      y += 10;
+      y += 10 * m;
     }
 
-    displayBorder(p, 24);
+    displayBorder(p, 12);
   };
 
   return (
@@ -66,10 +70,10 @@ function Sabers() {
 function drawLine(p, x, y) {
   const color = palette.colors[p.floor(r.random_between(0, palette.size))];
   p.stroke(color);
-  p.strokeWeight(r.random_between(4, 8));
+  p.strokeWeight(r.random_between(4, 8) * m);
   p.strokeCap(p.ROUND);
-  const x2 = x + r.random_between(12, 128);
-  if (x2 < width - 64 && y < height - 64) {
+  const x2 = x + r.random_between(12, 128) * m;
+  if (x2 < dim - 64 && y < dim - 64) {
     p.line(x, y, x2, y);
   }
 }
@@ -80,14 +84,14 @@ function displayBorder(p, e) {
   p.strokeJoin(p.MITER);
   p.beginShape();
   p.vertex(0, 0);
-  p.vertex(width, 0);
-  p.vertex(width, height);
-  p.vertex(0, height);
+  p.vertex(dim, 0);
+  p.vertex(dim, dim);
+  p.vertex(0, dim);
   p.beginContour();
   p.vertex(e, e);
-  p.vertex(e, height - e);
-  p.vertex(width - e, height - e);
-  p.vertex(width - e, e);
+  p.vertex(e, dim - e);
+  p.vertex(dim - e, dim - e);
+  p.vertex(dim - e, e);
   p.endContour();
   p.endShape(p.CLOSE);
 }
