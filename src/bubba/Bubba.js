@@ -26,22 +26,27 @@ const tokenData = { hash: random_hash() };
 const seed = parseInt(tokenData.hash.slice(0, 16), 16);
 //const r = new Random(41126607537855070);
 const r = new Random(seed);
-const width = 1024;
-const height = 1024;
 const allPalettes = tome.getAll();
 const palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
 const inverted = r.random_choice([0, 1]);
+
+var DEFAULT_SIZE = 1000;
+var width = window.innerWidth;
+var height = window.innerHeight;
+var dim = Math.min(width, height);
+var m = dim / DEFAULT_SIZE;
+console.log(dim, m);
 
 //const mastersColors = ["#1d5b2d", "#eeec1a", "#cd1b33"];
 
 function Bubba() {
   const circles = [];
-  const dim = r.random_int(3, 4);
-  const cols = dim;
-  const rows = dim;
+  const res = r.random_int(3, 4);
+  const cols = res;
+  const rows = res;
 
   const setup = (p, canvasParentRef) => {
-    p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
+    p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
     p.noLoop();
     p.background(
@@ -52,7 +57,7 @@ function Bubba() {
     for (let i = 1; i < cols + 1; i++) {
       for (let j = 1; j < rows + 1; j++) {
         circles.push(
-          new Pie(p, (i * width) / (cols + 1), (j * height) / (rows + 1))
+          new Pie(p, (i * dim) / (cols + 1), (j * dim) / (rows + 1))
         );
       }
     }
@@ -203,8 +208,8 @@ function Bubba() {
       this.p.arc(
         this.x + xoff,
         this.y + yoff,
-        isPerfectCircle ? 128 : traits[1],
-        isPerfectCircle ? 128 : traits[2],
+        isPerfectCircle ? 128 * m : traits[1],
+        isPerfectCircle ? 128 * m : traits[2],
         start,
         end,
         this.p.PIE
@@ -222,8 +227,8 @@ function Bubba() {
         color = mastersColors[2];
       } */
       const color = palette.colors[r.random_int(0, palette.size - 1)];
-      const width = r.random_int(128, 156);
-      const height = r.random_int(128, 156);
+      const width = r.random_int(128, 156) * m;
+      const height = r.random_int(128, 156) * m;
       return [color, width, height];
     }
   }
@@ -242,14 +247,14 @@ function displayBorder(p, e) {
   p.strokeJoin(p.MITER);
   p.beginShape();
   p.vertex(0, 0);
-  p.vertex(width, 0);
-  p.vertex(width, height);
-  p.vertex(0, height);
+  p.vertex(dim, 0);
+  p.vertex(dim, dim);
+  p.vertex(0, dim);
   p.beginContour();
   p.vertex(e, e);
-  p.vertex(e, height - e);
-  p.vertex(width - e, height - e);
-  p.vertex(width - e, e);
+  p.vertex(e, dim - e);
+  p.vertex(dim - e, dim - e);
+  p.vertex(dim - e, e);
   p.endContour();
   p.endShape(p.CLOSE);
 }
