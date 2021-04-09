@@ -71,9 +71,9 @@ function Sabers() {
   };
 
   const draw = (p) => {
-    let y = 64;
+    let y = 64 * m;
     for (let i = 1; i < dim; i++) {
-      const x = r.random_between(64, dim);
+      const x = r.random_between(64 * m, dim);
       drawLine(p, x, y);
       y += 10 * m;
     }
@@ -98,7 +98,7 @@ function drawLine(p, x, y) {
   p.strokeWeight(r.random_between(4, 8) * m);
   p.strokeCap(p.ROUND);
   const x2 = x + r.random_between(12, 128) * m;
-  if (x2 < dim - 64 && y < dim - 64) {
+  if (x2 < dim - 64 * m && y < dim - 64 * m) {
     p.line(x, y, x2, y);
   }
 }
