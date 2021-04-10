@@ -63,7 +63,7 @@ const Home = () => {
     <Page>
       <AboutSection>
         <Title>About.</Title>
-        <Info>A curation of my generative art projects.</Info>
+        <Info>A collection of my generative art projects.</Info>
       </AboutSection>
       <ProjectSection>
         <Title>Projects.</Title>
