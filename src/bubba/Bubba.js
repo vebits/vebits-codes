@@ -51,14 +51,12 @@ const r = new Random(seed);
 const allPalettes = tome.getAll();
 const palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
 const inverted = r.random_choice([0, 1]);
-console.log(inverted);
 
 var DEFAULT_SIZE = 1000;
 var width = window.innerWidth * 0.75;
 var height = window.innerHeight * 0.75;
 var dim = Math.min(width, height);
 var m = dim / DEFAULT_SIZE;
-console.log(dim, m);
 
 //const mastersColors = ["#1d5b2d", "#eeec1a", "#cd1b33"];
 
@@ -137,7 +135,7 @@ function Bubba() {
         this.p.fill(this.p.color(traits[0]));
         this.renderArc(
           -2,
-          3,
+          4,
           traits,
           isPerfectCircle,
           this.p.PI / 2,

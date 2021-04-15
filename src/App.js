@@ -12,8 +12,9 @@ import Home from "Home";
 import NotFound from "NotFound";
 import Footer from "Footer";
 
-import Sabers from "sabers/Sabers";
-import Bubba from "bubba/Bubba";
+import Sabers from "001 sabers/Sabers";
+import Bubba from "002 bubba/Bubba";
+import Brush from "003 brush/Brush";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -63,6 +64,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/sabers" component={Sabers} />
           <Route exact path="/bubba" component={Bubba} />
+          <Route exact path="/brush" component={Brush} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>

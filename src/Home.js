@@ -69,6 +69,7 @@ const Home = () => {
         <Title>Projects.</Title>
         <StyledRRLink to="/sabers">sabers</StyledRRLink>
         <StyledRRLink to="/bubba">bubba</StyledRRLink>
+        <StyledRRLink to="/brush">brush</StyledRRLink>
       </ProjectSection>
     </Page>
   );

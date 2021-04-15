@@ -57,7 +57,6 @@ var width = window.innerWidth * 0.75;
 var height = window.innerHeight * 0.75;
 var dim = Math.min(width, height);
 var m = dim / DEFAULT_SIZE;
-console.log(dim, m);
 
 function Project() {
   const setup = (p, canvasParentRef) => {
