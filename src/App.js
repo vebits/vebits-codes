@@ -15,6 +15,9 @@ import Footer from "Footer";
 import Sabers from "001 sabers/Sabers";
 import Bubba from "002 bubba/Bubba";
 import Brush from "003 brush/Brush";
+import Stripes from "004 stripes/Stripes";
+import Tiles from "005 tiles/Tiles";
+import Pipes from "006 pipes/Pipes";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -65,6 +68,9 @@ function App() {
           <Route exact path="/sabers" component={Sabers} />
           <Route exact path="/bubba" component={Bubba} />
           <Route exact path="/brush" component={Brush} />
+          <Route exact path="/stripes" component={Stripes} />
+          <Route exact path="/tiles" component={Tiles} />
+          <Route exact path="/pipes" component={Pipes} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
