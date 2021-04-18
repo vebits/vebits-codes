@@ -48,7 +48,6 @@ const seed = parseInt(tokenData.hash.slice(0, 16), 16);
 //const r = new Random(41126607537855070);
 const r = new Random(seed);
 let palette = Palettes[r.random_int(0, Palettes.length - 1)];
-console.log(palette);
 
 var DEFAULT_SIZE = 1000;
 var width = window.innerWidth * 0.75;
@@ -59,7 +58,6 @@ var m = dim / DEFAULT_SIZE;
 function ColorShadows() {
   const irrShapes = [];
   let res = r.random_choice([3, 4, 5, 6, 8, 10]);
-  res = 3;
   const cols = res;
   const rows = res;
 
