@@ -54,7 +54,6 @@ var DEFAULT_SIZE = 1000;
 var width = window.innerWidth * 0.75;
 var height = window.innerHeight * 0.75;
 var dim = Math.min(width, height);
-dim = 1000;
 var m = dim / DEFAULT_SIZE;
 
 function ColorShadows() {
