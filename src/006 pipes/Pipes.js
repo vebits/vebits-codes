@@ -55,11 +55,11 @@ let palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
 } */
 const inverted = 0;
 
-var DEFAULT_SIZE = 1000;
+//var DEFAULT_SIZE = 1000;
 var width = window.innerWidth * 0.75;
 var height = window.innerHeight * 0.75;
 var dim = Math.min(width, height);
-var m = dim / DEFAULT_SIZE;
+//var m = dim / DEFAULT_SIZE;
 
 function Project() {
   const setup = (p, canvasParentRef) => {

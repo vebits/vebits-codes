@@ -3,14 +3,12 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 import Sketch from "react-p5";
-import * as tome from "chromotome";
 import Random from "utils/random";
 import { random_hash } from "utils/random";
 import Palettes from "nice-color-palettes/1000";
 
 import { Colors } from "utils/constants";
 
-console.log(Palettes);
 const Page = styled.main`
   flex: 1;
   display: flex;
