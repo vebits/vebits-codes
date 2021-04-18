@@ -71,7 +71,7 @@ const Home = () => {
         <StyledRRLink to="/bubba">002 bubba</StyledRRLink>
         <StyledRRLink to="/brush">003 brush</StyledRRLink>
         <StyledRRLink to="/stripes">004 stripes</StyledRRLink>
-        <StyledRRLink to="/color-shadows">004 color shadows</StyledRRLink>
+        <StyledRRLink to="/color-shadows">005 color shadows</StyledRRLink>
       </ProjectSection>
     </Page>
   );
