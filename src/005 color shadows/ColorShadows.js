@@ -65,38 +65,40 @@ function ColorShadows() {
     p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
     p.noLoop();
+    //p.pixelDensity(1);
 
     p.background(255);
 
     let radius, xoff, yoff;
     if (res === 3) {
-      radius = 60 * m;
-      xoff = r.random_int(10, 25) * m;
+      radius = 60;
+      console.log(radius);
+      xoff = r.random_int(10, 25);
       yoff = r.random_int(0, 1) ? xoff : -xoff;
       xoff = r.random_int(0, 1) ? xoff : -xoff;
     } else if (res === 4) {
-      radius = 50 * m;
-      xoff = r.random_int(10, 20) * m;
+      radius = 50;
+      xoff = r.random_int(10, 20);
       yoff = r.random_int(0, 1) ? xoff : -xoff;
       xoff = r.random_int(0, 1) ? xoff : -xoff;
     } else if (res === 5) {
-      radius = 40 * m;
-      xoff = r.random_int(10, 15) * m;
+      radius = 40;
+      xoff = r.random_int(10, 15);
       yoff = r.random_int(0, 1) ? xoff : -xoff;
       xoff = r.random_int(0, 1) ? xoff : -xoff;
     } else if (res === 6) {
-      radius = 30 * m;
-      xoff = r.random_int(10, 15) * m;
+      radius = 30;
+      xoff = r.random_int(10, 15);
       yoff = r.random_int(0, 1) ? xoff : -xoff;
       xoff = r.random_int(0, 1) ? xoff : -xoff;
     } else if (res === 8) {
-      radius = 25 * m;
-      xoff = r.random_int(5, 10) * m;
+      radius = 25;
+      xoff = r.random_int(5, 10);
       yoff = r.random_int(0, 1) ? xoff : -xoff;
       xoff = r.random_int(0, 1) ? xoff : -xoff;
     } else if (res === 10) {
-      radius = 20 * m;
-      xoff = r.random_int(5, 10) * m;
+      radius = 20;
+      xoff = r.random_int(5, 10);
       yoff = r.random_int(0, 1) ? xoff : -xoff;
       xoff = r.random_int(0, 1) ? xoff : -xoff;
     }
@@ -112,8 +114,8 @@ function ColorShadows() {
             r.random_int(5, 10),
             (i * dim) / (cols + 1),
             (j * dim) / (rows + 1),
-            xoff,
-            yoff
+            xoff * m,
+            yoff * m
           )
         );
       }
