@@ -67,7 +67,7 @@ var width = window.innerWidth * 0.75;
 var height = window.innerHeight * 0.75;
 //width = 710;
 //height = 500;
-var dim = Math.min(width, height);
+//var dim = Math.min(width, height);
 var m = height / DEFAULT_SIZE;
 
 // PALETTE
