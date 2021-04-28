@@ -83,7 +83,7 @@ function ColorShadows() {
     p.colorMode(p.HSB);
     console.log(p);
     p.noLoop();
-    p.pixelDensity(1);
+    //p.pixelDensity(1);
 
     //p.background(255);
 
