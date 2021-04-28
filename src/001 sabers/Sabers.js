@@ -37,8 +37,21 @@ const StyledRRLink = styled(Link)`
   ${StyledLink}
 `;
 
-const Title = styled.h2`
+const Info = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h1`
   font-size: 2.5rem;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
+  margin: 0;
+`;
+
+const Date = styled.span`
+  font-size: 1rem;
+  font-weight: 600;
   color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
   margin: 0;
   margin-bottom: 24px;
@@ -86,7 +99,10 @@ function Sabers() {
       <StyledRRLink to="/" inverted={inverted}>
         back to frontpage
       </StyledRRLink>
-      <Title inverted={inverted}>sabers</Title>
+      <Info>
+        <Title inverted={inverted}>sabers</Title>
+        <Date inverted={inverted}>07.04.2021</Date>
+      </Info>
       <Sketch setup={setup} draw={draw} />
     </Page>
   );

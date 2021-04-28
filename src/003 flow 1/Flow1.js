@@ -36,9 +36,22 @@ const StyledRRLink = styled(Link)`
   ${StyledLink}
 `;
 
-const Title = styled.h2`
-  font-size: 3.5rem;
-  color: ${Colors.palette.five};
+const Info = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
+  margin: 0;
+`;
+
+const Date = styled.span`
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
   margin: 0;
   margin-bottom: 24px;
 `;
@@ -63,7 +76,7 @@ const bottom_y = Math.floor(dim * 1.5);
 const num_columns = (right_x - left_x) / res;
 const num_rows = (bottom_y - top_y) / res;
 
-function Project() {
+function Flow1() {
   const grid = [];
 
   const setup = (p, canvasParentRef) => {
@@ -147,7 +160,10 @@ function Project() {
   return (
     <Page>
       <StyledRRLink to="/">back to frontpage</StyledRRLink>
-      <Title>brush</Title>
+      <Info>
+        <Title>flow 1</Title>
+        <Date>14.04.2021</Date>
+      </Info>
       <Sketch setup={setup} draw={draw} />
     </Page>
   );
@@ -171,4 +187,4 @@ function displayBorder(p, e) {
   p.endShape(p.CLOSE);
 }
 
-export default Project;
+export default Flow1;

@@ -69,9 +69,10 @@ const Home = () => {
         <Title>Projects.</Title>
         <StyledRRLink to="/sabers">001 sabers</StyledRRLink>
         <StyledRRLink to="/bubba">002 bubba</StyledRRLink>
-        <StyledRRLink to="/brush">003 brush</StyledRRLink>
+        <StyledRRLink to="/flow-1">003 flow 1</StyledRRLink>
         <StyledRRLink to="/stripes">004 stripes</StyledRRLink>
         <StyledRRLink to="/color-shadows">005 color shadows</StyledRRLink>
+        <StyledRRLink to="/flow-2">006 flow 2</StyledRRLink>
       </ProjectSection>
     </Page>
   );

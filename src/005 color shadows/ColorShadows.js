@@ -36,18 +36,34 @@ const StyledRRLink = styled(Link)`
   ${StyledLink}
 `;
 
-const Title = styled.h2`
-  font-size: 3.5rem;
-  color: ${Colors.palette.five};
+const Info = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
+  margin: 0;
+`;
+
+const Date = styled.span`
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
   margin: 0;
   margin-bottom: 24px;
 `;
 
 const tokenData = { hash: random_hash() };
 const seed = parseInt(tokenData.hash.slice(0, 16), 16);
-//const r = new Random(41126607537855070);
+//const r = new Random(9137706513119456);
 const r = new Random(seed);
 let palette = Palettes[r.random_int(0, Palettes.length - 1)];
+let paletteBg = Palettes[r.random_int(0, Palettes.length - 1)];
+const bgColor = paletteBg[r.random_int(0, paletteBg.length - 1)];
+console.log(palette, bgColor, seed);
 
 var DEFAULT_SIZE = 1000;
 var width = window.innerWidth * 0.75;
@@ -58,16 +74,20 @@ var m = dim / DEFAULT_SIZE;
 function ColorShadows() {
   const irrShapes = [];
   let res = r.random_choice([3, 4, 5, 6, 8, 10]);
+  res = 5;
   const cols = res;
   const rows = res;
 
   const setup = (p, canvasParentRef) => {
     p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
+    console.log(p);
     p.noLoop();
-    //p.pixelDensity(1);
+    p.pixelDensity(1);
 
-    p.background(255);
+    //p.background(255);
+
+    p.background(bgColor);
 
     let radius, xoff, yoff;
     if (res === 3) {
@@ -120,7 +140,6 @@ function ColorShadows() {
         );
       }
     }
-    console.log(irrShapes);
   };
 
   const draw = (p) => {
@@ -140,13 +159,16 @@ function ColorShadows() {
       }
     }
 
-    displayBorder(p, 12);
+    //displayBorder(p, 12);
   };
 
   return (
     <Page>
       <StyledRRLink to="/">back to frontpage</StyledRRLink>
-      <Title>color shadows</Title>
+      <Info>
+        <Title>color shadows</Title>
+        <Date>18.04.2021</Date>
+      </Info>
       <Sketch setup={setup} draw={draw} />
     </Page>
   );
@@ -160,7 +182,7 @@ function IrregularShapeWithShadow(p, radius, numVertices, x, y, xoff, yoff) {
   this.theta = 360 / this.numVertices;
 
   for (var i = 0; i < this.numVertices; i++) {
-    radius = p.random(this.radius / 2, this.radius * 2);
+    radius = r.random_between(this.radius / 2, this.radius * 2);
     this.vertices[i] = new Point(
       p.int(p.cos(p.radians(i * this.theta)) * radius),
       p.int(p.sin(p.radians(i * this.theta)) * radius)
@@ -235,9 +257,9 @@ function Point(x, y) {
   this.y = y;
 }
 
-function displayBorder(p, e) {
-  p.fill(0);
-  p.stroke(0);
+/* function displayBorder(p, e) {
+  p.fill(255);
+  p.stroke(255);
   p.strokeJoin(p.MITER);
   p.beginShape();
   p.vertex(0, 0);
@@ -251,6 +273,6 @@ function displayBorder(p, e) {
   p.vertex(dim - e, e);
   p.endContour();
   p.endShape(p.CLOSE);
-}
+} */
 
 export default ColorShadows;

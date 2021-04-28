@@ -10,7 +10,7 @@ const Page = styled.main`
   padding: 104px 64px;
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
   font-size: 3.5rem;
   color: #3c3c3c;
   margin-bottom: 24px;

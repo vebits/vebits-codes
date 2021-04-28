@@ -37,7 +37,7 @@ const StyledRRLink = styled(Link)`
   ${StyledLink}
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
   font-size: 3.5rem;
   color: ${Colors.palette.five};
   margin: 0;
@@ -85,13 +85,17 @@ const seed = parseInt(tokenData.hash.slice(0, 16), 16);
 const rnd = new Random(seed);
 
 //var DEFAULT_SIZE = 1000;
-var width = 1000;
-var height = 1000;
-var dim = Math.min(width, height);
+
 //var m = dim / DEFAULT_SIZE;
 //const res = Math.floor(dim * 0.01);
 //const num_columns = dim / res;
 //const num_rows = dim / res;
+
+var DEFAULT_SIZE = 1000;
+var width = window.innerWidth * 0.75;
+var height = window.innerHeight * 0.75;
+var dim = Math.min(width, height);
+var m = dim / DEFAULT_SIZE;
 
 var r = 10;
 var k = 30;
