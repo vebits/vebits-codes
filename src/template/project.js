@@ -3,11 +3,10 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 import Sketch from "react-p5";
-import * as tome from "chromotome";
-import Random from "utils/random";
-import { random_hash } from "utils/random";
-
+import Random, { random_hash } from "utils/random";
 import { Colors } from "utils/constants";
+
+import Palettes from "nice-color-palettes/1000";
 
 const Page = styled.main`
   flex: 1;
@@ -16,14 +15,13 @@ const Page = styled.main`
   justify-content: center;
   align-items: center;
   padding: 32px 12px;
-  background-color: ${(props) => (props.inverted ? "black" : "white")};
+  background-color: white;
 `;
 
 const StyledLink = css`
   text-decoration: none;
-  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
-  border-bottom: ${(props) =>
-    props.inverted ? `solid 1px white` : `solid 1px ${Colors.palette.five}`};
+  color: ${Colors.palette.five};
+  border-bottom: solid 1px ${Colors.palette.five};
   padding-bottom: 4px;
   margin-bottom: 24px;
   font-weight: 800;
@@ -37,67 +35,66 @@ const StyledRRLink = styled(Link)`
   ${StyledLink}
 `;
 
+const Info = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const Title = styled.h1`
-  font-size: 3.5rem;
+  font-size: 2.5rem;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
+  margin: 0;
+`;
+
+const Date = styled.span`
+  font-size: 1rem;
+  font-weight: 600;
   color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
   margin: 0;
   margin-bottom: 24px;
 `;
 
+// TOKEN AND RANDOM
 const tokenData = { hash: random_hash() };
 const seed = parseInt(tokenData.hash.slice(0, 16), 16);
-//const r = new Random(41126607537855070);
-const r = new Random(seed);
-const allPalettes = tome.getAll();
-const palette = allPalettes[r.random_int(0, allPalettes.length - 1)];
-const inverted = r.random_choice([0, 1]);
+const rnd = new Random(seed);
 
+// DIMENSIONS
 var DEFAULT_SIZE = 1000;
 var width = window.innerWidth * 0.75;
 var height = window.innerHeight * 0.75;
-var dim = Math.min(width, height);
-var m = dim / DEFAULT_SIZE;
+var m = height / DEFAULT_SIZE;
 
-function Project() {
+// PALETTE
+let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
+let paletteBg = Palettes[rnd.random_int(0, Palettes.length - 1)];
+const bgColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
+console.log(palette, bgColor, seed);
+
+function Flow2() {
   const setup = (p, canvasParentRef) => {
-    p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
+    p.pixelDensity(1);
+    p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
     p.noLoop();
 
-    p.background(inverted === 1 ? 0 : 255);
+    p.background(255);
+    p.noiseSeed(seed);
   };
 
-  const draw = (p) => {
-    displayBorder(p, 12);
-  };
+  const draw = (p) => {};
 
   return (
-    <Page inverted={inverted}>
-      <StyledRRLink to="/" inverted={inverted}>
-        back to frontpage
-      </StyledRRLink>
-      <Title inverted={inverted}>unnamed project</Title>
+    <Page>
+      <StyledRRLink to="/">back to frontpage</StyledRRLink>
+      <Info>
+        <Title>jane</Title>
+        <Date>03.05.2021</Date>
+      </Info>
       <Sketch setup={setup} draw={draw} />
     </Page>
   );
 }
 
-function displayBorder(p, e) {
-  p.fill(inverted === 1 ? 255 : 0);
-  p.stroke(inverted === 1 ? 255 : 0);
-  p.strokeJoin(p.MITER);
-  p.beginShape();
-  p.vertex(0, 0);
-  p.vertex(dim, 0);
-  p.vertex(dim, dim);
-  p.vertex(0, dim);
-  p.beginContour();
-  p.vertex(e, e);
-  p.vertex(e, dim - e);
-  p.vertex(dim - e, dim - e);
-  p.vertex(dim - e, e);
-  p.endContour();
-  p.endShape(p.CLOSE);
-}
-
-export default Project;
+export default Flow2;

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Sketch from "react-p5";
 import Random, { random_hash } from "utils/random";
 import { Colors } from "utils/constants";
+import chaikin from "utils/chaikin";
 
 import Palettes from "nice-color-palettes/1000";
 
@@ -76,10 +77,11 @@ var m = height / DEFAULT_SIZE;
 let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
 let paletteBg = Palettes[rnd.random_int(0, Palettes.length - 1)];
 const bgColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
-console.log(palette, bgColor, seed);
+//console.log(palette, bgColor, seed);
 
 // PDS
-var r = 4 * m;
+//var r = 4 * m;
+var r = 2.5;
 var k = 30;
 var w = r / Math.sqrt(2);
 
@@ -89,9 +91,19 @@ const active = [];
 const ordered = [];
 var cols, rows;
 
+// PDS Bg
+var rBg = 2.5;
+var kBg = 30;
+var wBg = rBg / Math.sqrt(2);
+
+const gridBg = [];
+const activeBg = [];
+const orderedBg = [];
+var colsBg, rowsBg;
+
 function Flow2() {
   const setup = (p, canvasParentRef) => {
-    p.pixelDensity(1);
+    //p.pixelDensity(1);
     p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
     p.noLoop();
@@ -100,20 +112,47 @@ function Flow2() {
     p.noiseSeed(seed);
     //p.noiseSeed(57629394378061160);
 
-    initPDS(p);
+    //initPDS(p);
   };
 
   const draw = (p) => {
     p.noFill();
-    pds(p);
+
+    const test = [];
+
+    p.strokeWeight(3);
+    let x = 500,
+      y = 500;
+    p.beginShape();
+    for (let i = 0; i < 20; i++) {
+      test.push([x, y]);
+      //p.vertex(x, y);
+
+      const x_step = 5;
+      const y_step = rnd.random_int(-2, 2) * rnd.random_choice([-1, 1]);
+      x += x_step;
+      y += y_step;
+    }
+    p.endShape();
+
+    const chai = chaikin(test);
+
+    p.beginShape();
+    for (let i = 0; i < chai.length; i++) {
+      p.vertex(chai[i][0], chai[i][1]);
+    }
+    p.endShape();
+
+    //pds(p);
 
     /* for (var f = 0; f < ordered.length; f++) {
       let x = ordered[f].x;
       let y = ordered[f].y;
-      p.strokeWeight(3);
-      p.point(x, y);
-    }
-
+      //p.strokeWeight(5);
+      p.stroke(p.color("#FCC9B9"));
+      p.square(x, y, 5);
+    } */
+    /*
     for (let x = 0; x < angleGrid.length; x++) {
       for (let y = 0; y < angleGrid[x].length; y++) {
         p.stroke(0);
@@ -157,9 +196,9 @@ function drawFlowField(p) {
 
     p.beginShape();
     //p.stroke(p.color(palette[rnd.random_int(0, palette.length - 1)]));
-    //p.stroke(255);
+    p.stroke(255);
 
-    if (vertical) {
+    /* if (vertical) {
       if (y > 0 && y < (height / 5) * 1) {
         p.stroke(p.color("#F08F90"));
       } else if (y > (height / 5) * 1 && y < (height / 5) * 2) {
@@ -183,7 +222,7 @@ function drawFlowField(p) {
       } else if (x > (width / 5) * 4 && x < (width / 5) * 5) {
         p.stroke(p.color("#F08F90"));
       }
-    }
+    } */
 
     p.strokeWeight(8 * m);
 

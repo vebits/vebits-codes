@@ -17,7 +17,8 @@ import Bubba from "002 bubba/Bubba";
 import Flow1 from "003 flow 1/Flow1";
 import Stripes from "004 stripes/Stripes";
 import ColorShadows from "005 color shadows/ColorShadows";
-import Flow2 from "006 flow2/Flow2";
+import Flow2 from "006 flow2/NaturalFlow";
+import Parent from "007 cordillera/Parent";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -71,10 +72,11 @@ function App() {
           <Route exact path="/stripes" component={Stripes} />
           <Route exact path="/color-shadows" component={ColorShadows} />
           <Route exact path="/flow-2" component={Flow2} />
+          <Route exact path="/cordillera/:id?" component={Parent} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );

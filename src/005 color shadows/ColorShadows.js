@@ -63,7 +63,7 @@ const r = new Random(seed);
 let palette = Palettes[r.random_int(0, Palettes.length - 1)];
 let paletteBg = Palettes[r.random_int(0, Palettes.length - 1)];
 const bgColor = paletteBg[r.random_int(0, paletteBg.length - 1)];
-console.log(palette, bgColor, seed);
+//console.log(palette, bgColor, seed);
 
 var DEFAULT_SIZE = 1000;
 var width = window.innerWidth * 0.75;
@@ -79,11 +79,11 @@ function ColorShadows() {
   const rows = res;
 
   const setup = (p, canvasParentRef) => {
+    //p.pixelDensity(1);
     p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.colorMode(p.HSB);
     console.log(p);
     p.noLoop();
-    //p.pixelDensity(1);
 
     //p.background(255);
 
@@ -210,7 +210,7 @@ function IrregularShapeWithShadow(p, radius, numVertices, x, y, xoff, yoff) {
     p.beginShape();
     for (var e = 0; e < this.numVertices; e++) {
       p.noFill();
-      p.stroke(0, 0, 0, 0.5);
+      p.stroke(0, 0, 0, 1);
       p.curveVertex(this.vertices[e].x, this.vertices[e].y);
     }
     for (var r = 0; r < 3; r++) {
