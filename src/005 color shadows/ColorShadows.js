@@ -8,6 +8,7 @@ import { random_hash } from "utils/random";
 
 import { Colors } from "utils/constants";
 import Palettes from "nice-color-palettes/1000";
+import Footer from "Footer";
 
 const Page = styled.main`
   flex: 1;
@@ -163,14 +164,17 @@ function ColorShadows() {
   };
 
   return (
-    <Page>
-      <StyledRRLink to="/">back to frontpage</StyledRRLink>
-      <Info>
-        <Title>color shadows</Title>
-        <Date>18.04.2021</Date>
-      </Info>
-      <Sketch setup={setup} draw={draw} />
-    </Page>
+    <>
+      <Page>
+        <StyledRRLink to="/">back to frontpage</StyledRRLink>
+        <Info>
+          <Title>color shadows</Title>
+          <Date>18.04.2021</Date>
+        </Info>
+        <Sketch setup={setup} draw={draw} />
+      </Page>
+      <Footer />
+    </>
   );
 }
 

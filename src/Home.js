@@ -73,6 +73,7 @@ const Home = () => {
         <StyledRRLink to="/stripes">004 stripes</StyledRRLink>
         <StyledRRLink to="/color-shadows">005 color shadows</StyledRRLink>
         <StyledRRLink to="/flow-2">006 flow 2</StyledRRLink>
+        <StyledRRLink to="/cordillera">007 cordillera</StyledRRLink>
       </ProjectSection>
     </Page>
   );

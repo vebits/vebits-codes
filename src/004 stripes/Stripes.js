@@ -8,6 +8,7 @@ import { random_hash } from "utils/random";
 import Palettes from "nice-color-palettes/1000";
 
 import { Colors } from "utils/constants";
+import Footer from "Footer";
 
 const Page = styled.main`
   flex: 1;
@@ -131,16 +132,19 @@ function Project() {
   };
 
   return (
-    <Page inverted={inverted}>
-      <StyledRRLink to="/" inverted={inverted}>
-        back to frontpage
-      </StyledRRLink>
-      <Info>
-        <Title inverted={inverted}>Stripes</Title>
-        <Date>16.04.2021</Date>
-      </Info>
-      <Sketch setup={setup} draw={draw} />
-    </Page>
+    <>
+      <Page inverted={inverted}>
+        <StyledRRLink to="/" inverted={inverted}>
+          back to frontpage
+        </StyledRRLink>
+        <Info>
+          <Title inverted={inverted}>Stripes</Title>
+          <Date>16.04.2021</Date>
+        </Info>
+        <Sketch setup={setup} draw={draw} />
+      </Page>
+      <Footer />
+    </>
   );
 }
 

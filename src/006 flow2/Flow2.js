@@ -7,6 +7,7 @@ import Random, { random_hash } from "utils/random";
 import { Colors } from "utils/constants";
 
 import Palettes from "nice-color-palettes/1000";
+import Footer from "Footer";
 
 const Page = styled.main`
   flex: 1;
@@ -130,14 +131,17 @@ function Flow2() {
   };
 
   return (
-    <Page>
-      <StyledRRLink to="/">back to frontpage</StyledRRLink>
-      <Info>
-        <Title>flow 2</Title>
-        <Date>26.04.2021</Date>
-      </Info>
-      <Sketch setup={setup} draw={draw} />
-    </Page>
+    <>
+      <Page>
+        <StyledRRLink to="/">back to frontpage</StyledRRLink>
+        <Info>
+          <Title>flow 2</Title>
+          <Date>26.04.2021</Date>
+        </Info>
+        <Sketch setup={setup} draw={draw} />
+      </Page>
+      <Footer />
+    </>
   );
 }
 

@@ -8,6 +8,7 @@ import Random from "utils/random";
 import { random_hash } from "utils/random";
 
 import { Colors } from "utils/constants";
+import Footer from "Footer";
 
 const Page = styled.main`
   flex: 1;
@@ -95,16 +96,19 @@ function Sabers() {
   };
 
   return (
-    <Page inverted={inverted}>
-      <StyledRRLink to="/" inverted={inverted}>
-        back to frontpage
-      </StyledRRLink>
-      <Info>
-        <Title inverted={inverted}>sabers</Title>
-        <Date inverted={inverted}>07.04.2021</Date>
-      </Info>
-      <Sketch setup={setup} draw={draw} />
-    </Page>
+    <>
+      <Page inverted={inverted}>
+        <StyledRRLink to="/" inverted={inverted}>
+          back to frontpage
+        </StyledRRLink>
+        <Info>
+          <Title inverted={inverted}>sabers</Title>
+          <Date inverted={inverted}>07.04.2021</Date>
+        </Info>
+        <Sketch setup={setup} draw={draw} />
+      </Page>
+      <Footer />
+    </>
   );
 }
 
