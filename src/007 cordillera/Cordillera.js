@@ -27,9 +27,12 @@ function Cordillera() {
   var width = window.innerWidth * windowMargin;
   var height = window.innerHeight * windowMargin;
   var dim = Math.min(width, height);
-  console.log(`width: ${dim}`, `height: ${dim}`);
   if (dim < 1024) {
     dim = 1024;
+    console.log("minimum size is 1024x1024");
+    console.log(`width: ${dim}`, `height: ${dim}`);
+  } else {
+    console.log(`width: ${dim}`, `height: ${dim}`);
   }
   var m = dim / DEFAULT_SIZE;
 
