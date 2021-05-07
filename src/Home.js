@@ -1,3 +1,4 @@
+import Footer from "Footer";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -60,22 +61,25 @@ const StyledRRLink = styled(Link)`
 
 const Home = () => {
   return (
-    <Page>
-      <AboutSection>
-        <Title>About.</Title>
-        <Info>A collection of my generative art projects.</Info>
-      </AboutSection>
-      <ProjectSection>
-        <Title>Projects.</Title>
-        <StyledRRLink to="/sabers">001 sabers</StyledRRLink>
-        <StyledRRLink to="/bubba">002 bubba</StyledRRLink>
-        <StyledRRLink to="/flow-1">003 flow 1</StyledRRLink>
-        <StyledRRLink to="/stripes">004 stripes</StyledRRLink>
-        <StyledRRLink to="/color-shadows">005 color shadows</StyledRRLink>
-        <StyledRRLink to="/flow-2">006 flow 2</StyledRRLink>
-        <StyledRRLink to="/cordillera">007 cordillera</StyledRRLink>
-      </ProjectSection>
-    </Page>
+    <>
+      <Page>
+        <AboutSection>
+          <Title>About.</Title>
+          <Info>A collection of my generative art projects.</Info>
+        </AboutSection>
+        <ProjectSection>
+          <Title>Projects.</Title>
+          <StyledRRLink to="/sabers">001 sabers</StyledRRLink>
+          <StyledRRLink to="/bubba">002 bubba</StyledRRLink>
+          <StyledRRLink to="/flow-1">003 flow 1</StyledRRLink>
+          <StyledRRLink to="/stripes">004 stripes</StyledRRLink>
+          <StyledRRLink to="/color-shadows">005 color shadows</StyledRRLink>
+          <StyledRRLink to="/flow-2">006 flow 2</StyledRRLink>
+          <StyledRRLink to="/cordillera">007 cordillera</StyledRRLink>
+        </ProjectSection>
+      </Page>
+      <Footer />
+    </>
   );
 };
 

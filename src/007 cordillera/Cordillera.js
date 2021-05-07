@@ -32,7 +32,6 @@ function Cordillera() {
     dim = 1024;
   }
   var m = dim / DEFAULT_SIZE;
-  console.log(m);
 
   // PALETTE
   const palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
