@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-import Cordillera from "007 cordillera/Cordillera";
+import ColorShadows from "005 color shadows/ColorShadows";
 import Footer from "Footer";
 
 import { Colors } from "utils/constants";
@@ -56,22 +56,22 @@ const Date = styled.span`
   margin-bottom: 24px;
 `;
 
-function Parent() {
+function Parent({ children }) {
   let { id } = useParams();
 
   return (
     <>
       <Page id={id}>
         {id ? (
-          <Cordillera id={id} />
+          <ColorShadows id={id} />
         ) : (
           <>
             <StyledRRLink to="/">back to frontpage</StyledRRLink>
             <Info>
-              <Title>cordillera</Title>
-              <Date>03.05.2021</Date>
+              <Title>color shadows</Title>
+              <Date>18.04.2021</Date>
             </Info>
-            <Cordillera id={id} />
+            <ColorShadows id={id} />
           </>
         )}
       </Page>

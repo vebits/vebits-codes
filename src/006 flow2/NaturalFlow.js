@@ -112,7 +112,7 @@ function Flow2() {
     p.noiseSeed(seed);
     //p.noiseSeed(57629394378061160);
 
-    //initPDS(p);
+    initPDS(p);
   };
 
   const draw = (p) => {
@@ -120,7 +120,7 @@ function Flow2() {
 
     const test = [];
 
-    p.strokeWeight(3);
+    /* p.strokeWeight(3);
     let x = 500,
       y = 500;
     p.beginShape();
@@ -141,17 +141,17 @@ function Flow2() {
     for (let i = 0; i < chai.length; i++) {
       p.vertex(chai[i][0], chai[i][1]);
     }
-    p.endShape();
+    p.endShape(); */
 
-    //pds(p);
-
-    /* for (var f = 0; f < ordered.length; f++) {
+    pds(p);
+    p.background(120);
+    for (var f = 0; f < ordered.length; f++) {
       let x = ordered[f].x;
       let y = ordered[f].y;
       //p.strokeWeight(5);
       p.stroke(p.color("#FCC9B9"));
       p.square(x, y, 5);
-    } */
+    }
     /*
     for (let x = 0; x < angleGrid.length; x++) {
       for (let y = 0; y < angleGrid[x].length; y++) {

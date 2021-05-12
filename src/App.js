@@ -16,9 +16,9 @@ import Sabers from "001 sabers/Sabers";
 import Bubba from "002 bubba/Bubba";
 import Flow1 from "003 flow 1/Flow1";
 import Stripes from "004 stripes/Stripes";
-import ColorShadows from "005 color shadows/ColorShadows";
+import ColorShadowsWrapper from "005 color shadows/ColorShadowsWrapper";
 import Flow2 from "006 flow2/NaturalFlow";
-import Parent from "007 cordillera/Parent";
+import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -70,9 +70,13 @@ function App() {
           <Route exact path="/bubba" component={Bubba} />
           <Route exact path="/flow-1" component={Flow1} />
           <Route exact path="/stripes" component={Stripes} />
-          <Route exact path="/color-shadows" component={ColorShadows} />
+          <Route
+            exact
+            path="/color-shadows/:id?"
+            component={ColorShadowsWrapper}
+          />
           <Route exact path="/flow-2" component={Flow2} />
-          <Route exact path="/cordillera/:id?" component={Parent} />
+          <Route exact path="/cordillera/:id?" component={CordilleraWrapper} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>

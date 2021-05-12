@@ -9,6 +9,7 @@ const BASE_B = 100; */
 
 export default function texturize(
   p,
+  rnd,
   density,
   BASE_H,
   BASE_S,
@@ -19,37 +20,18 @@ export default function texturize(
   for (let i = 0; i < density; i++) {
     p.stroke(
       BASE_H,
-      BASE_S - Math.random() * 5,
-      BASE_B - Math.random() * 8,
-      Math.random() * 10 + 75
+      BASE_S - rnd.random_between(0, 1) * 2,
+      BASE_B - rnd.random_between(0, 1) * 4,
+      rnd.random_between(0, 1) * 10 + 75
     );
 
-    let x1 = Math.random() * CANVAS_WIDTH;
-    let y1 = Math.random() * CANVAS_HEIGHT;
-    let theta = Math.random() * 2 * Math.PI;
-    let segmentLength = Math.random() * 5 + 2;
-    let x2 = Math.cos(theta) * segmentLength + x1;
-    let y2 = Math.sin(theta) * segmentLength + y1;
+    let x1 = rnd.random_between(0, 1) * CANVAS_WIDTH;
+    let y1 = rnd.random_between(0, 1) * CANVAS_HEIGHT;
+    let theta = rnd.random_between(0, 1) * 2 * p.PI;
+    let segmentLength = rnd.random_between(0, 1) * 5 + 2;
+    let x2 = p.cos(theta) * segmentLength + x1;
+    let y2 = p.sin(theta) * segmentLength + y1;
 
     p.line(x1, y1, x2, y2);
   }
 }
-
-/* let draw = (p5) => {
-  p5.setup = () => {
-    p5.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-    p5.colorMode(p5.HSB, 100);
-    p5.frameRate(5);
-
-    p5.background(BASE_H, BASE_S, BASE_B);
-    // const NUM_DOTS = 400;
-    // for(let i = 0; i < NUM_DOTS; i++) {
-    //   let x = Math.random() * CANVAS_WIDTH;
-    //   let y = Math.random() * CANVAS_HEIGHT;
-    //   let r = 5 + Math.random() * 10;
-    //   p5.ellipse(x, y, r, r);
-    // }
-
-    texturize(p5, 30000);
-  };
-}; */
