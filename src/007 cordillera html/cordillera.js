@@ -1,8 +1,15 @@
 /* eslint-disable */
 "use strict";
-
+console.log("----------");
+console.log("ABOUT THE OBJKT");
+console.log("cordillera by @vebits");
+console.log(
+  "Oxford Languages: \n cordillera \n  noun \n   a system or group of parallel mountain ranges together with the intervening plateaux and other features, especially in the Andes or the Rockies."
+);
 const creator = new URLSearchParams(window.location.search).get("creator");
 const viewer = new URLSearchParams(window.location.search).get("viewer");
+console.log("----------");
+console.log("METADATA");
 console.log("creator: ", creator);
 console.log("viewer: ", viewer);
 
@@ -10,48 +17,38 @@ let tzAdress = "tz1VQKvSCtevdSJffwf54oeeBDbCX2TeE4zz";
 if (creator) tzAdress = creator;
 if (viewer) tzAdress = viewer;
 const decodedTzAddress = getAddressFromOptimized(tzAdress);
+console.log(decodedTzAddress);
 const seed = parseInt(decodedTzAddress.slice(0, 16), 16);
 console.log("seed: ", seed);
+console.log(`width: ${window.innerWidth}`, `height: ${window.innerHeight}`);
 
-const rnd = new Random(seed);
+let rnd, m, palette;
 
-// DIMENSIONS
-var DEFAULT_SIZE = 1024;
-var canvasWidth = window.innerWidth;
-var canvasHeight = window.innerHeight;
-var dim = Math.min(canvasWidth, canvasHeight);
-if (dim < 1024) {
-  canvasWidth = 1024;
-  canvasHeight = 1024;
-  dim = 1024;
-  console.log("minimum size is 1024x1024");
-  console.log(`width: ${canvasWidth}`, `height: ${canvasHeight}`);
-} else {
-  console.log(`width: ${canvasWidth}`, `height: ${canvasHeight}`);
-}
-var m = dim / DEFAULT_SIZE;
+function setup() {}
 
-const palette = palettes[rnd.random_int(0, palettes.length - 1)];
+function draw() {
+  rnd = new Random(seed);
+  noiseSeed(seed);
+  // DIMENSIONS
+  const DEFAULT_SIZE = 1024;
 
-function setup() {
-  createCanvas(canvasWidth, canvasHeight);
+  m = windowHeight / DEFAULT_SIZE;
+
+  createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
 
   colorMode(HSB);
   noLoop();
 
-  noiseSeed(seed);
-
   background(255);
-}
 
-function draw() {
+  palette = palettes[rnd.random_int(0, palettes.length - 1)];
   const layers = rnd.random_int(8, 10);
 
   noFill();
 
   for (let l = 0; l < layers; l++) {
-    const layerPosition = l * (dim / layers);
+    const layerPosition = l * (height / layers);
     drawRidge(layerPosition);
   }
 }
@@ -62,14 +59,15 @@ function drawRidge(y) {
   strokeWeight(10 * m);
   const vertices = [];
   beginShape();
-
-  for (let x = 0; x <= canvasWidth; x += 4) {
+  let x = 0;
+  while (x * m <= windowWidth) {
     const noisedY = noise(x * 0.002, (y / m) * 0.99) * m;
     vertex(x * m, y - noisedY * 250);
     vertices.push([x * m, y - noisedY * 250]);
+    x += 4;
   }
-  vertex(canvasWidth, canvasHeight);
-  vertex(0, canvasHeight);
+  vertex(windowWidth, windowHeight);
+  vertex(0, windowHeight);
   endShape(CLOSE);
 
   stroke(color(palette[rnd.random_int(0, palette.length - 1)]));
@@ -92,21 +90,21 @@ function drawRidge(y) {
     if (direction === "right") {
       line(
         vertices[j][0] * 1.015,
-        canvasHeight,
+        windowHeight,
         vertices[j + 1][0] * 1.015,
         vertices[j + 1][1] * 1.015
       );
     } else if (direction === "left") {
       line(
         vertices[j][0] * 1.015,
-        canvasHeight,
+        windowHeight,
         vertices[j - 1][0] * 1.015,
         vertices[j - 1][1] * 1.015
       );
     } else if (direction === "straight") {
       line(
         vertices[j][0] * 1.015,
-        canvasHeight,
+        windowHeight,
         vertices[j][0] * 1.015,
         vertices[j][1] * 1.015
       );
@@ -114,12 +112,12 @@ function drawRidge(y) {
   }
 }
 
-function keyPressed() {
-  if (keyCode === 80) saveCanvas("cordillera_" + tzAdress, "png");
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function getAddressFromOptimized(base58) {
-  var address, prefix;
+  let address, prefix;
   if (base58.substring(0, 3) === "tz1") {
     address = base58;
     prefix = eztz.prefix.tz1;
@@ -139,9 +137,25 @@ function getAddressFromOptimized(base58) {
   return eztz.utility.buf2hex(eztz.utility.b58cdecode(address, prefix));
 }
 
-console.log("How to download at any width and height (Chrome):");
-console.log("Step 1: Open Developer Tools.");
-console.log("Step 2: Click on 'Toggle device toolbar' in left corner.");
-console.log("Step 3: Choose 'Responsive' and 'Desktop'.");
-console.log("Step 4: Set your desired width and height and refresh.");
-console.log("Step 5: Right click on image and choose 'Save image as'.");
+console.log("----------");
+console.log(
+  "IMPORTANT NOTE: The OBJKT's thumbnail and ipfs link will show the creator's cordillera artwork which is based on the creator's wallet address. So if you see the same artwork when visiting the OBJKT's page, something is wrong with your wallet sync on hicetnunc. A possible solution may be clicking your wallet address in the top right to sync and refresh the OBJKT's page."
+);
+console.log("----------");
+console.log("HOW TO DOWNLOAD AT ANY WIDTH AND HEIGHT (Chrome):");
+console.log(
+  "Step 1: On the OBJKT's page, while keeping the developer console open, click the fullscreen viewer in the bottom right of the artwork (only visible when hovering the artwork)."
+);
+console.log(
+  "Step 4: Click on 'Toggle device toolbar' (icon of a mobile and a tablet) in the developer console's left corner."
+);
+console.log("Step 5: Choose 'Responsive' and 'Desktop'.");
+console.log(
+  "Step 6: Set your desired width and height and wait for it to render."
+);
+console.log("Step 7: Right click on image and choose 'Save image as'.");
+console.log("Step 8 (optional): Tweet me the artwork @vebits.");
+console.log("----------");
+console.log("CONTACT");
+console.log("@vebits everywhere if you have any questions about this project.");
+console.log("----------");
