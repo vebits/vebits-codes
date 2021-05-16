@@ -5,7 +5,6 @@ import Sketch from "react-p5";
 import Random from "utils/random";
 import { random_hash } from "utils/random";
 import Point from "utils/point";
-import texturize from "utils/textureBg";
 import { hex2hsl } from "utils/color-converter";
 
 import Palettes from "nice-color-palettes/1000";
@@ -37,8 +36,8 @@ function ColorShadows() {
   const cols = res;
   const rows = res;
 
-  let BASE_H,
-    BASE_S = rnd.random_int(0, 50),
+  let BASE_H;
+  const BASE_S = rnd.random_int(0, 30),
     BASE_B = 90;
   const setup = (p, canvasParentRef) => {
     p.pixelDensity(1);
@@ -48,9 +47,7 @@ function ColorShadows() {
 
     const bgColor = hex2hsl(palette.shift());
     BASE_H = bgColor[1][0];
-    console.log(BASE_H, BASE_S);
     p.background(BASE_H, BASE_S, BASE_B);
-    texturize(p, rnd, 500000, BASE_H, BASE_S, BASE_B, dim, dim);
 
     let radius, xoff, yoff;
     if (res === 3) {
