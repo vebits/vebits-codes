@@ -1,15 +1,9 @@
-// PDS
-//var r = 4 * m;
-var r = 2.5;
-var k = 30;
-var w = r / Math.sqrt(2);
-
 const grid = [];
 const active = [];
 const ordered = [];
 var cols, rows;
 
-export default function initPDS(p, width, height, rnd) {
+export default function initPDS(p, r, k, w, width, height, rnd) {
   cols = p.floor(width / w);
   rows = p.floor(height / w);
   for (let i = 0; i < cols * rows; i++) {

@@ -10,7 +10,6 @@ import { createGlobalStyle } from "styled-components";
 
 import Home from "Home";
 import NotFound from "NotFound";
-import Footer from "Footer";
 
 import Sabers from "001 sabers/Sabers";
 import Bubba from "002 bubba/Bubba";
@@ -19,6 +18,8 @@ import Stripes from "004 stripes/Stripes";
 import ColorShadowsWrapper from "005 color shadows/ColorShadowsWrapper";
 import Flow2 from "006 flow2/NaturalFlow";
 import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
+import ConfettiWrapper from "008 confetti/ConfettiWrapper";
+import Perlin from "009 perlin noise/project";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -77,6 +78,8 @@ function App() {
           />
           <Route exact path="/flow-2" component={Flow2} />
           <Route exact path="/cordillera/:id?" component={CordilleraWrapper} />
+          <Route exact path="/confetti/:id?" component={ConfettiWrapper} />
+          <Route exact path="/perlin" component={Perlin} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
