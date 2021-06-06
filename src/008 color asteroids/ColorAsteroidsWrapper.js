@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-import Confetti from "008 confetti/Confetti";
+import Confetti from "008 color asteroids/ColorAsteroids";
 import Footer from "Footer";
 
 import { Colors } from "utils/constants";
@@ -68,7 +68,7 @@ function Parent() {
           <>
             <StyledRRLink to="/">back to frontpage</StyledRRLink>
             <Info>
-              <Title>asteroids</Title>
+              <Title>color asteroids</Title>
               <Date>15.05.2021</Date>
             </Info>
             <Confetti id={id} />
