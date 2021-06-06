@@ -126,7 +126,7 @@ function Flow2() {
       }
     } */
 
-    //drawFlowField(p);
+    drawFlowField(p);
     //displayBorder(p, 12);
   };
 
@@ -165,27 +165,27 @@ function drawFlowField(p) {
 
     if (vertical) {
       if (y > 0 && y < (height / 5) * 1) {
-        p.stroke(p.color("#F08F90"));
+        p.stroke(p.color(palette[0]));
       } else if (y > (height / 5) * 1 && y < (height / 5) * 2) {
-        p.stroke(p.color("#F2666C"));
+        p.stroke(p.color(palette[1]));
       } else if (y > (height / 5) * 2 && y < (height / 5) * 3) {
-        p.stroke(p.color("#DB5A6B"));
+        p.stroke(p.color(palette[2]));
       } else if (y > (height / 5) * 3 && y < (height / 5) * 4) {
-        p.stroke(p.color("#F2666C"));
+        p.stroke(p.color(palette[1]));
       } else if (y > (height / 5) * 4 && y < (height / 5) * 5) {
-        p.stroke(p.color("#F08F90"));
+        p.stroke(p.color(palette[0]));
       }
     } else {
       if (x > 0 && x < (width / 5) * 1) {
-        p.stroke(p.color("#F08F90"));
+        p.stroke(p.color(palette[0]));
       } else if (x > (width / 5) * 1 && x < (width / 5) * 2) {
-        p.stroke(p.color("#F2666C"));
+        p.stroke(p.color(palette[1]));
       } else if (x > (width / 5) * 2 && x < (width / 5) * 3) {
-        p.stroke(p.color("#DB5A6B"));
+        p.stroke(p.color(palette[2]));
       } else if (x > (width / 5) * 3 && x < (width / 5) * 4) {
-        p.stroke(p.color("#F2666C"));
+        p.stroke(p.color(palette[1]));
       } else if (x > (width / 5) * 4 && x < (width / 5) * 5) {
-        p.stroke(p.color("#F08F90"));
+        p.stroke(p.color(palette[0]));
       }
     }
 

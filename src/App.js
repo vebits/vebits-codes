@@ -16,7 +16,7 @@ import Bubba from "002 bubba/Bubba";
 import Flow1 from "003 flow 1/Flow1";
 import Stripes from "004 stripes/Stripes";
 import ColorShadowsWrapper from "005 color shadows/ColorShadowsWrapper";
-import Flow2 from "006 flow2/NaturalFlow";
+import Flow2 from "006 flow2/Flow2";
 import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 import ColorAsteroidsWrapper from "008 color asteroids/ColorAsteroidsWrapper";
 import ColorCircles from "009 color circles/ColorCircles";
