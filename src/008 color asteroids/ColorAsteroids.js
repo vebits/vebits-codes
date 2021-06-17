@@ -26,6 +26,8 @@ function Confetti() {
   const windowMargin = id ? 1 : 0.75;
   var width = window.innerWidth * windowMargin;
   var height = window.innerHeight * windowMargin;
+  width = 1024;
+  height = 1024;
   var dim = Math.min(width, height);
   var m = dim / DEFAULT_SIZE;
 
@@ -85,7 +87,7 @@ function Confetti() {
 
         //p.noiseDetail(2, 0.45);
         const noise_val = p.noise(scaled_x, scaled_y);
-        const angle = p.map(noise_val, 0.0, 1.0, 0.0, 2 * p.PI);
+        const angle = p.map(noise_val, 0.0, 1.0, 0.0, p.PI);
 
         angleGrid[x].push(angle);
       }
@@ -198,7 +200,7 @@ function Confetti() {
       for (var e = 0; e < this.numVertices; e++) {
         p.fill(color);
         //p.strokeWeight(1.5 * m);
-        p.stroke(0, 0, 0, 0.5);
+        //p.stroke(0, 0, 0, 0.5);
         p.curveVertex(this.vertices[e].x, this.vertices[e].y);
       }
       for (var r = 0; r < 3; r++) {

@@ -20,6 +20,7 @@ import Flow2 from "006 flow2/Flow2";
 import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 import ColorAsteroidsWrapper from "008 color asteroids/ColorAsteroidsWrapper";
 import ColorCircles from "009 color circles/ColorCircles";
+import ABWrapper from "010 ab/ABWrapper";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -84,6 +85,7 @@ function App() {
             component={ColorAsteroidsWrapper}
           />
           <Route exact path="/color-circles" component={ColorCircles} />
+          <Route exact path="/ab" component={ABWrapper} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
