@@ -46,21 +46,16 @@ function Flow3() {
 
   //const outlined = true;
   //const noFillAtAll = true;
-  const alpha = true;
+  //const alpha = false;
   //const symmetry = false;
   const outlined = rnd.random_int(0, 1);
-  const noFillAtAll = rnd.random_between(0, 1) > 0.9;
-  //const alpha = rnd.random_int(0, 1);
+  const noFillAtAll = rnd.random_between(0, 1) > 0.95;
+  const alpha = rnd.random_int(0, 1);
   const symmetry = rnd.random_between(0, 1) > 0.9;
   const tri = rnd.random_int(0, 1);
-  console.log(margin, outlined, noFillAtAll, alpha, symmetry);
-
-  var c1, c2;
+  console.log(margin, outlined, noFillAtAll, alpha, symmetry, tri);
 
   const setup = (p, canvasParentRef) => {
-    c1 = p.color(255, 204, 0);
-    c2 = p.color(255);
-
     p.pixelDensity(1);
     p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.noLoop();
@@ -130,19 +125,16 @@ function Flow3() {
       const color = p.color(
         hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
       );
-      const color2 = p.color(
-        hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
-      );
 
-      /* if (alpha) {
+      if (alpha) {
         color.setAlpha(rnd.random_between(0.1, 0.3));
-      } */
+      }
 
-      /* if (rnd.random_between(0, 1) > 0.0 && !noFillAtAll) {
+      if (rnd.random_between(0, 1) > 0.0 && !noFillAtAll) {
         p.fill(color);
       } else {
         p.noFill();
-      } */
+      }
 
       p.beginShape();
       let last_x = 0;
@@ -151,12 +143,7 @@ function Flow3() {
         polys[i].pop();
       }
       for (let j = 0; j < polys[i].length; j++) {
-        var inter = p.map(polys[i][j].x, 0, dim - margin, 0, 1);
-        var c = p.lerpColor(color, color2, inter);
-        p.stroke(c);
-        p.line(polys[i][j].x, dim - margin, polys[i][j].x, polys[i][j].y);
-
-        /* if (symmetry) {
+        if (symmetry) {
           if (polys[i][polys[i].length - 1].x < dim - margin - 2) break loop1;
           if (j > polys[i].length / 2) {
             p.vertex(polys[i][j].x, polys[i][polys[i].length - j].y);
@@ -171,10 +158,10 @@ function Flow3() {
           p.vertex(polys[i][j].x, polys[i][j].y);
           last_x = polys[i][j].x;
           last_y = polys[i][j].y;
-        } */
+        }
       }
 
-      /* if (margin === 0) {
+      if (margin === 0) {
         if (last_x < dim - margin - 2) {
           p.vertex(last_x, dim);
         } else {
@@ -199,7 +186,7 @@ function Flow3() {
           p.vertex(dim, dim);
         }
         p.vertex(0, dim);
-      } */
+      }
       p.endShape(p.CLOSE);
     }
   };
@@ -212,8 +199,9 @@ function Flow3() {
   function drawFlowField(p) {
     const polys = [];
     const density = rnd.random_int(1, 64);
+
     console.log(density, margin);
-    for (var a = margin; a < height; a += 64) {
+    for (var a = margin; a < height; a += density) {
       let x = margin;
       let y = a;
 
@@ -266,7 +254,7 @@ function Flow3() {
         const scaled_x = y * 0.05;
         const scaled_y = x * 0.05;
 
-        //p.noiseDetail(2, 0.45);
+        p.noiseDetail(8, 0.2);
         const noise_val = p.noise(scaled_x, scaled_y);
         const angle = p.map(noise_val, 0.0, 1.0, (3 / 2) * p.PI, p.PI / 2);
 

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-import AB from "010 ab/AB4";
+import AB from "010 ab/AB5";
 import Footer from "Footer";
 
 import { Colors } from "utils/constants";
