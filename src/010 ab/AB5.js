@@ -42,23 +42,6 @@ function AB() {
 
   var cols, rows;
 
-  let margin = rnd.random_choice([0, 64, 128, 256]);
-  const outlined = rnd.random_int(0, 1);
-  const noFillAtAll = rnd.random_between(0, 1) > 0.5;
-  const alpha = rnd.random_int(0, 1);
-  const symmetry = rnd.random_between(0, 1) > 0.5;
-  const tri = rnd.random_int(0, 1);
-  const wobbly = rnd.random_between(0, 1) > 0.5;
-  const straight = rnd.random_between(0, 1) > 0.5;
-  console.log("margin: ", margin);
-  console.log("outlined: ", outlined);
-  console.log("noFillAtAll: ", noFillAtAll);
-  console.log("alpha: ", alpha);
-  console.log("symmetry: ", symmetry);
-  console.log("tri: ", tri);
-  console.log("wobbly: ", wobbly);
-  console.log("straight: ", straight);
-
   const setup = (p, canvasParentRef) => {
     console.log("setup");
     p.pixelDensity(1);
@@ -67,6 +50,23 @@ function AB() {
     p.colorMode(p.HSL);
     p.noiseSeed(seed);
 
+    let margin = rnd.random_choice([0, 64, 128, 256]);
+    let outlined = rnd.random_between(0, 1) > 0.2;
+    let noFillAtAll = rnd.random_between(0, 1) > 0.8;
+    let alpha = rnd.random_between(0, 1) > 0.6;
+    let symmetry = rnd.random_between(0, 1) > 0.95;
+    let tri = rnd.random_between(0, 1) > 0.8;
+    let wobbly = rnd.random_between(0, 1) > 0.9;
+    let straight = rnd.random_between(0, 1) > 0.9;
+    console.log("margin: ", margin);
+    console.log("outlined: ", outlined);
+    console.log("noFillAtAll: ", noFillAtAll);
+    console.log("alpha: ", alpha);
+    console.log("symmetry: ", symmetry);
+    console.log("tri: ", tri);
+    console.log("wobbly: ", wobbly);
+    console.log("straight: ", straight);
+
     let bgColor;
     if (tri) {
       palette.pop();
@@ -74,29 +74,37 @@ function AB() {
     }
     bgColor = hex2hsl(palette[rnd.random_int(0, palette.length - 1)]);
     p.background(p.color(bgColor[0]));
+    //p.background(100);
 
-    initAngleGrid(p);
+    initAngleGrid(p, wobbly, straight);
+    draw1(p, margin, outlined, noFillAtAll, alpha, symmetry);
 
     p.keyPressed = function () {
       if (p.keyCode === 80) p.saveCanvas("colorflow_" + hash, "png");
     };
   };
 
-  const draw = (p) => {
+  const draw = (p) => {};
+
+  const draw1 = (p, margin, outlined, noFillAtAll, alpha, symmetry) => {
     console.log("draw");
     p.noFill();
 
-    const polys = drawFlowField(p);
+    const polys = drawFlowField(p, margin);
+    console.log(polys);
 
     if (outlined || noFillAtAll) {
+      console.log("outlined || notFillAtAll");
       p.stroke(0);
       p.strokeWeight(1.5 * m);
       p.strokeCap(p.ROUND);
 
       if (noFillAtAll) {
+        console.log("notFillAtAll");
         p.noFill();
       }
     } else {
+      console.log("noStroke");
       p.noStroke();
     }
 
@@ -113,7 +121,7 @@ function AB() {
         color.setAlpha(rnd.random_between(0.1, 0.3));
       }
 
-      if (rnd.random_between(0, 1) > 0.0 && !noFillAtAll) {
+      if (rnd.random_between(0, 1) > 0.1 && !noFillAtAll) {
         p.fill(color);
       } else {
         p.noFill();
@@ -180,7 +188,7 @@ function AB() {
     this.y = y;
   }
 
-  function drawFlowField(p) {
+  function drawFlowField(p, margin) {
     const polys = [];
     const density = rnd.random_int(1, 64);
 
@@ -226,7 +234,7 @@ function AB() {
   function initAngleGrid(p, wobbly, straight) {
     cols = p.floor(dim / w);
     rows = p.floor(dim / w);
-
+    console.log(wobbly, straight);
     const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
     console.log(cord_scale);
     for (let x = 0; x < cols + 1; x++) {
