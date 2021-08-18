@@ -7,32 +7,32 @@ import { hex2hsl } from "utils/color-converter";
 
 import Palettes from "nice-color-palettes/1000";
 
-function Flow3() {
+function AB() {
   let { id } = useParams();
 
   let seed, hash, tokenData;
+  tokenData = { hash: random_hash() };
   if (id) {
     hash = id;
   } else {
-    tokenData = { hash: random_hash() };
     hash = tokenData.hash;
   }
   seed = parseInt(hash.slice(0, 16), 16);
-  //const rnd = new Random(57629394378061160);
   const rnd = new Random(seed);
-  console.log(seed);
+  console.log(tokenData.hash);
 
   // DIMENSIONS
   var DEFAULT_SIZE = 1024;
-  var width = window.innerWidth * 0.75;
-  var height = window.innerHeight * 0.75;
-  width = 1024;
-  height = 1024;
+  const windowMargin = id ? 1 : 0.75;
+  var width = window.innerWidth * windowMargin;
+  var height = window.innerHeight * windowMargin;
+
   var dim = Math.min(width, height);
   var m = dim / DEFAULT_SIZE;
 
   // PALETTE
   let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
+  console.log(palette);
 
   // PDS
   var r = 20 * m;
@@ -43,23 +43,29 @@ function Flow3() {
   var cols, rows;
 
   let margin = rnd.random_choice([0, 64, 128, 256]);
-
-  //const outlined = true;
-  //const noFillAtAll = true;
-  //const alpha = false;
-  //const symmetry = false;
   const outlined = rnd.random_int(0, 1);
-  const noFillAtAll = rnd.random_between(0, 1) > 0.95;
+  const noFillAtAll = rnd.random_between(0, 1) > 0.5;
   const alpha = rnd.random_int(0, 1);
-  const symmetry = rnd.random_between(0, 1) > 0.9;
+  const symmetry = rnd.random_between(0, 1) > 0.5;
   const tri = rnd.random_int(0, 1);
-  console.log(margin, outlined, noFillAtAll, alpha, symmetry, tri);
+  const wobbly = rnd.random_between(0, 1) > 0.5;
+  const straight = rnd.random_between(0, 1) > 0.5;
+  console.log("margin: ", margin);
+  console.log("outlined: ", outlined);
+  console.log("noFillAtAll: ", noFillAtAll);
+  console.log("alpha: ", alpha);
+  console.log("symmetry: ", symmetry);
+  console.log("tri: ", tri);
+  console.log("wobbly: ", wobbly);
+  console.log("straight: ", straight);
 
   const setup = (p, canvasParentRef) => {
+    console.log("setup");
     p.pixelDensity(1);
-    p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
+    p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.noLoop();
     p.colorMode(p.HSL);
+    p.noiseSeed(seed);
 
     let bgColor;
     if (tri) {
@@ -68,11 +74,8 @@ function Flow3() {
     }
     bgColor = hex2hsl(palette[rnd.random_int(0, palette.length - 1)]);
     p.background(p.color(bgColor[0]));
-    //p.background(90);
 
-    p.noiseSeed(seed);
-
-    initPDS(p);
+    initAngleGrid(p);
 
     p.keyPressed = function () {
       if (p.keyCode === 80) p.saveCanvas("colorflow_" + hash, "png");
@@ -80,30 +83,10 @@ function Flow3() {
   };
 
   const draw = (p) => {
+    console.log("draw");
     p.noFill();
-    //pds(p);
-
-    /* for (var f = 0; f < ordered.length; f++) {
-      let x = ordered[f].x;
-      let y = ordered[f].y;
-      p.strokeWeight(3);
-      p.point(x, y);
-    } */
-
-    /* for (let x = 0; x < angleGrid.length; x++) {
-      for (let y = 0; y < angleGrid[x].length; y++) {
-        console.log(angleGrid[x][y]);
-        p.stroke(0);
-        p.push();
-        p.translate(x * w, y * w);
-        p.rotate(angleGrid[x][y]);
-        p.line(0, 0, 10, 0);
-        p.pop();
-      }
-    } */
 
     const polys = drawFlowField(p);
-    console.log(polys);
 
     if (outlined || noFillAtAll) {
       p.stroke(0);
@@ -118,7 +101,7 @@ function Flow3() {
     }
 
     loop1: for (let i = 0; i < polys.length; i++) {
-      if (polys[i].length < 64) {
+      if (polys[i].length < 64 * m) {
         continue;
       }
 
@@ -144,7 +127,8 @@ function Flow3() {
       }
       for (let j = 0; j < polys[i].length; j++) {
         if (symmetry) {
-          if (polys[i][polys[i].length - 1].x < dim - margin - 2) break loop1;
+          if (polys[i][polys[i].length - 1].x < dim - margin * m - 2 * m)
+            break loop1;
           if (j > polys[i].length / 2) {
             p.vertex(polys[i][j].x, polys[i][polys[i].length - j].y);
             last_x = polys[i][j].x;
@@ -162,27 +146,27 @@ function Flow3() {
       }
 
       if (margin === 0) {
-        if (last_x < dim - margin - 2) {
+        if (last_x < dim - margin * m - 2 * m) {
           p.vertex(last_x, dim);
         } else {
           p.vertex(dim, last_y);
           p.vertex(dim, dim);
         }
         p.vertex(0, dim);
-      } else if (margin === 64) {
+      } else if (margin === 64 * m) {
         if (last_x < dim - margin - 8) {
-          p.vertex(last_x, dim - 64);
-          p.vertex(64, dim - 64);
+          p.vertex(last_x, dim - 64 * m);
+          p.vertex(64 * m, dim - 64 * m);
         } else {
-          p.vertex(dim - 64, last_y);
-          p.vertex(dim - 64, dim - 64);
+          p.vertex(dim - 64 * m, last_y);
+          p.vertex(dim - 64 * m, dim - 64 * m);
         }
-        p.vertex(64, dim - 64);
+        p.vertex(64 * m, dim - 64 * m);
       } else {
-        if (last_x < dim - margin - 8) {
+        if (last_x < dim - margin * m - 8 * m) {
           p.vertex(last_x, dim);
         } else {
-          p.vertex(dim - margin, last_y);
+          p.vertex(dim - margin * m, last_y);
           p.vertex(dim, dim);
         }
         p.vertex(0, dim);
@@ -200,32 +184,27 @@ function Flow3() {
     const polys = [];
     const density = rnd.random_int(1, 64);
 
-    console.log(density, margin);
-    for (var a = margin; a < height; a += density) {
-      let x = margin;
+    for (var a = margin * m; a < dim; a += density * m) {
+      let x = margin * m;
       let y = a;
 
       let currentpoly = [];
 
-      while (x < width) {
-        if (y < margin) {
+      while (x < dim) {
+        if (y < margin * m) {
           currentpoly = [];
           break;
         }
 
         if (
-          x < margin ||
-          x > width - (margin === 0 ? 0 : margin) ||
-          y < margin ||
-          y > height - (margin === 64 ? 64 : 0)
+          x < margin * m ||
+          x > dim - (margin === 0 ? 0 : margin * m) ||
+          y < margin * m ||
+          y > dim - (margin === 64 * m ? 64 * m : 0)
         ) {
           break;
         }
-        /* for (let v = 0; v < xy.length; v++) {
-          if (p.dist(x, y, xy[v].x, xy[v].y) < sizes[0] * m) {
-            break loop1;
-          }
-        } */
+
         currentpoly.push(new Point(x, y));
 
         const column_index = p.int(x / w);
@@ -233,8 +212,8 @@ function Flow3() {
 
         const grid_angle = angleGrid[column_index][row_index];
 
-        const x_step = width * 0.0001 * p.cos(grid_angle);
-        const y_step = height * 0.0001 * p.sin(grid_angle);
+        const x_step = dim * 0.0001 * p.cos(grid_angle);
+        const y_step = dim * 0.0001 * p.sin(grid_angle);
 
         x -= x_step;
         y -= y_step;
@@ -244,15 +223,17 @@ function Flow3() {
     return polys;
   }
 
-  function initPDS(p) {
-    cols = p.floor(width / w);
-    rows = p.floor(height / w);
+  function initAngleGrid(p, wobbly, straight) {
+    cols = p.floor(dim / w);
+    rows = p.floor(dim / w);
 
+    const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
+    console.log(cord_scale);
     for (let x = 0; x < cols + 1; x++) {
       angleGrid.push([]);
       for (let y = 0; y < rows + 1; y++) {
-        const scaled_x = y * 0.05;
-        const scaled_y = x * 0.05;
+        const scaled_x = y * cord_scale;
+        const scaled_y = x * cord_scale;
 
         p.noiseDetail(8, 0.2);
         const noise_val = p.noise(scaled_x, scaled_y);
@@ -266,4 +247,4 @@ function Flow3() {
   return <Sketch setup={setup} draw={draw} />;
 }
 
-export default Flow3;
+export default AB;

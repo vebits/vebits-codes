@@ -77,7 +77,7 @@ var m = height / DEFAULT_SIZE;
 let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
 let paletteBg = Palettes[rnd.random_int(0, Palettes.length - 1)];
 const bgColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
-console.log(palette, bgColor, seed);
+//console.log(palette, bgColor, seed);
 
 // PDS
 var r = 4 * m;

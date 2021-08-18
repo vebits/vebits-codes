@@ -85,7 +85,7 @@ function App() {
             component={ColorAsteroidsWrapper}
           />
           <Route exact path="/color-circles" component={ColorCircles} />
-          <Route exact path="/ab" component={ABWrapper} />
+          <Route exact path="/ab/:id?" component={ABWrapper} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
