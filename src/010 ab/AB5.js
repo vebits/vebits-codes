@@ -43,7 +43,6 @@ function AB() {
   var cols, rows;
 
   const setup = (p, canvasParentRef) => {
-    console.log("setup");
     p.pixelDensity(1);
     p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
     p.noLoop();
@@ -51,8 +50,9 @@ function AB() {
     p.noiseSeed(seed);
 
     let margin = rnd.random_choice([0, 64, 128, 256]);
-    let outlined = rnd.random_between(0, 1) > 0.2;
-    let noFillAtAll = rnd.random_between(0, 1) > 0.8;
+    margin = margin * m;
+    let outlined = rnd.random_between(0, 1) > 0.99;
+    let noFillAtAll = rnd.random_between(0, 1) > 0.99;
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
     let tri = rnd.random_between(0, 1) > 0.8;
@@ -87,24 +87,20 @@ function AB() {
   const draw = (p) => {};
 
   const draw1 = (p, margin, outlined, noFillAtAll, alpha, symmetry) => {
-    console.log("draw");
     p.noFill();
 
     const polys = drawFlowField(p, margin);
     console.log(polys);
 
     if (outlined || noFillAtAll) {
-      console.log("outlined || notFillAtAll");
       p.stroke(0);
       p.strokeWeight(1.5 * m);
       p.strokeCap(p.ROUND);
 
       if (noFillAtAll) {
-        console.log("notFillAtAll");
         p.noFill();
       }
     } else {
-      console.log("noStroke");
       p.noStroke();
     }
 
@@ -121,7 +117,7 @@ function AB() {
         color.setAlpha(rnd.random_between(0.1, 0.3));
       }
 
-      if (rnd.random_between(0, 1) > 0.1 && !noFillAtAll) {
+      if (rnd.random_between(0, 1) > 0.2 && !noFillAtAll) {
         p.fill(color);
       } else {
         p.noFill();
@@ -133,28 +129,46 @@ function AB() {
       if (polys[i].length % 2 !== 0) {
         polys[i].pop();
       }
+
       for (let j = 0; j < polys[i].length; j++) {
         if (symmetry) {
-          if (polys[i][polys[i].length - 1].x < dim - margin * m - 2 * m)
+          if (polys[i][polys[i].length - 1].x < dim - margin - 2 * m)
             break loop1;
           if (j > polys[i].length / 2) {
-            p.vertex(polys[i][j].x, polys[i][polys[i].length - j].y);
+            if (j === 0) {
+              p.vertex(
+                Math.round(polys[i][j].x),
+                polys[i][polys[i].length - j].y
+              );
+            } else {
+              p.vertex(polys[i][j].x, polys[i][polys[i].length - j].y);
+            }
+
             last_x = polys[i][j].x;
             last_y = polys[i][polys[i].length - j].y;
           } else {
-            p.vertex(polys[i][j].x, polys[i][j].y);
+            if (j === 0) {
+              p.vertex(Math.round(polys[i][j].x), polys[i][j].y);
+            } else {
+              p.vertex(polys[i][j].x, polys[i][j].y);
+            }
             last_x = polys[i][j].x;
             last_y = polys[i][j].y;
           }
         } else {
-          p.vertex(polys[i][j].x, polys[i][j].y);
+          if (j === 0) {
+            p.vertex(Math.round(polys[i][j].x), polys[i][j].y);
+          } else {
+            p.vertex(polys[i][j].x, polys[i][j].y);
+          }
           last_x = polys[i][j].x;
           last_y = polys[i][j].y;
         }
       }
-
+      last_x = Math.round(last_x);
+      let dimWithMargin = Math.round(dim - 64 * m);
       if (margin === 0) {
-        if (last_x < dim - margin * m - 2 * m) {
+        if (last_x < dim - margin - 2 * m) {
           p.vertex(last_x, dim);
         } else {
           p.vertex(dim, last_y);
@@ -162,19 +176,19 @@ function AB() {
         }
         p.vertex(0, dim);
       } else if (margin === 64 * m) {
-        if (last_x < dim - margin - 8) {
-          p.vertex(last_x, dim - 64 * m);
-          p.vertex(64 * m, dim - 64 * m);
+        if (last_x < dim - margin - 8 * m) {
+          p.vertex(last_x, dimWithMargin);
+          p.vertex(64 * m, dimWithMargin);
         } else {
-          p.vertex(dim - 64 * m, last_y);
-          p.vertex(dim - 64 * m, dim - 64 * m);
+          p.vertex(dimWithMargin, last_y);
+          p.vertex(dimWithMargin, dimWithMargin);
         }
-        p.vertex(64 * m, dim - 64 * m);
+        p.vertex(Math.round(64 * m), dimWithMargin);
       } else {
-        if (last_x < dim - margin * m - 8 * m) {
+        if (last_x < dim - margin - 8 * m) {
           p.vertex(last_x, dim);
         } else {
-          p.vertex(dim - margin * m, last_y);
+          p.vertex(dim - margin, last_y);
           p.vertex(dim, dim);
         }
         p.vertex(0, dim);
@@ -191,23 +205,23 @@ function AB() {
   function drawFlowField(p, margin) {
     const polys = [];
     const density = rnd.random_int(1, 64);
-
-    for (var a = margin * m; a < dim; a += density * m) {
-      let x = margin * m;
+    console.log(margin);
+    for (var a = margin; a < dim; a += density * m) {
+      let x = margin;
       let y = a;
-
+      console.log(x);
       let currentpoly = [];
 
       while (x < dim) {
-        if (y < margin * m) {
+        if (y < margin) {
           currentpoly = [];
           break;
         }
 
         if (
-          x < margin * m ||
-          x > dim - (margin === 0 ? 0 : margin * m) ||
-          y < margin * m ||
+          x < margin ||
+          x > dim - (margin === 0 ? 0 : margin) ||
+          y < margin ||
           y > dim - (margin === 64 * m ? 64 * m : 0)
         ) {
           break;
@@ -234,9 +248,8 @@ function AB() {
   function initAngleGrid(p, wobbly, straight) {
     cols = p.floor(dim / w);
     rows = p.floor(dim / w);
-    console.log(wobbly, straight);
     const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
-    console.log(cord_scale);
+
     for (let x = 0; x < cols + 1; x++) {
       angleGrid.push([]);
       for (let y = 0; y < rows + 1; y++) {
