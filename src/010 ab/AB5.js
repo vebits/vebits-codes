@@ -36,6 +36,9 @@ function AB() {
     ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
     ["#202426", "#6C733D", "#9DA65D", "#8C8C88", "#F2F2F2"],
     ["#F2F2F2", "#A6A6A6", "#595959", "#262626", "#0D0D0D"],
+    ["#08348C", "#4992F2", "#D9936A", "#592014", "#A65341"],
+    ["#A4B8BF", "#EBF0F2", "#6D878C", "#31403E", "#1A261C"],
+    ["#6D7E8C", "#343E40", "#BFA98E", "#8C715A", "#0D0D0D"],
   ];
   console.log(Palettes2);
   let palette = Palettes2[rnd.random_int(0, Palettes2.length - 1)];
@@ -275,7 +278,13 @@ function AB() {
 
         p.noiseDetail(8, 0.2);
         const noise_val = p.noise(scaled_x, scaled_y);
-        const angle = p.map(noise_val, 0.0, 1.0, (3 / 2) * p.PI, p.PI / 2);
+        const angle = p.map(
+          noise_val,
+          0.0,
+          1.0,
+          (4 / 3) * p.PI,
+          (2 / 3) * p.PI
+        );
 
         angleGrid[x].push(angle);
       }
