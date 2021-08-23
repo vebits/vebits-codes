@@ -31,7 +31,14 @@ function AB() {
   var m = dim / DEFAULT_SIZE;
 
   // PALETTE
-  let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
+  let Palettes2 = [
+    ["#D9D9D9", "#F2CC0C", "#D9A407", "#BF7E04", "#A63F03"],
+    ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
+    ["#202426", "#6C733D", "#9DA65D", "#8C8C88", "#F2F2F2"],
+    ["#F2F2F2", "#A6A6A6", "#595959", "#262626", "#0D0D0D"],
+  ];
+  console.log(Palettes2);
+  let palette = Palettes2[rnd.random_int(0, Palettes2.length - 1)];
   console.log(palette);
 
   // PDS
