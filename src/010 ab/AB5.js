@@ -51,14 +51,16 @@ function AB() {
 
     let margin = rnd.random_choice([0, 64, 128, 256]);
     margin = margin * m;
-    let outlined = rnd.random_between(0, 1) > 0.99;
-    let noFillAtAll = rnd.random_between(0, 1) > 0.99;
+    let density = rnd.random_int(1, 64);
+    let outlined = rnd.random_between(0, 1) > 0.95;
+    let noFillAtAll = rnd.random_between(0, 1) > 0.95;
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
     let tri = rnd.random_between(0, 1) > 0.8;
-    let wobbly = rnd.random_between(0, 1) > 0.9;
-    let straight = rnd.random_between(0, 1) > 0.9;
+    let wobbly = rnd.random_between(0, 1) > 0.7;
+    let straight = rnd.random_between(0, 1) > 0.7;
     console.log("margin: ", margin);
+    console.log("density: ", density);
     console.log("outlined: ", outlined);
     console.log("noFillAtAll: ", noFillAtAll);
     console.log("alpha: ", alpha);
@@ -77,7 +79,7 @@ function AB() {
     //p.background(100);
 
     initAngleGrid(p, wobbly, straight);
-    draw1(p, margin, outlined, noFillAtAll, alpha, symmetry);
+    draw1(p, margin, density, outlined, noFillAtAll, alpha, symmetry);
 
     p.keyPressed = function () {
       if (p.keyCode === 80) p.saveCanvas("colorflow_" + hash, "png");
@@ -86,10 +88,18 @@ function AB() {
 
   const draw = (p) => {};
 
-  const draw1 = (p, margin, outlined, noFillAtAll, alpha, symmetry) => {
+  const draw1 = (
+    p,
+    margin,
+    density,
+    outlined,
+    noFillAtAll,
+    alpha,
+    symmetry
+  ) => {
     p.noFill();
 
-    const polys = drawFlowField(p, margin);
+    const polys = drawFlowField(p, margin, density);
     console.log(polys);
 
     if (outlined || noFillAtAll) {
@@ -118,8 +128,10 @@ function AB() {
       }
 
       if (rnd.random_between(0, 1) > 0.2 && !noFillAtAll) {
+        console.log(color);
         p.fill(color);
       } else {
+        console.log(i);
         p.noFill();
       }
 
@@ -202,14 +214,12 @@ function AB() {
     this.y = y;
   }
 
-  function drawFlowField(p, margin) {
+  function drawFlowField(p, margin, density) {
     const polys = [];
-    const density = rnd.random_int(1, 64);
-    console.log(margin);
+
     for (var a = margin; a < dim; a += density * m) {
       let x = margin;
       let y = a;
-      console.log(x);
       let currentpoly = [];
 
       while (x < dim) {
