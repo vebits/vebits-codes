@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Sketch from "react-p5";
 import Random, { random_hash } from "utils/random";
 import { hex2hsl } from "utils/color-converter";
+import shuffle from "utils/shuffle";
 
 import Palettes from "nice-color-palettes/1000";
 
@@ -41,7 +42,7 @@ function AB() {
     ["#6D7E8C", "#343E40", "#BFA98E", "#8C715A", "#0D0D0D"],
   ];
   console.log(Palettes2);
-  let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
+  let palette = shuffle(Palettes[rnd.random_int(0, Palettes.length - 1)], rnd);
   console.log(palette);
 
   // PDS
@@ -68,8 +69,13 @@ function AB() {
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
     let tri = rnd.random_between(0, 1) > 0.8;
+    let single = rnd.random_between(0, 1) > 0.8;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.8;
+    console.log(
+      "flowDirection: ",
+      flowDirection ? "left to right" : "right to left"
+    );
     console.log("margin: ", margin);
     console.log("density: ", density);
     console.log("outlined: ", outlined);
@@ -77,11 +83,16 @@ function AB() {
     console.log("alpha: ", alpha);
     console.log("symmetry: ", symmetry);
     console.log("tri: ", tri);
+    console.log("single: ", single);
     console.log("wobbly: ", wobbly);
     console.log("straight: ", straight);
 
     let bgColor;
     if (tri) {
+      palette.pop();
+      palette.pop();
+    } else if (single) {
+      palette.pop();
       palette.pop();
       palette.pop();
     }
@@ -139,7 +150,7 @@ function AB() {
 
     if (outlined || noFillAtAll) {
       p.stroke(0);
-      p.strokeWeight(1.5 * m);
+      p.strokeWeight(2 * m);
       p.strokeCap(p.ROUND);
 
       if (noFillAtAll) {
