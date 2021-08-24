@@ -61,14 +61,14 @@ function AB() {
 
     let margin = rnd.random_choice([0, 64, 128, 256]);
     margin = margin * m;
-    let density = rnd.random_int(1, 64);
+    let density = rnd.random_int(1, 32);
     let outlined = rnd.random_between(0, 1) > 0.95;
     let noFillAtAll = rnd.random_between(0, 1) > 0.95;
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
     let tri = rnd.random_between(0, 1) > 0.8;
-    let wobbly = rnd.random_between(0, 1) > 0.7;
-    let straight = rnd.random_between(0, 1) > 0.7;
+    let wobbly = rnd.random_between(0, 1) > 0.6;
+    let straight = rnd.random_between(0, 1) > 0.8;
     console.log("margin: ", margin);
     console.log("density: ", density);
     console.log("outlined: ", outlined);
