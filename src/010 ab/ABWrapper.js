@@ -73,6 +73,23 @@ function ABWrapper({ children }) {
               <Date>14.06.2021</Date>
             </Info>
             <AB id={id} />
+            <Title>TODO:</Title>
+            <ul>
+              <li>
+                <s>implement core algorithm</s>
+              </li>
+              <li>
+                <s>implement ABs PRNG</s>
+              </li>
+              <li>
+                <s>use ABs hash generator as seed</s>
+              </li>
+              <li>
+                <s>resolution agnostic</s>
+              </li>
+              <li>tweaking features</li>
+              <li>curate/create palettes</li>
+            </ul>
           </>
         )}
       </Page>
