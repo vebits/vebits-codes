@@ -41,7 +41,7 @@ function AB() {
     ["#6D7E8C", "#343E40", "#BFA98E", "#8C715A", "#0D0D0D"],
   ];
   console.log(Palettes2);
-  let palette = Palettes2[rnd.random_int(0, Palettes2.length - 1)];
+  let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
   console.log(palette);
 
   // PDS
