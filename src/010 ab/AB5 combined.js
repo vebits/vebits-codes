@@ -68,8 +68,8 @@ function AB() {
     let noFillAtAll = rnd.random_between(0, 1) > 0.95;
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
-    let tri = rnd.random_between(0, 1) > 0.8;
-    let single = rnd.random_between(0, 1) > 0.8;
+    let tri = rnd.random_between(0, 1) > 0.7;
+    let single = rnd.random_between(0, 1) > 0.7;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.8;
     console.log(
@@ -347,7 +347,7 @@ function AB() {
           p.vertex(last_x, dim);
         } else {
           p.vertex(margin, last_y);
-          p.vertex(margin, margin);
+          p.vertex(margin, dim);
         }
         p.vertex(dim, dim);
       } else if (margin === 64 * m) {
