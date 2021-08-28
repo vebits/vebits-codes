@@ -24,9 +24,17 @@ function AB() {
 
   // DIMENSIONS
   let DEFAULT_SIZE = 1024;
+  let width, height;
+  if (window.innerHeight >= 0.75 * window.innerWidth) {
+    width = window.innerWidth;
+    height = 0.75 * window.innerWidth;
+  } else {
+    height = window.innerHeight;
+    width = window.innerHeight / 0.75;
+  }
   const windowMargin = id ? 1 : 0.75;
-  let width = window.innerWidth * windowMargin;
-  let height = window.innerHeight * windowMargin;
+  width = width * windowMargin;
+  height = height * windowMargin;
 
   let dim = Math.min(width, height);
   let m = dim / DEFAULT_SIZE;
@@ -41,7 +49,7 @@ function AB() {
 
   const setup = (p, canvasParentRef) => {
     p.pixelDensity(1);
-    p.createCanvas(dim, dim, p.SVG).parent(canvasParentRef);
+    p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.noLoop();
     p.colorMode(p.HSL);
     p.noiseSeed(seed);
@@ -65,9 +73,9 @@ function AB() {
       ["#b3a176", "#494d4b", "#e2cb92", "#312c20", "#7c7052"],
       ["#edeccf", "#207178", "#dc6378", "#f1c694", "#101652"],
     ];
-    console.log(Palettes2);
+    console.log(Palettes);
     let palette = shuffle(
-      Palettes2[rnd.random_int(0, Palettes2.length - 1)],
+      Palettes[rnd.random_int(0, Palettes.length - 1)],
       rnd
     );
     console.log(palette);
@@ -189,10 +197,8 @@ function AB() {
       }
 
       if (rnd.random_between(0, 1) > 0.2 && !noFillAtAll) {
-        console.log("fill");
         p.fill(color);
       } else {
-        console.log("noFill");
         p.noFill();
       }
 
@@ -205,7 +211,7 @@ function AB() {
 
       for (let j = 0; j < polys[i].length; j++) {
         if (symmetry) {
-          if (polys[i][polys[i].length - 1].x < dim - margin - 2 * m)
+          if (polys[i][polys[i].length - 1].x < width - margin - 2 * m)
             break loop1;
           if (j > polys[i].length / 2) {
             if (j === 0) {
@@ -239,32 +245,33 @@ function AB() {
         }
       }
       last_x = Math.round(last_x);
-      let dimWithMargin = Math.round(dim - 64 * m);
+      let widthWithMargin = Math.round(width - 64 * m);
+      let heightWithMargin = Math.round(height - 64 * m);
       if (margin === 0) {
-        if (last_x < dim - margin - 2 * m) {
-          p.vertex(last_x, dim);
+        if (last_x < width - margin - 2 * m) {
+          p.vertex(last_x, height);
         } else {
-          p.vertex(dim, last_y);
-          p.vertex(dim, dim);
+          p.vertex(width, last_y);
+          p.vertex(width, height);
         }
-        p.vertex(0, dim);
+        p.vertex(0, height);
       } else if (margin === 64 * m) {
-        if (last_x < dim - margin - 8 * m) {
-          p.vertex(last_x, dimWithMargin);
-          p.vertex(64 * m, dimWithMargin);
+        if (last_x < width - margin - 8 * m) {
+          p.vertex(last_x, heightWithMargin);
+          p.vertex(64 * m, heightWithMargin);
         } else {
-          p.vertex(dimWithMargin, last_y);
-          p.vertex(dimWithMargin, dimWithMargin);
+          p.vertex(widthWithMargin, last_y);
+          p.vertex(widthWithMargin, heightWithMargin);
         }
-        p.vertex(Math.round(64 * m), dimWithMargin);
+        p.vertex(Math.round(64 * m), heightWithMargin);
       } else {
-        if (last_x < dim - margin - 8 * m) {
-          p.vertex(last_x, dim);
+        if (last_x < width - margin - 8 * m) {
+          p.vertex(last_x, height);
         } else {
-          p.vertex(dim - margin, last_y);
-          p.vertex(dim, dim);
+          p.vertex(width - margin, last_y);
+          p.vertex(width, height);
         }
-        p.vertex(0, dim);
+        p.vertex(0, height);
       }
       p.endShape(p.CLOSE);
     }
@@ -358,33 +365,34 @@ function AB() {
         }
       }
       last_x = Math.round(last_x);
-      let dimWithMargin = Math.round(dim - 64 * m);
+      let widthWithMargin = Math.round(width - 64 * m);
+      let heightWithMargin = Math.round(height - 64 * m);
       let roundMargin = Math.round(64 * m);
       if (margin === 0) {
-        if (last_x < dim - margin - 8 * m) {
-          p.vertex(last_x, dim);
+        if (last_x < width - margin - 8 * m) {
+          p.vertex(last_x, height);
         } else {
           p.vertex(margin, last_y);
-          p.vertex(margin, dim);
+          p.vertex(margin, height);
         }
-        p.vertex(dim, dim);
+        p.vertex(width, height);
       } else if (margin === 64 * m) {
         if (last_x < margin + 8 * m) {
           p.vertex(roundMargin, last_y);
-          p.vertex(roundMargin, dimWithMargin);
+          p.vertex(roundMargin, heightWithMargin);
         } else {
-          p.vertex(last_x, dimWithMargin);
-          p.vertex(dimWithMargin, dimWithMargin);
+          p.vertex(last_x, heightWithMargin);
+          p.vertex(widthWithMargin, heightWithMargin);
         }
-        p.vertex(dimWithMargin, dimWithMargin);
+        p.vertex(widthWithMargin, heightWithMargin);
       } else {
         if (last_x < margin + 8 * m) {
           p.vertex(margin, last_y);
-          p.vertex(0, dim);
+          p.vertex(0, height);
         } else {
-          p.vertex(last_x, dim);
+          p.vertex(last_x, height);
         }
-        p.vertex(dim, dim);
+        p.vertex(width, height);
       }
       p.endShape(p.CLOSE);
     }
@@ -398,12 +406,12 @@ function AB() {
   function drawFlowFieldLeftToRight(p, margin, density) {
     const polys = [];
 
-    for (let a = margin; a < dim; a += density * m) {
+    for (let a = margin; a < height; a += density * m) {
       let x = margin;
       let y = a;
       let currentpoly = [];
 
-      while (x < dim) {
+      while (x < width) {
         if (y < margin) {
           currentpoly = [];
           break;
@@ -411,9 +419,9 @@ function AB() {
 
         if (
           x < margin ||
-          x > dim - (margin === 0 ? 0 : margin) ||
+          x > width - (margin === 0 ? 0 : margin) ||
           y < margin ||
-          y > dim - (margin === 64 * m ? 64 * m : 0)
+          y > height - (margin === 64 * m ? 64 * m : 0)
         ) {
           break;
         }
@@ -425,8 +433,8 @@ function AB() {
 
         const grid_angle = angleGrid[column_index][row_index];
 
-        const x_step = dim * 0.0001 * p.cos(grid_angle);
-        const y_step = dim * 0.0001 * p.sin(grid_angle);
+        const x_step = width * 0.0001 * p.cos(grid_angle);
+        const y_step = height * 0.0001 * p.sin(grid_angle);
 
         x -= x_step;
         y -= y_step;
@@ -439,8 +447,8 @@ function AB() {
   function drawFlowFieldRightToLeft(p, margin, density) {
     const polys = [];
 
-    for (let a = margin; a < dim; a += density * m) {
-      let x = dim - margin;
+    for (let a = margin; a < height; a += density * m) {
+      let x = width - margin;
       let y = a;
       let currentpoly = [];
 
@@ -452,9 +460,9 @@ function AB() {
 
         if (
           x < margin ||
-          x > dim - (margin === 0 ? 0 : margin) ||
+          x > width - (margin === 0 ? 0 : margin) ||
           y < margin ||
-          y > dim - (margin === 64 * m ? 64 * m : 0)
+          y > height - (margin === 64 * m ? 64 * m : 0)
         ) {
           break;
         }
@@ -466,8 +474,8 @@ function AB() {
 
         const grid_angle = angleGrid[column_index][row_index];
 
-        const x_step = dim * 0.0001 * p.cos(grid_angle);
-        const y_step = dim * 0.0001 * p.sin(grid_angle);
+        const x_step = width * 0.0001 * p.cos(grid_angle);
+        const y_step = height * 0.0001 * p.sin(grid_angle);
 
         x += x_step;
         y += y_step;
@@ -478,8 +486,8 @@ function AB() {
   }
 
   function initAngleGridLeftToRight(p, wobbly, straight) {
-    cols = p.floor(dim / w);
-    rows = p.floor(dim / w);
+    cols = p.floor(width / w);
+    rows = p.floor(height / w);
     const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
 
     for (let x = 0; x < cols + 1; x++) {
@@ -504,8 +512,8 @@ function AB() {
   }
 
   function initAngleGridRightToLeft(p, wobbly, straight) {
-    cols = p.floor(dim / w);
-    rows = p.floor(dim / w);
+    cols = p.floor(width / w);
+    rows = p.floor(height / w);
     const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
 
     for (let x = 0; x < cols + 1; x++) {
