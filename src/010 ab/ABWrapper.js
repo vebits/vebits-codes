@@ -87,6 +87,9 @@ function ABWrapper({ children }) {
               <li>
                 <s>resolution agnostic</s>
               </li>
+              <li>
+                <s>4:3 aspect ratio</s>
+              </li>
               <li>curate/create palettes</li>
               <li>coloring strategy</li>
               <li>tweaking features</li>
