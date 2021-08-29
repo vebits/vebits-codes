@@ -73,7 +73,6 @@ function AB() {
       ["#b3a176", "#494d4b", "#e2cb92", "#312c20", "#7c7052"],
       ["#edeccf", "#207178", "#dc6378", "#f1c694", "#101652"],
     ];
-    console.log(Palettes);
     let palette = shuffle(
       Palettes[rnd.random_int(0, Palettes.length - 1)],
       rnd
@@ -88,10 +87,13 @@ function AB() {
     let noFillAtAll = rnd.random_between(0, 1) > 0.95;
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
+    let sequential = rnd.random_between(0, 1) > 0.7;
     let tri = rnd.random_between(0, 1) > 0.7;
     let single = rnd.random_between(0, 1) > 0.7;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.8;
+    let glitched = rnd.random_between(0, 1) > 0.98;
+
     console.log(
       "flowDirection: ",
       flowDirection ? "left to right" : "right to left"
@@ -102,10 +104,12 @@ function AB() {
     console.log("noFillAtAll: ", noFillAtAll);
     console.log("alpha: ", alpha);
     console.log("symmetry: ", symmetry);
+    console.log("sequential: ", sequential);
     console.log("tri: ", tri);
     console.log("single: ", single);
     console.log("wobbly: ", wobbly);
     console.log("straight: ", straight);
+    console.log("glitched: ", glitched);
 
     let bgColor;
     if (tri) {
@@ -134,7 +138,11 @@ function AB() {
         noFillAtAll,
         alpha,
         symmetry,
-        palette
+        palette,
+        glitched,
+        sequential,
+        tri,
+        single
       );
     } else {
       drawRightToLeft(
@@ -145,7 +153,11 @@ function AB() {
         noFillAtAll,
         alpha,
         symmetry,
-        palette
+        palette,
+        glitched,
+        sequential,
+        tri,
+        single
       );
     }
 
@@ -164,7 +176,11 @@ function AB() {
     noFillAtAll,
     alpha,
     symmetry,
-    palette
+    palette,
+    glitched,
+    sequential,
+    tri,
+    single
   ) => {
     p.noFill();
 
@@ -183,20 +199,31 @@ function AB() {
       p.noStroke();
     }
 
+    const inc = glitched ? 500 : 1;
     loop1: for (let i = 0; i < polys.length; i++) {
       if (polys[i].length < 64 * m) {
         continue;
       }
-
-      const color = p.color(
-        hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
-      );
+      let mod;
+      if (tri && sequential) {
+        mod = 3;
+      } else if (sequential) {
+        mod = 5;
+      }
+      let color;
+      if (sequential && !single) {
+        color = p.color(hex2hsl(palette[i % mod])[0]);
+      } else {
+        color = p.color(
+          hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+        );
+      }
 
       if (alpha) {
         color.setAlpha(rnd.random_between(0.1, 0.3));
       }
 
-      if (rnd.random_between(0, 1) > 0.2 && !noFillAtAll) {
+      if (rnd.random_between(0, 1) > 0.0 && !noFillAtAll) {
         p.fill(color);
       } else {
         p.noFill();
@@ -208,8 +235,7 @@ function AB() {
       if (polys[i].length % 2 !== 0) {
         polys[i].pop();
       }
-
-      for (let j = 0; j < polys[i].length; j++) {
+      for (let j = 0; j < polys[i].length; j += inc) {
         if (symmetry) {
           if (polys[i][polys[i].length - 1].x < width - margin - 2 * m)
             break loop1;
@@ -285,7 +311,11 @@ function AB() {
     noFillAtAll,
     alpha,
     symmetry,
-    palette
+    palette,
+    glitched,
+    sequential,
+    tri,
+    single
   ) => {
     p.noFill();
 
@@ -304,14 +334,26 @@ function AB() {
       p.noStroke();
     }
 
+    const inc = glitched ? 500 : 1;
     loop1: for (let i = 0; i < polys.length; i++) {
       if (polys[i].length < 64 * m) {
         continue;
       }
 
-      const color = p.color(
-        hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
-      );
+      let mod;
+      if (tri && sequential) {
+        mod = 3;
+      } else if (sequential) {
+        mod = 5;
+      }
+      let color;
+      if (sequential && !single) {
+        color = p.color(hex2hsl(palette[i % mod])[0]);
+      } else {
+        color = p.color(
+          hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+        );
+      }
 
       if (alpha) {
         color.setAlpha(rnd.random_between(0.1, 0.3));
@@ -330,7 +372,7 @@ function AB() {
         polys[i].pop();
       }
 
-      for (let j = 0; j < polys[i].length; j++) {
+      for (let j = 0; j < polys[i].length; j += inc) {
         if (symmetry) {
           if (polys[i][polys[i].length - 1].x > margin + 8 * m) break loop1;
           if (j > polys[i].length / 2) {
