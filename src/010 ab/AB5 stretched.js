@@ -74,7 +74,7 @@ function AB() {
       ["#edeccf", "#207178", "#dc6378", "#f1c694", "#101652"],
     ];
     let palette = shuffle(
-      Palettes[rnd.random_int(0, Palettes.length - 1)],
+      Palettes2[rnd.random_int(0, Palettes2.length - 1)],
       rnd
     );
     console.log(palette);
@@ -84,12 +84,13 @@ function AB() {
     margin = margin * m;
     let density = rnd.random_int(1, 32);
     let outlined = rnd.random_between(0, 1) > 0.95;
-    let noFillAtAll = rnd.random_between(0, 1) > 0.95;
+    let noFillAtAll = rnd.random_between(0, 1) > 0.98;
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
     let sequential = rnd.random_between(0, 1) > 0.7;
+    let group = rnd.random_between(0, 1) > 0.85;
     let tri = rnd.random_between(0, 1) > 0.7;
-    let single = rnd.random_between(0, 1) > 0.7;
+    let single = rnd.random_between(0, 1) > 0.85;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.8;
     let glitched = rnd.random_between(0, 1) > 0.98;
@@ -105,6 +106,7 @@ function AB() {
     console.log("alpha: ", alpha);
     console.log("symmetry: ", symmetry);
     console.log("sequential: ", sequential);
+    console.log("group: ", group);
     console.log("tri: ", tri);
     console.log("single: ", single);
     console.log("wobbly: ", wobbly);
@@ -141,6 +143,7 @@ function AB() {
         palette,
         glitched,
         sequential,
+        group,
         tri,
         single
       );
@@ -156,6 +159,7 @@ function AB() {
         palette,
         glitched,
         sequential,
+        group,
         tri,
         single
       );
@@ -179,6 +183,7 @@ function AB() {
     palette,
     glitched,
     sequential,
+    group,
     tri,
     single
   ) => {
@@ -204,14 +209,24 @@ function AB() {
       if (polys[i].length < 64 * m) {
         continue;
       }
-      let mod;
-      if (tri && sequential) {
+
+      let mod = 5;
+      if (tri) {
         mod = 3;
-      } else if (sequential) {
-        mod = 5;
       }
+
       let color;
-      if (sequential && !single) {
+      if (group && !single) {
+        if (i % mod === 0) {
+          color = p.color(hex2hsl(palette[0])[0]);
+        } else if (rnd.random_between(0, 1) > 0.1) {
+          color = p.color(hex2hsl(palette[Math.ceil((i / 12) % mod) - 1])[0]);
+        } else {
+          color = p.color(
+            hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+          );
+        }
+      } else if (sequential && !single) {
         color = p.color(hex2hsl(palette[i % mod])[0]);
       } else {
         color = p.color(
@@ -314,6 +329,7 @@ function AB() {
     palette,
     glitched,
     sequential,
+    group,
     tri,
     single
   ) => {
@@ -340,14 +356,23 @@ function AB() {
         continue;
       }
 
-      let mod;
-      if (tri && sequential) {
+      let mod = 5;
+      if (tri) {
         mod = 3;
-      } else if (sequential) {
-        mod = 5;
       }
+
       let color;
-      if (sequential && !single) {
+      if (group && !single) {
+        if (i % mod === 0) {
+          color = p.color(hex2hsl(palette[0])[0]);
+        } else if (rnd.random_between(0, 1) > 0.1) {
+          color = p.color(hex2hsl(palette[Math.ceil((i / 12) % mod) - 1])[0]);
+        } else {
+          color = p.color(
+            hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+          );
+        }
+      } else if (sequential && !single) {
         color = p.color(hex2hsl(palette[i % mod])[0]);
       } else {
         color = p.color(
@@ -359,7 +384,7 @@ function AB() {
         color.setAlpha(rnd.random_between(0.1, 0.3));
       }
 
-      if (rnd.random_between(0, 1) > 0.2 && !noFillAtAll) {
+      if (rnd.random_between(0, 1) > 0.0 && !noFillAtAll) {
         p.fill(color);
       } else {
         p.noFill();
