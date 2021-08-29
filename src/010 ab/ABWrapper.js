@@ -90,8 +90,10 @@ function ABWrapper({ children }) {
               <li>
                 <s>4:3 aspect ratio</s>
               </li>
+              <li>
+                <s>coloring strategy</s>
+              </li>
               <li>curate/create palettes</li>
-              <li>coloring strategy</li>
               <li>tweaking features</li>
             </ul>
           </>
