@@ -74,7 +74,7 @@ function AB() {
       ["#edeccf", "#207178", "#dc6378", "#f1c694", "#101652"],
     ];
     let palette = shuffle(
-      Palettes2[rnd.random_int(0, Palettes2.length - 1)],
+      Palettes[rnd.random_int(0, Palettes.length - 1)],
       rnd
     );
     console.log(palette);
