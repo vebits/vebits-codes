@@ -6,8 +6,6 @@ import Random, { random_hash } from "utils/random";
 import { hex2hsl } from "utils/color-converter";
 import shuffle from "utils/shuffle";
 
-import Palettes from "nice-color-palettes/1000";
-
 function AB() {
   let { id } = useParams();
 
@@ -56,12 +54,11 @@ function AB() {
 
     // PALETTE
     let Palettes2 = [
-      ["#fff", "#fff", "#fff", "#000", "#000"],
       ["#D9D9D9", "#F2CC0C", "#D9A407", "#BF7E04", "#A63F03"],
       ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
-      ["#202426", "#6C733D", "#9DA65D", "#8C8C88", "#F2F2F2"],
+      //["#202426", "#6C733D", "#9DA65D", "#8C8C88", "#F2F2F2"], // //
       ["#F2F2F2", "#A6A6A6", "#595959", "#262626", "#0D0D0D"],
-      ["#08348C", "#4992F2", "#D9936A", "#592014", "#A65341"],
+      //["#08348C", "#4992F2", "#D9936A", "#592014", "#A65341"],
       ["#A4B8BF", "#EBF0F2", "#6D878C", "#31403E", "#1A261C"],
       ["#6D7E8C", "#343E40", "#BFA98E", "#8C715A", "#0D0D0D"],
       ["#27191c", "#2d3839", "#114d4d", "#6e9987", "#e0e4ce"],
@@ -69,17 +66,32 @@ function AB() {
       ["#c8e3c5", "#9cad9a", "#755858", "#f7f7c6", "#ffc870"],
       ["#fcab10", "#f9ce07", "#0ce3e8", "#1f0441", "#fc1068"],
       ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#ece1c3"],
-      ["#322f3e", "#abdecb", "#e63c6d", "#ede7a5", "#f5b494"],
-      ["#b3a176", "#494d4b", "#e2cb92", "#312c20", "#7c7052"],
-      ["#edeccf", "#207178", "#dc6378", "#f1c694", "#101652"],
+      //["#322f3e", "#abdecb", "#e63c6d", "#ede7a5", "#f5b494"], //
+      //["#b3a176", "#494d4b", "#e2cb92", "#312c20", "#7c7052"], //
+      ["#edeccf", "#207178", "#dc6378", "#f1c694", "#101652"], // *
+      ["#260d0d", "#319190", "#ff4000", "#ffc803", "#ffefb5"], // *
+      ["#d2fdfe", "#febf97", "#fe6960", "#fefac2", "#affbff"],
+      //["#e77a77", "#54343f", "#f9df94", "#cad5ad", "#f6a570"], //
+      ["#f98f6f", "#f7eadc", "#eb613b", "#4d3b36", "#c1d9cd"],
+      ["#9e6b7c", "#f3d597", "#b6d89c", "#92ccb6", "#f87887"],
+      ["#fcdfbd", "#8d9c9d", "#45373e", "#e00b5b", "#f5b04b"],
+      ["#ff1d44", "#1c8080", "#fbebaf", "#74bf9d", "#56a292"],
+      ["#008584", "#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
+      ["#602749", "#130912", "#b14623", "#3e1c33", "#f6921d"],
+      ["#e77a77", "#54343f", "#f6a570", "#cad5ad", "#f9df94"],
+      ["#c2412d", "#5a1e4a", "#a46583", "#d1aa34", "#a7a844"],
+      ["#fcbf6b", "#a9ccb9", "#afab50", "#e58634", "#657a38"],
+      ["#fdffd9", "#fff0b8", "#faad8e", "#ffd6a3", "#142f30"],
+      ["#567ebb", "#1f1f20", "#dce0e6", "#606d80", "#2b4c7e"],
+      ["#83563f", "#fda664", "#cee1d8", "#f6eee0", "#f04842"],
     ];
     let palette = shuffle(
-      Palettes[rnd.random_int(0, Palettes.length - 1)],
+      Palettes2[rnd.random_int(0, Palettes2.length - 1)],
       rnd
     );
     console.log(palette);
 
-    let flowDirection = rnd.random_between(0, 1) > 0.5;
+    let leftToRight = rnd.random_between(0, 1) > 0.5;
     let margin = rnd.random_choice([0, 64, 128, 256]);
     margin = margin * m;
     let density = rnd.random_int(1, 32);
@@ -88,16 +100,16 @@ function AB() {
     let alpha = rnd.random_between(0, 1) > 0.6;
     let symmetry = rnd.random_between(0, 1) > 0.95;
     let sequential = rnd.random_between(0, 1) > 0.7;
-    let group = rnd.random_between(0, 1) > 0.85;
-    let tri = rnd.random_between(0, 1) > 0.7;
-    let single = rnd.random_between(0, 1) > 0.85;
+    let group = rnd.random_between(0, 1) > 0.8;
+    let tri = rnd.random_between(0, 1) > 0.9;
+    let single = rnd.random_between(0, 1) > 0.8;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.8;
     let glitched = rnd.random_between(0, 1) > 0.98;
 
     console.log(
       "flowDirection: ",
-      flowDirection ? "left to right" : "right to left"
+      leftToRight ? "left to right" : "right to left"
     );
     console.log("margin: ", margin);
     console.log("density: ", density);
@@ -126,14 +138,12 @@ function AB() {
     p.background(p.color(bgColor[0]));
     //p.background(100);
 
-    if (flowDirection) {
-      initAngleGridLeftToRight(p, wobbly, straight);
-    } else {
-      initAngleGridRightToLeft(p, wobbly, straight);
-    }
-    if (flowDirection) {
+    initAngleGrid(p, leftToRight, wobbly, straight);
+
+    if (leftToRight) {
       drawLeftToRight(
         p,
+        leftToRight,
         margin,
         density,
         outlined,
@@ -150,6 +160,7 @@ function AB() {
     } else {
       drawRightToLeft(
         p,
+        leftToRight,
         margin,
         density,
         outlined,
@@ -174,6 +185,7 @@ function AB() {
 
   const drawLeftToRight = (
     p,
+    leftToRight,
     margin,
     density,
     outlined,
@@ -189,7 +201,7 @@ function AB() {
   ) => {
     p.noFill();
 
-    const polys = drawFlowFieldLeftToRight(p, margin, density);
+    const polys = drawFlowField(p, leftToRight, margin, density);
     console.log(polys);
 
     if (outlined || noFillAtAll) {
@@ -320,6 +332,7 @@ function AB() {
 
   const drawRightToLeft = (
     p,
+    leftToRight,
     margin,
     density,
     outlined,
@@ -335,7 +348,7 @@ function AB() {
   ) => {
     p.noFill();
 
-    const polys = drawFlowFieldRightToLeft(p, margin, density);
+    const polys = drawFlowField(p, leftToRight, margin, density);
     console.log(polys);
 
     if (outlined || noFillAtAll) {
@@ -470,15 +483,15 @@ function AB() {
     this.y = y;
   }
 
-  function drawFlowFieldLeftToRight(p, margin, density) {
+  function drawFlowField(p, leftToRight, margin, density) {
     const polys = [];
 
     for (let a = margin; a < height; a += density * m) {
-      let x = margin;
+      let x = leftToRight ? margin : width - margin;
       let y = a;
       let currentpoly = [];
 
-      while (x < width) {
+      while (leftToRight ? x < width : x > margin) {
         if (y < margin) {
           currentpoly = [];
           break;
@@ -503,56 +516,20 @@ function AB() {
         const x_step = width * 0.0001 * p.cos(grid_angle);
         const y_step = height * 0.0001 * p.sin(grid_angle);
 
-        x -= x_step;
-        y -= y_step;
+        if (leftToRight) {
+          x -= x_step;
+          y -= y_step;
+        } else {
+          x += x_step;
+          y += y_step;
+        }
       }
       polys.push(currentpoly);
     }
     return polys;
   }
 
-  function drawFlowFieldRightToLeft(p, margin, density) {
-    const polys = [];
-
-    for (let a = margin; a < height; a += density * m) {
-      let x = width - margin;
-      let y = a;
-      let currentpoly = [];
-
-      while (x > margin) {
-        if (y < margin) {
-          currentpoly = [];
-          break;
-        }
-
-        if (
-          x < margin ||
-          x > width - (margin === 0 ? 0 : margin) ||
-          y < margin ||
-          y > height - (margin === 64 * m ? 64 * m : 0)
-        ) {
-          break;
-        }
-
-        currentpoly.push(new Point(x, y));
-
-        const column_index = p.int(x / w);
-        const row_index = p.int(y / w);
-
-        const grid_angle = angleGrid[column_index][row_index];
-
-        const x_step = width * 0.0001 * p.cos(grid_angle);
-        const y_step = height * 0.0001 * p.sin(grid_angle);
-
-        x += x_step;
-        y += y_step;
-      }
-      polys.push(currentpoly);
-    }
-    return polys;
-  }
-
-  function initAngleGridLeftToRight(p, wobbly, straight) {
+  function initAngleGrid(p, leftToRight, wobbly, straight) {
     cols = p.floor(width / w);
     rows = p.floor(height / w);
     const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
@@ -569,34 +546,8 @@ function AB() {
           noise_val,
           0.0,
           1.0,
-          (4 / 3) * p.PI,
-          (2 / 3) * p.PI
-        );
-
-        angleGrid[x].push(angle);
-      }
-    }
-  }
-
-  function initAngleGridRightToLeft(p, wobbly, straight) {
-    cols = p.floor(width / w);
-    rows = p.floor(height / w);
-    const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
-
-    for (let x = 0; x < cols + 1; x++) {
-      angleGrid.push([]);
-      for (let y = 0; y < rows + 1; y++) {
-        const scaled_x = y * cord_scale;
-        const scaled_y = x * cord_scale;
-
-        p.noiseDetail(8, 0.2);
-        const noise_val = p.noise(scaled_x, scaled_y);
-        const angle = p.map(
-          noise_val,
-          0.0,
-          1.0,
-          (2 / 3) * p.PI,
-          (4 / 3) * p.PI
+          leftToRight ? (4 / 3) * p.PI : (2 / 3) * p.PI,
+          leftToRight ? (2 / 3) * p.PI : (4 / 3) * p.PI
         );
 
         angleGrid[x].push(angle);
