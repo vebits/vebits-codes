@@ -33,6 +33,7 @@ function AB() {
   const windowMargin = id ? 1 : 0.75;
   width = width * windowMargin;
   height = height * windowMargin;
+  console.log(width, height);
 
   let dim = Math.min(width, height);
   let m = dim / DEFAULT_SIZE;
@@ -46,7 +47,7 @@ function AB() {
   let cols, rows;
 
   const setup = (p, canvasParentRef) => {
-    p.pixelDensity(1);
+    //p.pixelDensity(1);
     p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.noLoop();
     p.colorMode(p.HSL);
@@ -94,18 +95,18 @@ function AB() {
     let leftToRight = rnd.random_between(0, 1) > 0.5;
     let margin = rnd.random_choice([0, 64, 128, 256]);
     margin = margin * m;
-    let density = rnd.random_int(1, 32);
-    let outlined = rnd.random_between(0, 1) > 0.95;
+    let density = rnd.random_int(2, 32);
+    let outlined = rnd.random_between(0, 1) > 1;
     let noFillAtAll = rnd.random_between(0, 1) > 0.98;
     let alpha = rnd.random_between(0, 1) > 0.6;
-    let symmetry = rnd.random_between(0, 1) > 0.95;
-    let sequential = rnd.random_between(0, 1) > 0.7;
-    let group = rnd.random_between(0, 1) > 0.8;
-    let tri = rnd.random_between(0, 1) > 0.9;
+    let symmetry = rnd.random_between(0, 1) > 0.9;
+    let sequential = rnd.random_between(0, 1) > 0.6;
+    let group = rnd.random_between(0, 1) > 0.6;
+    let tri = rnd.random_between(0, 1) > 0.6;
     let single = rnd.random_between(0, 1) > 0.8;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.8;
-    let glitched = rnd.random_between(0, 1) > 0.98;
+    let glitched = rnd.random_between(0, 1) > 0.99;
 
     console.log(
       "flowDirection: ",
@@ -230,8 +231,8 @@ function AB() {
       let color;
       if (group && !single) {
         if (i % mod === 0) {
-          color = p.color(hex2hsl(palette[0])[0]);
-        } else if (rnd.random_between(0, 1) > 0.1) {
+          continue;
+        } else if (rnd.random_between(0, 1) > 0.2) {
           color = p.color(hex2hsl(palette[Math.ceil((i / 12) % mod) - 1])[0]);
         } else {
           color = p.color(
@@ -377,8 +378,8 @@ function AB() {
       let color;
       if (group && !single) {
         if (i % mod === 0) {
-          color = p.color(hex2hsl(palette[0])[0]);
-        } else if (rnd.random_between(0, 1) > 0.1) {
+          continue;
+        } else if (rnd.random_between(0, 1) > 0.2) {
           color = p.color(hex2hsl(palette[Math.ceil((i / 12) % mod) - 1])[0]);
         } else {
           color = p.color(
