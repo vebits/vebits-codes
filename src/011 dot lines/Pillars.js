@@ -75,7 +75,7 @@ if (window.innerHeight >= 1.5 * window.innerWidth) {
 /* const windowMargin = 0.75;
 width = width * windowMargin;
 height = height * windowMargin; */
-width = 1024;
+width = 4096;
 height = width * 1.5;
 
 console.log(width, height);
@@ -86,10 +86,12 @@ var m = dim / DEFAULT_SIZE;
 let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
 let paletteBg = Palettes[rnd.random_int(0, Palettes.length - 1)];
 const bgColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
-//console.log(palette, bgColor, seed);
+console.log(palette, bgColor, seed);
 
-const cell_w = 64;
-const cell_h = 32;
+const cell_w = 64 * m;
+const cell_h = 32 * m;
+const mid_w = width / 2;
+const mid_h = height / 2;
 
 function DotLines() {
   const setup = (p, canvasParentRef) => {
@@ -99,20 +101,17 @@ function DotLines() {
     p.colorMode(p.HSL);
 
     p.background(96);
-
-    p.noiseSeed(seed);
-    p.noStroke();
   };
 
   const draw = (p) => {
-    generateGrid(p);
+    //generateGrid(p);
     drawLines(p);
 
     /* const topShade = rnd.random_between(0, 90);
     const leftShade = rnd.random_between(0, 90);
     const rightShade = rnd.random_between(0, 90); */
 
-    /* const leftRightShade = p.color(
+    const leftRightShade = p.color(
       hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
     );
     const topDownShade = p.color(
@@ -126,47 +125,141 @@ function DotLines() {
     );
 
     p.strokeWeight(1);
+    p.stroke(leftShade);
     p.fill(leftShade);
-    p.quad(512 - 128, 768, 512 - 96, 768 + 16, 0, 32 * 31, 0, 32 * 30);
-    p.quad(512 + 128, 768, 512 + 96, 768 - 16, 1024, 32 * 17, 1024, 32 * 18);
-    p.quad(512, 768 - 64, 1024, 32 * 14, 1024, 32 * 15, 512 + 32, 768 - 48);
-    p.quad(512 - 32, 768 + 48, 512, 768 + 64, 0, 32 * 34, 0, 32 * 33);
+    p.quad(
+      mid_w - cell_w * 2,
+      mid_h,
+      mid_w - cell_w * 1.5,
+      mid_h + cell_h / 2,
+      0,
+      findEdgePointDownwards(mid_w - cell_w * 2, mid_h) + cell_h,
+      0,
+      findEdgePointDownwards(mid_w - cell_w * 2, mid_h)
+    );
+    p.quad(
+      mid_w - cell_w / 2,
+      mid_h + cell_h * 1.5,
+      mid_w,
+      mid_h + cell_h * 2,
+      0,
+      findEdgePointDownwards(mid_w - cell_w / 2, mid_h + cell_h * 1.5) + cell_h,
+      0,
+      findEdgePointDownwards(mid_w - cell_w / 2, mid_h + cell_h * 1.5)
+    );
+    p.quad(
+      mid_w + cell_w * 2,
+      mid_h,
+      mid_w + cell_w * 1.5,
+      mid_h - cell_h / 2,
+      width,
+      findEdgePointUpwards(mid_w + cell_w * 2, mid_h) - cell_h,
+      width,
+      findEdgePointUpwards(mid_w + cell_w * 2, mid_h)
+    );
+    p.quad(
+      mid_w,
+      mid_h - cell_h * 2,
+      width,
+      findEdgePointUpwards(mid_w, mid_h - cell_h * 2),
+      width,
+      findEdgePointUpwards(mid_w, mid_h - cell_h * 2) + cell_h,
+      mid_w + cell_w / 2,
+      mid_h - cell_h * 1.5
+    );
 
     p.fill(rightShade);
-    p.quad(512, 768 + 64, 512 + 32, 768 + 48, 1024, 32 * 33, 1024, 32 * 34);
-    p.quad(512 - 32, 768 - 48, 0, 32 * 15, 0, 32 * 14, 512, 768 - 64);
-    p.quad(512 - 128, 768, 0, 32 * 18, 0, 32 * 17, 512 - 96, 768 - 16);
-    p.quad(512 + 128, 768, 1024, 32 * 30, 1024, 32 * 31, 512 + 96, 768 + 16);
+    p.stroke(rightShade);
+    p.quad(
+      mid_w,
+      mid_h + cell_h * 2,
+      mid_w + cell_w / 2,
+      mid_h + cell_h * 1.5,
+      width,
+      findEdgePointDownwards(mid_w, mid_h + cell_h * 2) - cell_h,
+      width,
+      findEdgePointDownwards(mid_w, mid_h + cell_h * 2)
+    );
+    p.quad(
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 1.5,
+      0,
+      findEdgePointUpwards(mid_w - cell_w / 2, mid_h - cell_h * 1.5),
+      0,
+      findEdgePointUpwards(mid_w - cell_w / 2, mid_h - cell_h * 1.5) - cell_h,
+      mid_w,
+      mid_h - cell_h * 2
+    );
+    p.quad(
+      mid_w - cell_w * 2,
+      mid_h,
+      0,
+      findEdgePointUpwards(mid_w - cell_w * 2, mid_h),
+      0,
+      findEdgePointUpwards(mid_w - cell_w * 2, mid_h) - cell_h,
+      mid_w - cell_w * 1.5,
+      mid_h - cell_h / 2
+    );
+    p.quad(
+      mid_w + cell_w * 2,
+      mid_h,
+      width,
+      findEdgePointDownwards(mid_w + cell_w * 2, mid_h),
+      width,
+      findEdgePointDownwards(mid_w + cell_w * 2, mid_h) + cell_h,
+      mid_w + cell_w * 1.5,
+      mid_h + cell_h / 2
+    );
 
-    drawTop(p, 512 - 128, 768 - 32 * 8, topDownShade);
-    drawLeftSide(p, 512 - 128, 768 - 32 * 8, leftShade);
-    drawRightSide(p, 512 - 128, 768 - 32 * 8, rightShade);
+    drawTop(p, mid_w - cell_w * 2, mid_h - cell_h * 8, topDownShade);
+    drawLeftSide(p, mid_w - cell_w * 2, mid_h - cell_h * 8, 8, leftShade);
+    drawRightSide(p, mid_w - cell_w * 2, mid_h - cell_h * 8, 8, rightShade);
 
-    drawTop(p, 512 - 32, 768 - 9 * 32 - 16, leftRightShade);
-    drawLeftSide(p, 512 - 32, 768 - 9 * 32 - 16, leftShade);
-    drawRightSide(p, 512 - 32, 768 - 9 * 32 - 16, rightShade);
+    drawTop(
+      p,
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 9 - cell_h / 2,
+      leftRightShade
+    );
+    drawLeftSide(
+      p,
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 9 - cell_h / 2,
+      8,
+      leftShade
+    );
+    drawRightSide(
+      p,
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 9 - cell_h / 2,
+      8,
+      rightShade
+    );
 
-    p.fill(leftShade);
-    p.fill(rightShade);
-    drawTop(p, 512 + 64, 768 - 32 * 8, topDownShade);
-    drawLeftSide(p, 512 + 64, 768 - 32 * 8, leftShade);
-    drawRightSide(p, 512 + 64, 768 - 32 * 8, rightShade);
+    drawTop(p, mid_w + cell_w, mid_h - cell_h * 8, topDownShade);
+    drawLeftSide(p, mid_w + cell_w, mid_h - cell_h * 8, 8, leftShade);
+    drawRightSide(p, mid_w + cell_w, mid_h - cell_h * 8, 8, rightShade);
 
-    p.fill(leftShade);
-    drawTop(p, 512 - 32, 768 - 7 * 32 + 16, leftRightShade);
-    drawLeftSide(p, 512 - 32, 768 - 7 * 32 + 16, leftShade);
-    drawRightSide(p, 512 - 32, 768 - 7 * 32 + 16, rightShade);
-
-    p.stroke(0);
-    p.strokeWeight(6);
-    const x = 32 * 16;
-    const y = 32 * 24;
-    console.log(x, y);
-    p.point(x, y);
-    p.point(1024, findEdgePointDownwards(x, y));
-    p.point(1024, findEdgePointUpwards(x, y));
-    console.log(findEdgePointDownwards(x, y));
-    console.log(findEdgePointUpwards(x, y)); */
+    drawTop(
+      p,
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 7 + cell_h / 2,
+      leftRightShade
+    );
+    drawLeftSide(
+      p,
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 7 + cell_h / 2,
+      8,
+      leftShade
+    );
+    drawRightSide(
+      p,
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 7 + cell_h / 2,
+      8,
+      rightShade
+    );
   };
 
   function drawTop(p, x, y, shade) {
@@ -185,39 +278,48 @@ function DotLines() {
     );
   }
 
-  function drawLeftSide(p, x, y, shade) {
-    p.fill(shade);
-    p.stroke(shade);
-    p.strokeWeight(1);
-    p.quad(x, y, x + 32, y + 16, x + 32, y + 32 * 8 + 16, x, y + 32 * 8);
-  }
-
-  function drawRightSide(p, x, y, shade) {
+  function drawLeftSide(p, x, y, height, shade) {
     p.fill(shade);
     p.stroke(shade);
     p.strokeWeight(1);
     p.quad(
-      x + 32,
-      y + 16,
-      x + 64,
+      x,
       y,
-      x + 64,
-      y + 32 * 8,
-      x + 32,
-      y + 32 * 8 + 16
+      x + cell_w / 2,
+      y + cell_h / 2,
+      x + cell_w / 2,
+      y + cell_h * height + cell_h / 2,
+      x,
+      y + cell_h * height
+    );
+  }
+
+  function drawRightSide(p, x, y, height, shade) {
+    p.fill(shade);
+    p.stroke(shade);
+    p.strokeWeight(1);
+    p.quad(
+      x + cell_w / 2,
+      y + cell_h / 2,
+      x + cell_w,
+      y,
+      x + cell_w,
+      y + cell_h * height,
+      x + cell_w / 2,
+      y + cell_h * height + cell_h / 2
     );
   }
 
   function findEdgePointDownwards(x, y) {
-    return x <= 1024 / 2
+    return x <= width / 2
       ? x / 2 + (y / 32) * 32
-      : (1024 - x) / 2 + (y / 32) * 32;
+      : (width - x) / 2 + (y / 32) * 32;
   }
 
   function findEdgePointUpwards(x, y) {
-    return x <= 1024 / 2
+    return x <= width / 2
       ? (y / 32) * 32 - x / 2
-      : (y / 32) * 32 - (1024 - x) / 2;
+      : (y / 32) * 32 - (width - x) / 2;
   }
 
   function generateGrid(p) {
