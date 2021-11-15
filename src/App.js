@@ -21,7 +21,8 @@ import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 import ColorAsteroidsWrapper from "008 color asteroids/ColorAsteroidsWrapper";
 import ColorCircles from "009 color circles/ColorCircles";
 import ABWrapper from "010 ab/ABWrapper";
-import DotLines from "011 dot lines/Pillars1";
+import Pillars from "011 dot lines/Pillars";
+import Cassettes from "011 dot lines/Cassettes";
 import Squares from "012 squares/Squares";
 import Footer from "Footer";
 
@@ -90,7 +91,8 @@ function App() {
           />
           <Route exact path="/color-circles" component={ColorCircles} />
           <Route exact path="/ab/:id?" component={ABWrapper} />
-          <Route exact path="/dot-lines" component={DotLines} />
+          <Route exact path="/pillars" component={Pillars} />
+          <Route exact path="/cassettes" component={Cassettes} />
           <Route exact path="/squares" component={Squares} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
