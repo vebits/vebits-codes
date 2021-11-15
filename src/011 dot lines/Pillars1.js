@@ -94,14 +94,14 @@ const mid_w = width / 2;
 const mid_h = height / 2;
 
 // seeds: 37930565674235220 37164958221039304 54336704747254100
-function Pillars() {
+function DotLines() {
   const setup = (p, canvasParentRef) => {
     p.pixelDensity(1);
     p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.noLoop();
     p.colorMode(p.HSL);
 
-    p.background(bgColor);
+    p.background(96);
 
     p.keyPressed = function () {
       if (p.keyCode === 80) p.saveCanvas("pillars_" + seed, "png");
@@ -109,37 +109,196 @@ function Pillars() {
   };
 
   const draw = (p) => {
-    /*  generateGrid(p);
+    /* generateGrid(p);
     drawLines(p); */
 
-    let i = 0;
+    /* const topShade = rnd.random_between(0, 90);
+    const leftShade = rnd.random_between(0, 90);
+    const rightShade = rnd.random_between(0, 90); */
+
+    const leftRightShade = p.color(hex2hsl(palette[0])[0]);
+    const topDownShade = p.color(hex2hsl(palette[1])[0]);
+    const leftShade = p.color(hex2hsl(palette[2])[0]);
+    const rightShade = p.color(hex2hsl(palette[3])[0]);
+
+    /*    let i = 0;
     const black = false;
-    for (let y = height - 64; y > 0; y -= 32 * m * 4) {
-      const width2 = rnd.random_int(1, 4);
-      const color = p.color(hex2hsl(palette[i % 5])[0]);
-      for (let x = -256; x < width + 128; x += 64 * m) {
+    for (let y = 64 * m * 4; y < height - 64 * m; y += 32 * m * 4) {
+      i++;
+      for (let x = 64 * m; x < width - 64 * m; x += 64 * m * 2) {
+        const color = p.color(hex2hsl(palette[i % 5])[0]);
         drawWall(
           p,
-          i % 2 === 0 ? x : x,
+          i % 2 === 0 ? x : x + 64 * m,
           y,
-          rnd.random_choice([2]),
-          12 - i,
+          rnd.random_choice([3]),
+          rnd.random_choice([1]),
           color,
           black ? 0 : 100,
           black ? 100 : 0
         );
       }
+    } */
+    /*  for (let y = 0; y < height + 128; y += 32) {
       i++;
-    }
+      for (let x = 0; x < width; x += 32) {
+        const color = p.color(hex2hsl(palette[i % 5])[0]);
+        drawWall(
+          p,
+          i % 2 === 0 ? x : x + 64 * m,
+          y,
+          rnd.random_int(6, 6) / 2,
+          rnd.random_int(1, 1) / 2,
+          black ? 0 : 100,
+          color,
+          black ? 100 : 0
+        );
+      }
+    } */
+
+    p.strokeWeight(1);
+    p.stroke(leftShade);
+    p.fill(leftShade);
+    p.quad(
+      mid_w - cell_w * 2,
+      mid_h,
+      mid_w - cell_w * 1.5,
+      mid_h + cell_h / 2,
+      0,
+      findEdgePointDownwards(mid_w - cell_w * 2, mid_h) + cell_h,
+      0,
+      findEdgePointDownwards(mid_w - cell_w * 2, mid_h)
+    );
+    p.quad(
+      mid_w - cell_w / 2,
+      mid_h + cell_h * 1.5,
+      mid_w,
+      mid_h + cell_h * 2,
+      0,
+      findEdgePointDownwards(mid_w - cell_w / 2, mid_h + cell_h * 1.5) + cell_h,
+      0,
+      findEdgePointDownwards(mid_w - cell_w / 2, mid_h + cell_h * 1.5)
+    );
+    p.quad(
+      mid_w + cell_w * 2,
+      mid_h,
+      mid_w + cell_w * 1.5,
+      mid_h - cell_h / 2,
+      width,
+      findEdgePointUpwards(mid_w + cell_w * 2, mid_h) - cell_h,
+      width,
+      findEdgePointUpwards(mid_w + cell_w * 2, mid_h)
+    );
+    p.quad(
+      mid_w,
+      mid_h - cell_h * 2,
+      width,
+      findEdgePointUpwards(mid_w, mid_h - cell_h * 2),
+      width,
+      findEdgePointUpwards(mid_w, mid_h - cell_h * 2) + cell_h,
+      mid_w + cell_w / 2,
+      mid_h - cell_h * 1.5
+    );
+
+    p.fill(rightShade);
+    p.stroke(rightShade);
+    p.quad(
+      mid_w,
+      mid_h + cell_h * 2,
+      mid_w + cell_w / 2,
+      mid_h + cell_h * 1.5,
+      width,
+      findEdgePointDownwards(mid_w, mid_h + cell_h * 2) - cell_h,
+      width,
+      findEdgePointDownwards(mid_w, mid_h + cell_h * 2)
+    );
+    p.quad(
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 1.5,
+      0,
+      findEdgePointUpwards(mid_w - cell_w / 2, mid_h - cell_h * 1.5),
+      0,
+      findEdgePointUpwards(mid_w - cell_w / 2, mid_h - cell_h * 1.5) - cell_h,
+      mid_w,
+      mid_h - cell_h * 2
+    );
+    p.quad(
+      mid_w - cell_w * 2,
+      mid_h,
+      0,
+      findEdgePointUpwards(mid_w - cell_w * 2, mid_h),
+      0,
+      findEdgePointUpwards(mid_w - cell_w * 2, mid_h) - cell_h,
+      mid_w - cell_w * 1.5,
+      mid_h - cell_h / 2
+    );
+    p.quad(
+      mid_w + cell_w * 2,
+      mid_h,
+      width,
+      findEdgePointDownwards(mid_w + cell_w * 2, mid_h),
+      width,
+      findEdgePointDownwards(mid_w + cell_w * 2, mid_h) + cell_h,
+      mid_w + cell_w * 1.5,
+      mid_h + cell_h / 2
+    );
+
+    drawWall(
+      p,
+      mid_w - cell_w / 2,
+      mid_h - cell_h * 1.5,
+      8,
+      1,
+      leftRightShade,
+      leftShade,
+      rightShade
+    );
+
+    drawWall(
+      p,
+      mid_w - cell_w * 2,
+      mid_h,
+      8,
+      1,
+      topDownShade,
+      leftShade,
+      rightShade
+    );
+
+    drawWall(
+      p,
+      mid_w - cell_w / 2,
+      mid_h + cell_h * 1.5,
+      8,
+      1,
+      leftRightShade,
+      leftShade,
+      rightShade
+    );
+
+    drawWall(
+      p,
+      mid_w + cell_w,
+      mid_h,
+      8,
+      1,
+      topDownShade,
+      leftShade,
+      rightShade
+    );
+
+    /*     p.stroke(0);
+    p.strokeWeight(6);
+    p.point(mid_w, mid_h); */
   };
 
   function drawWall(p, x, y, height, width, shade1, shade2, shade3) {
     p.strokeJoin(p.ROUND);
+    p.stroke(0);
 
     p.fill(shade1);
-    p.noStroke();
-    p.strokeWeight(1 * m);
-    p.stroke(0);
+    //p.noStroke();
+    p.strokeWeight(2 * m);
 
     // draw top
     p.quad(
@@ -179,9 +338,8 @@ function Pillars() {
       y - cell_h * height + cell_h / 2
     );
 
-    /* p.stroke(shade1);
-    p.strokeWeight(1);
-    for (let i = 0; i < height * 8; i++) {
+    /*     p.strokeWeight(1);
+    for (let i = 1; i < height * 8; i++) {
       p.line(
         x,
         y - (cell_h * i) / 8,
@@ -189,54 +347,6 @@ function Pillars() {
         y - (cell_h * i) / 8 + cell_h / 2
       );
     } */
-  }
-
-  function drawTop(p, x, y, height, width, shade) {
-    p.fill(shade);
-    p.stroke(shade);
-    p.strokeWeight(1);
-    p.quad(
-      x,
-      y - cell_h * height,
-      x + (cell_w / 2) * width,
-      y - cell_h * height - (cell_h / 2) * width,
-      x + cell_w / 2 + (cell_w / 2) * width,
-      y - cell_h * height - (cell_h / 2) * width + cell_h / 2,
-      x + cell_w / 2,
-      y + cell_h / 2 - cell_h * height
-    );
-  }
-
-  function drawLeftSide(p, x, y, height, shade) {
-    p.fill(shade);
-    p.stroke(shade);
-    p.strokeWeight(1);
-    p.quad(
-      x,
-      y - cell_h * height,
-      x + cell_w / 2,
-      y + cell_h / 2 - cell_h * height,
-      x + cell_w / 2,
-      y + cell_h / 2,
-      x,
-      y
-    );
-  }
-
-  function drawRightSide(p, x, y, height, width, shade) {
-    p.fill(shade);
-    p.stroke(shade);
-    p.strokeWeight(1);
-    p.quad(
-      x + cell_w / 2,
-      y + cell_h / 2,
-      x + (cell_w / 2) * width + cell_w / 2,
-      y - (cell_h / 2) * width + cell_h / 2,
-      x + (cell_w / 2) * width + cell_w / 2,
-      y - cell_h * height - (cell_h / 2) * width + cell_h / 2,
-      x + cell_w / 2,
-      y - cell_h * height + cell_h / 2
-    );
   }
 
   function findEdgePointDownwards(x, y) {
@@ -293,4 +403,4 @@ function Pillars() {
   return <Sketch setup={setup} draw={draw} />;
 }
 
-export default Pillars;
+export default DotLines;

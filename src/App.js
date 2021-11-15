@@ -21,7 +21,7 @@ import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 import ColorAsteroidsWrapper from "008 color asteroids/ColorAsteroidsWrapper";
 import ColorCircles from "009 color circles/ColorCircles";
 import ABWrapper from "010 ab/ABWrapper";
-import DotLines from "011 dot lines/Pillars";
+import DotLines from "011 dot lines/Pillars1";
 import Squares from "012 squares/Squares";
 import Footer from "Footer";
 
