@@ -24,6 +24,7 @@ import ABWrapper from "010 ab/ABWrapper";
 import Pillars from "011 dot lines/Pillars";
 import Cassettes from "011 dot lines/Cassettes";
 import Squares from "012 squares/Squares";
+import Boxes from "011 dot lines/Boxes";
 import Footer from "Footer";
 
 const GlobalStyle = createGlobalStyle`
@@ -94,6 +95,7 @@ function App() {
           <Route exact path="/pillars" component={Pillars} />
           <Route exact path="/cassettes" component={Cassettes} />
           <Route exact path="/squares" component={Squares} />
+          <Route exact path="/boxes" component={Boxes} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
