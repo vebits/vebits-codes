@@ -106,7 +106,7 @@ function AB() {
     let single = rnd.random_between(0, 1) > 0.8;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.8;
-    let glitched = rnd.random_between(0, 1) > 0.99;
+    let glitched = rnd.random_between(0, 1) > 1;
 
     console.log(
       "flowDirection: ",
