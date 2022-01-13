@@ -140,6 +140,7 @@ function AB() {
     //p.background(100);
 
     initAngleGrid(p, leftToRight, wobbly, straight);
+    p.strokeJoin(p.BEVEL);
 
     if (leftToRight) {
       drawLeftToRight(
@@ -208,7 +209,6 @@ function AB() {
     if (outlined || noFillAtAll) {
       p.stroke(0);
       p.strokeWeight(2 * m);
-      p.strokeCap(p.ROUND);
 
       if (noFillAtAll) {
         p.noFill();
@@ -354,8 +354,7 @@ function AB() {
 
     if (outlined || noFillAtAll) {
       p.stroke(0);
-      p.strokeWeight(1.5 * m);
-      p.strokeCap(p.ROUND);
+      p.strokeWeight(2 * m);
 
       if (noFillAtAll) {
         p.noFill();

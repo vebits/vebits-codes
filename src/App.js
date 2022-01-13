@@ -55,6 +55,10 @@ const GlobalStyle = createGlobalStyle`
   a:hover, a:visited, a:link, a:active {
     text-decoration: none;
   }
+
+  footer {
+    width: 100%;
+  }
 `;
 
 function ScrollToTop() {
