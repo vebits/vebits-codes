@@ -24,7 +24,7 @@ import ABWrapper from "010 ab/ABWrapper";
 import Pillars from "011 dot lines/Pillars";
 import Cassettes from "011 dot lines/Cassettes";
 import Squares from "012 squares/Squares";
-import Boxes from "011 dot lines/Boxes";
+import Boxes from "011 dot lines/Simplebox";
 import Footer from "Footer";
 
 const GlobalStyle = createGlobalStyle`
@@ -44,6 +44,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
   }
   
