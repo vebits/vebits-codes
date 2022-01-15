@@ -7,90 +7,132 @@ import { hex2hsl } from "utils/color-converter";
 import shuffle from "utils/shuffle";
 
 function AB() {
-  let { id } = useParams();
-
-  let seed, hash, tokenData;
-  tokenData = { hash: random_hash() };
-  if (id) {
-    hash = id;
-  } else {
-    hash = tokenData.hash;
-  }
-  seed = parseInt(hash.slice(0, 16), 16);
-  const rnd = new Random(seed);
-  console.log(tokenData.hash);
-
   // DIMENSIONS
   let DEFAULT_SIZE = 1024;
   let width, height;
-  if (window.innerHeight >= 0.75 * window.innerWidth) {
+  if (window.innerHeight >= 1.2 * window.innerWidth) {
     width = window.innerWidth;
-    height = 0.75 * window.innerWidth;
+    height = 1.2 * window.innerWidth;
   } else {
     height = window.innerHeight;
-    width = window.innerHeight / 0.75;
+    width = window.innerHeight / 1.2;
   }
-  const windowMargin = id ? 1 : 0.75;
-  width = width * windowMargin;
-  height = height * windowMargin;
   console.log(width, height);
 
   let dim = Math.min(width, height);
   let m = dim / DEFAULT_SIZE;
 
-  // PDS
-  let r = 20 * m;
-  let w = r / Math.sqrt(2);
+  let w = 12;
 
   const angleGrid = [];
 
   let cols, rows;
 
+  let seed, hash, tokenData, rnd;
   const setup = (p, canvasParentRef) => {
+    tokenData = { hash: random_hash() };
+    seed = parseInt(tokenData.hash.slice(0, 16), 16);
+    rnd = new Random(seed); // 23539090465365090
+    console.log("SEED:", seed);
     //p.pixelDensity(1);
     p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.noLoop();
     p.colorMode(p.HSL);
     p.noiseSeed(seed);
 
+    p.keyPressed = function () {
+      if (p.keyCode === 80) p.saveCanvas("colorflow_" + hash, "png");
+    };
+  };
+
+  const draw = (p) => {
     // PALETTE
-    let Palettes2 = [
-      ["#D9D9D9", "#F2CC0C", "#D9A407", "#BF7E04", "#A63F03"],
-      ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
-      //["#202426", "#6C733D", "#9DA65D", "#8C8C88", "#F2F2F2"], // //
-      ["#F2F2F2", "#A6A6A6", "#595959", "#262626", "#0D0D0D"],
-      //["#08348C", "#4992F2", "#D9936A", "#592014", "#A65341"],
-      ["#A4B8BF", "#EBF0F2", "#6D878C", "#31403E", "#1A261C"],
-      ["#6D7E8C", "#343E40", "#BFA98E", "#8C715A", "#0D0D0D"],
-      ["#27191c", "#2d3839", "#114d4d", "#6e9987", "#e0e4ce"],
-      ["#951f2b", "#f5f4d7", "#e0dfb1", "#a5a36c", "#535233"],
-      ["#c8e3c5", "#9cad9a", "#755858", "#f7f7c6", "#ffc870"],
-      ["#fcab10", "#f9ce07", "#0ce3e8", "#1f0441", "#fc1068"],
-      ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#ece1c3"],
-      //["#322f3e", "#abdecb", "#e63c6d", "#ede7a5", "#f5b494"], //
-      //["#b3a176", "#494d4b", "#e2cb92", "#312c20", "#7c7052"], //
-      ["#edeccf", "#207178", "#dc6378", "#f1c694", "#101652"], // *
-      ["#260d0d", "#319190", "#ff4000", "#ffc803", "#ffefb5"], // *
-      ["#d2fdfe", "#febf97", "#fe6960", "#fefac2", "#affbff"],
-      //["#e77a77", "#54343f", "#f9df94", "#cad5ad", "#f6a570"], //
-      ["#f98f6f", "#f7eadc", "#eb613b", "#4d3b36", "#c1d9cd"],
-      ["#9e6b7c", "#f3d597", "#b6d89c", "#92ccb6", "#f87887"],
-      ["#fcdfbd", "#8d9c9d", "#45373e", "#e00b5b", "#f5b04b"],
-      ["#ff1d44", "#1c8080", "#fbebaf", "#74bf9d", "#56a292"],
-      ["#008584", "#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
-      ["#602749", "#130912", "#b14623", "#3e1c33", "#f6921d"],
-      ["#e77a77", "#54343f", "#f6a570", "#cad5ad", "#f9df94"],
-      ["#c2412d", "#5a1e4a", "#a46583", "#d1aa34", "#a7a844"],
-      ["#fcbf6b", "#a9ccb9", "#afab50", "#e58634", "#657a38"],
-      ["#fdffd9", "#fff0b8", "#faad8e", "#ffd6a3", "#142f30"],
-      ["#567ebb", "#1f1f20", "#dce0e6", "#606d80", "#2b4c7e"],
-      ["#83563f", "#fda664", "#cee1d8", "#f6eee0", "#f04842"],
+    //["#6D7E8C", "#343E40", "#BFA98E", "#8C715A", "#0D0D0D"],
+    //["#ff1d44", "#1c8080", "#fbebaf", "#74bf9d", "#56a292"],
+
+    let FinalPalettes = [
+      {
+        name: "candy",
+        colors: ["#ede2ce", "#207178", "#dc6378", "#f1c694", "#101652"],
+        background: rnd.random_choice([
+          "#ede2ce",
+          "#ede2ce",
+          "#ede2ce",
+          "#207178",
+          "#dc6378",
+          "#f1c694",
+        ]),
+        stroke: "#000",
+      },
+      {
+        name: "dark",
+        colors: ["#464646", "#3c3c3c", "#323232", "#282828", "#1e1e1e"],
+        stroke: "#000",
+        background: rnd.random_choice(["#1e1e1e"]),
+      },
+      {
+        name: "red",
+        colors: ["#260d0d", "#319190", "#ff4000", "#ffc803", "#ffefb5"],
+        stroke: "#000",
+        background: rnd.random_choice(["#ffefb5", "#319190", "#ff4000"]),
+      },
+      {
+        name: "canyon",
+        colors: ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
+        stroke: "#000",
+        background: rnd.random_choice(["#D9BDAD", "#D9653B", "#262626"]),
+      },
+      {
+        name: "steel",
+        colors: ["#A4B8BF", "#EBF0F2", "#6D878C", "#31403E", "#1A261C"],
+        stroke: "#000",
+        background: rnd.random_choice(["#EBF0F2", "#6D878C", "#1A261C"]),
+      },
+      {
+        name: "arrow",
+        colors: ["#951f2b", "#f5f4d7", "#e0dfb1", "#a5a36c", "#535233"],
+        stroke: "#000",
+        background: rnd.random_choice(["#f5f4d7", "#951f2b"]),
+      },
+      {
+        name: "blue",
+        colors: ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#ece1c3"],
+        stroke: "#000",
+        background: rnd.random_choice(["#ece1c3", "#8ebdb6"]),
+      },
+      {
+        name: "green",
+        colors: ["#008584", "#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
+        stroke: "#fff",
+        background: rnd.random_choice(["#006666"]),
+      },
+      {
+        name: "green",
+        colors: ["#fdffd9", "#fff0b8", "#faad8e", "#ffd6a3", "#142f30"],
+        stroke: "#000",
+        background: rnd.random_choice(["#142f30"]),
+      },
+      {
+        name: "moonlight",
+        colors: ["#1E0D2E", "#341F4F", "#59428A", "#8C83E0", "#C0C6FF"],
+        stroke: "#000",
+        background: rnd.random_choice(["#C0C6FF", "#59428A"]),
+      },
+      {
+        name: "firefox",
+        colors: ["#F2911B", "#F2780C", "#F25C05", "#F24405", "#F2F2F2"],
+        stroke: "#fff",
+        background: rnd.random_choice(["#000"]),
+      },
     ];
-    let palette = shuffle(
+
+    /* let palette = shuffle(
       Palettes2[rnd.random_int(0, Palettes2.length - 1)],
       rnd
-    );
-    console.log(palette);
+    ); */
+
+    let palette = FinalPalettes[rnd.random_int(0, FinalPalettes.length - 1)];
+    //palette = FinalPalettes[10];
 
     let leftToRight = rnd.random_between(0, 1) > 0.5;
     let margin = rnd.random_choice([0, 64, 128, 256]);
@@ -98,15 +140,20 @@ function AB() {
     let density = rnd.random_int(2, 32);
     let outlined = rnd.random_between(0, 1) > 1;
     let noFillAtAll = rnd.random_between(0, 1) > 0.98;
-    let alpha = rnd.random_between(0, 1) > 0.6;
-    let symmetry = rnd.random_between(0, 1) > 0.9;
+    let alpha = rnd.random_between(0, 1) > 0.7;
+    let symmetry = rnd.random_between(0, 1) > 0.8;
     let sequential = rnd.random_between(0, 1) > 0.6;
     let group = rnd.random_between(0, 1) > 0.6;
-    let tri = rnd.random_between(0, 1) > 0.6;
-    let single = rnd.random_between(0, 1) > 0.8;
+    let tri = rnd.random_between(0, 1) > 0.8;
+    let duo = rnd.random_between(0, 1) > 0.7;
     let wobbly = rnd.random_between(0, 1) > 0.6;
-    let straight = rnd.random_between(0, 1) > 0.8;
+    let straight = rnd.random_between(0, 1) > 0.94;
+    straight = false;
     let glitched = rnd.random_between(0, 1) > 1;
+
+    if (alpha) {
+      group = true;
+    }
 
     console.log(
       "flowDirection: ",
@@ -121,23 +168,40 @@ function AB() {
     console.log("sequential: ", sequential);
     console.log("group: ", group);
     console.log("tri: ", tri);
-    console.log("single: ", single);
+    console.log("duo: ", duo);
     console.log("wobbly: ", wobbly);
     console.log("straight: ", straight);
     console.log("glitched: ", glitched);
 
     let bgColor;
-    if (tri) {
-      palette.pop();
-      palette.pop();
-    } else if (single) {
-      palette.pop();
-      palette.pop();
-      palette.pop();
-    }
-    bgColor = hex2hsl(palette[rnd.random_int(0, palette.length - 1)]);
+    //bgColor = hex2hsl(palette[rnd.random_int(0, palette.length - 1)]);
+    bgColor = hex2hsl(palette.background);
     p.background(p.color(bgColor[0]));
+
     //p.background(100);
+    if (duo) {
+      while (palette.colors.length > 2) {
+        const index = Math.floor(
+          rnd.random_between(0, 1) * palette.colors.length
+        );
+        if (palette.colors[index] === palette.background) continue;
+        palette.colors.splice(index, 1);
+      }
+      palette.stroke =
+        palette.colors[0] === palette.background
+          ? palette.colors[1]
+          : palette.colors[0];
+    }
+    if (tri) {
+      while (palette.colors.length > 3) {
+        const index = Math.floor(
+          rnd.random_between(0, 1) * palette.colors.length
+        );
+        if (palette.colors[index] === palette.background) continue;
+        palette.colors.splice(index, 1);
+      }
+    }
+    console.log("PALETTE", palette);
 
     initAngleGrid(p, leftToRight, wobbly, straight);
     p.strokeJoin(p.BEVEL);
@@ -157,7 +221,7 @@ function AB() {
         sequential,
         group,
         tri,
-        single
+        duo
       );
     } else {
       drawRightToLeft(
@@ -174,16 +238,11 @@ function AB() {
         sequential,
         group,
         tri,
-        single
+        duo
       );
     }
-
-    p.keyPressed = function () {
-      if (p.keyCode === 80) p.saveCanvas("colorflow_" + hash, "png");
-    };
+    displayBorder(p, 32 * m, hex2hsl(palette.background)[0], palette.stroke);
   };
-
-  const draw = (p) => {};
 
   const drawLeftToRight = (
     p,
@@ -199,15 +258,14 @@ function AB() {
     sequential,
     group,
     tri,
-    single
+    duo
   ) => {
     p.noFill();
 
     const polys = drawFlowField(p, leftToRight, margin, density);
-    console.log(polys);
 
     if (outlined || noFillAtAll) {
-      p.stroke(0);
+      p.stroke(palette.stroke);
       p.strokeWeight(2 * m);
 
       if (noFillAtAll) {
@@ -228,27 +286,33 @@ function AB() {
         mod = 3;
       }
 
-      let color;
-      if (group && !single) {
+      let color = null;
+      if (group && !duo) {
         if (i % mod === 0) {
           continue;
         } else if (rnd.random_between(0, 1) > 0.2) {
-          color = p.color(hex2hsl(palette[Math.ceil((i / 12) % mod) - 1])[0]);
+          color = p.color(
+            hex2hsl(palette.colors[Math.ceil((i / 12) % mod) - 1])[0]
+          );
         } else {
           color = p.color(
-            hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+            hex2hsl(
+              palette.colors[rnd.random_int(0, palette.colors.length - 1)]
+            )[0]
           );
         }
-      } else if (sequential && !single) {
-        color = p.color(hex2hsl(palette[i % mod])[0]);
+      } else if (sequential && !duo) {
+        color = p.color(hex2hsl(palette.colors[i % mod])[0]);
       } else {
         color = p.color(
-          hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+          hex2hsl(
+            palette.colors[rnd.random_int(0, palette.colors.length - 1)]
+          )[0]
         );
       }
 
       if (alpha) {
-        color.setAlpha(rnd.random_between(0.1, 0.3));
+        color.setAlpha(rnd.random_between(0.1, 0.6));
       }
 
       if (rnd.random_between(0, 1) > 0.0 && !noFillAtAll) {
@@ -345,15 +409,14 @@ function AB() {
     sequential,
     group,
     tri,
-    single
+    duo
   ) => {
     p.noFill();
 
     const polys = drawFlowField(p, leftToRight, margin, density);
-    console.log(polys);
 
     if (outlined || noFillAtAll) {
-      p.stroke(0);
+      p.stroke(palette.stroke);
       p.strokeWeight(2 * m);
 
       if (noFillAtAll) {
@@ -375,26 +438,32 @@ function AB() {
       }
 
       let color;
-      if (group && !single) {
+      if (group && !duo) {
         if (i % mod === 0) {
           continue;
         } else if (rnd.random_between(0, 1) > 0.2) {
-          color = p.color(hex2hsl(palette[Math.ceil((i / 12) % mod) - 1])[0]);
+          color = p.color(
+            hex2hsl(palette.colors[Math.ceil((i / 12) % mod) - 1])[0]
+          );
         } else {
           color = p.color(
-            hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+            hex2hsl(
+              palette.colors[rnd.random_int(0, palette.colors.length - 1)]
+            )[0]
           );
         }
-      } else if (sequential && !single) {
-        color = p.color(hex2hsl(palette[i % mod])[0]);
+      } else if (sequential && !duo) {
+        color = p.color(hex2hsl(palette.colors[i % mod])[0]);
       } else {
         color = p.color(
-          hex2hsl(palette[rnd.random_int(0, palette.length - 1)])[0]
+          hex2hsl(
+            palette.colors[rnd.random_int(0, palette.colors.length - 1)]
+          )[0]
         );
       }
 
       if (alpha) {
-        color.setAlpha(rnd.random_between(0.1, 0.3));
+        color.setAlpha(rnd.random_between(0.1, 0.6));
       }
 
       if (rnd.random_between(0, 1) > 0.0 && !noFillAtAll) {
@@ -526,6 +595,7 @@ function AB() {
       }
       polys.push(currentpoly);
     }
+    console.log(polys);
     return polys;
   }
 
@@ -553,6 +623,26 @@ function AB() {
         angleGrid[x].push(angle);
       }
     }
+  }
+
+  function displayBorder(p, e, color, stroke) {
+    p.fill(color);
+    p.stroke(stroke);
+    p.strokeWeight(2 * m);
+    p.strokeJoin(p.MITER);
+    p.beginShape();
+    p.vertex(-1 * m, -1 * m);
+    p.vertex(width + 1 * m, -1 * m);
+    p.vertex(width + 1 * m, height + 1 * m);
+    p.vertex(-1 * m, height + 1 * m);
+    p.beginContour();
+    p.stroke(stroke);
+    p.vertex(e, e);
+    p.vertex(e, height - e);
+    p.vertex(width - e, height - e);
+    p.vertex(width - e, e);
+    p.endContour();
+    p.endShape(p.CLOSE);
   }
 
   return <Sketch setup={setup} draw={draw} />;

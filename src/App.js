@@ -20,7 +20,7 @@ import Flow2 from "006 flow2/Flow2";
 import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 import ColorAsteroidsWrapper from "008 color asteroids/ColorAsteroidsWrapper";
 import ColorCircles from "009 color circles/ColorCircles";
-import ABWrapper from "010 ab/ABWrapper";
+import ABWrapper from "010 ab/AB5 screening";
 import Pillars from "011 dot lines/Pillars";
 import Cassettes from "011 dot lines/Cassettes";
 import Squares from "012 squares/Squares";
