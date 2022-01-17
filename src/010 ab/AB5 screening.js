@@ -97,12 +97,6 @@ function AB() {
         background: rnd.random_choice(["#f0ede6", "#951f2b"]),
       }, */
       {
-        name: "red mono",
-        colors: ["#fff", "#fff", "#fff", "#fff", "#fff"],
-        stroke: "#fff",
-        background: rnd.random_choice(["#951f2b"]),
-      },
-      {
         name: "blue",
         colors: ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#f0ede6"],
         stroke: "#000",
@@ -111,12 +105,6 @@ function AB() {
       {
         name: "green",
         colors: ["#008584", "#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
-        stroke: "#fff",
-        background: rnd.random_choice(["#006666"]),
-      },
-      {
-        name: "green mono",
-        colors: ["#fff", "#fff", "#fff", "#fff", "#fff"],
         stroke: "#fff",
         background: rnd.random_choice(["#006666"]),
       },
@@ -143,6 +131,18 @@ function AB() {
         colors: ["#f0ede6", "#594842", "#D9998B", "#F2C1B6", "#D98B84"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6"]),
+      },
+      {
+        name: "red mono",
+        colors: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+        stroke: "#fff",
+        background: rnd.random_choice(["#951f2b"]),
+      },
+      {
+        name: "green mono",
+        colors: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+        stroke: "#fff",
+        background: rnd.random_choice(["#006666"]),
       },
     ];
 
@@ -177,9 +177,13 @@ function AB() {
     }
 
     if (palette.name === "red mono" || palette.name === "green mono") {
-      alpha = true;
-      outlined = false;
-      density = rnd.random_int(10, 32);
+      if (rnd.random_between(0, 1) > 0.5) {
+        palette = FinalPalettes[rnd.random_int(0, FinalPalettes.length - 3)];
+      } else {
+        alpha = true;
+        outlined = false;
+        density = rnd.random_int(10, 32);
+      }
     }
 
     console.log(
