@@ -53,33 +53,35 @@ function AB() {
     let FinalPalettes = [
       {
         name: "candy",
-        colors: ["#ede2ce", "#207178", "#dc6378", "#f1c694", "#101652"],
+        colors: ["#f0ede6", "#207178", "#dc6378", "#f1c694", "#101652"],
+        stroke: "#000",
         background: rnd.random_choice([
-          "#ede2ce",
+          "#f0ede6",
+
+          /* "#ede2ce",
           "#ede2ce",
           "#ede2ce",
           "#207178",
           "#dc6378",
-          "#f1c694",
+          "#f1c694", */
         ]),
-        stroke: "#000",
       },
       {
         name: "dark",
         colors: ["#464646", "#3c3c3c", "#323232", "#282828", "#1e1e1e"],
-        stroke: "#000",
+        stroke: "#fff",
         background: rnd.random_choice(["#1e1e1e"]),
       },
       {
         name: "red",
-        colors: ["#260d0d", "#319190", "#ff4000", "#ffc803", "#ffefb5"],
+        colors: ["#260d0d", "#319190", "#ff4000", "#ffc803", "#f0ede6"],
         stroke: "#000",
-        background: rnd.random_choice(["#ffefb5", "#319190", "#ff4000"]),
+        background: rnd.random_choice(["#f0ede6", "#319190", "#ff4000"]),
       },
       {
         name: "canyon",
         colors: ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
-        stroke: "#000",
+        stroke: "#fff",
         background: rnd.random_choice(["#D9BDAD", "#D9653B", "#262626"]),
       },
       {
@@ -88,17 +90,23 @@ function AB() {
         stroke: "#000",
         background: rnd.random_choice(["#EBF0F2", "#6D878C", "#1A261C"]),
       },
-      {
+      /* {
         name: "arrow",
-        colors: ["#951f2b", "#f5f4d7", "#e0dfb1", "#a5a36c", "#535233"],
-        stroke: "#000",
-        background: rnd.random_choice(["#f5f4d7", "#951f2b"]),
+        colors: ["#951f2b", "#f0ede6", "#e0dfb1", "#a5a36c", "#535233"],
+        stroke: "#fff",
+        background: rnd.random_choice(["#f0ede6", "#951f2b"]),
+      }, */
+      {
+        name: "red mono",
+        colors: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+        stroke: "#fff",
+        background: rnd.random_choice(["#951f2b"]),
       },
       {
         name: "blue",
-        colors: ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#ece1c3"],
+        colors: ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#f0ede6"],
         stroke: "#000",
-        background: rnd.random_choice(["#ece1c3", "#8ebdb6"]),
+        background: rnd.random_choice(["#f0ede6", "#8ebdb6"]),
       },
       {
         name: "green",
@@ -107,22 +115,34 @@ function AB() {
         background: rnd.random_choice(["#006666"]),
       },
       {
+        name: "green mono",
+        colors: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+        stroke: "#fff",
+        background: rnd.random_choice(["#006666"]),
+      },
+      /* {
         name: "green",
         colors: ["#fdffd9", "#fff0b8", "#faad8e", "#ffd6a3", "#142f30"],
-        stroke: "#000",
+        stroke: "#fff",
         background: rnd.random_choice(["#142f30"]),
-      },
+      }, */
       {
-        name: "moonlight",
+        name: "moonshine",
         colors: ["#1E0D2E", "#341F4F", "#59428A", "#8C83E0", "#C0C6FF"],
         stroke: "#000",
         background: rnd.random_choice(["#C0C6FF", "#59428A"]),
       },
       {
         name: "firefox",
-        colors: ["#F2911B", "#F2780C", "#F25C05", "#F24405", "#F2F2F2"],
-        stroke: "#fff",
-        background: rnd.random_choice(["#000"]),
+        colors: ["#F2911B", "#F2780C", "#F25C05", "#F24405", "#f0ede6"],
+        stroke: "#000",
+        background: rnd.random_choice(["#f0ede6"]),
+      },
+      {
+        name: "firefox",
+        colors: ["#f0ede6", "#594842", "#D9998B", "#F2C1B6", "#D98B84"],
+        stroke: "#000",
+        background: rnd.random_choice(["#f0ede6"]),
       },
     ];
 
@@ -132,27 +152,34 @@ function AB() {
     ); */
 
     let palette = FinalPalettes[rnd.random_int(0, FinalPalettes.length - 1)];
-    //palette = FinalPalettes[10];
+    //palette = FinalPalettes[0];
 
     let leftToRight = rnd.random_between(0, 1) > 0.5;
     let margin = rnd.random_choice([0, 64, 128, 256]);
     margin = margin * m;
     let density = rnd.random_int(2, 32);
-    let outlined = rnd.random_between(0, 1) > 1;
+    let outlined = rnd.random_between(0, 1) > 0.95;
     let noFillAtAll = rnd.random_between(0, 1) > 0.98;
     let alpha = rnd.random_between(0, 1) > 0.7;
-    let symmetry = rnd.random_between(0, 1) > 0.8;
+    let symmetry = rnd.random_between(0, 1) > 0.85;
     let sequential = rnd.random_between(0, 1) > 0.6;
     let group = rnd.random_between(0, 1) > 0.6;
     let tri = rnd.random_between(0, 1) > 0.8;
     let duo = rnd.random_between(0, 1) > 0.7;
     let wobbly = rnd.random_between(0, 1) > 0.6;
-    let straight = rnd.random_between(0, 1) > 0.94;
-    straight = false;
+    let straight = rnd.random_between(0, 1) > 0.95;
+
     let glitched = rnd.random_between(0, 1) > 1;
 
     if (alpha) {
       group = true;
+      outlined = false;
+    }
+
+    if (palette.name === "red mono" || palette.name === "green mono") {
+      alpha = true;
+      outlined = false;
+      density = rnd.random_int(10, 32);
     }
 
     console.log(
@@ -175,15 +202,14 @@ function AB() {
 
     let bgColor;
     //bgColor = hex2hsl(palette[rnd.random_int(0, palette.length - 1)]);
-    bgColor = hex2hsl(palette.background);
-    p.background(p.color(bgColor[0]));
+    bgColor = p.color(hex2hsl(palette.background)[0]);
+    p.background(bgColor);
 
-    //p.background(100);
     if (duo) {
+      if (palette.name === "dark") {
+      }
       while (palette.colors.length > 2) {
-        const index = Math.floor(
-          rnd.random_between(0, 1) * palette.colors.length
-        );
+        const index = p.floor(rnd.random_between(0, 1) * palette.colors.length);
         if (palette.colors[index] === palette.background) continue;
         palette.colors.splice(index, 1);
       }
