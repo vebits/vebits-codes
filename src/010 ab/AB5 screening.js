@@ -67,7 +67,7 @@ function AB() {
         ]),
       },
       {
-        name: "dark",
+        name: "charcoal",
         colors: ["#464646", "#3c3c3c", "#323232", "#282828", "#1e1e1e"],
         stroke: "#fff",
         background: rnd.random_choice(["#1e1e1e"]),
@@ -79,7 +79,7 @@ function AB() {
         background: rnd.random_choice(["#f0ede6", "#319190", "#ff4000"]),
       },
       {
-        name: "canyon",
+        name: "lava",
         colors: ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
         stroke: "#fff",
         background: rnd.random_choice(["#D9BDAD", "#D9653B", "#262626"]),
@@ -103,7 +103,7 @@ function AB() {
         background: rnd.random_choice(["#f0ede6", "#8ebdb6"]),
       },
       {
-        name: "green",
+        name: "claystone",
         colors: ["#008584", "#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
         stroke: "#fff",
         background: rnd.random_choice(["#006666"]),
@@ -176,6 +176,10 @@ function AB() {
       outlined = false;
     }
 
+    if (outlined) {
+      density = rnd.random_int(10, 32);
+    }
+
     if (palette.name === "red mono" || palette.name === "green mono") {
       if (rnd.random_between(0, 1) > 0.5) {
         palette = FinalPalettes[rnd.random_int(0, FinalPalettes.length - 3)];
@@ -210,7 +214,7 @@ function AB() {
     p.background(bgColor);
 
     if (duo) {
-      if (palette.name === "dark") {
+      if (palette.name === "charcoal") {
       }
       while (palette.colors.length > 2) {
         const index = p.floor(rnd.random_between(0, 1) * palette.colors.length);
@@ -272,6 +276,9 @@ function AB() {
       );
     }
     displayBorder(p, 32 * m, hex2hsl(palette.background)[0], palette.stroke);
+    p.imageMode(p.CENTER);
+    p.translate(width / 2, height / 2);
+    p.rotate(p.PI / 180);
   };
 
   const drawLeftToRight = (
