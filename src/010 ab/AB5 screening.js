@@ -152,7 +152,7 @@ function AB() {
     ); */
 
     let palette = FinalPalettes[rnd.random_int(0, FinalPalettes.length - 1)];
-    //palette = FinalPalettes[0];
+    //palette = FinalPalettes[3];
 
     let leftToRight = rnd.random_between(0, 1) > 0.5;
     let margin = rnd.random_choice([0, 64, 128, 256]);
@@ -162,8 +162,8 @@ function AB() {
     let noFillAtAll = rnd.random_between(0, 1) > 0.98;
     let alpha = rnd.random_between(0, 1) > 0.7;
     let symmetry = rnd.random_between(0, 1) > 0.85;
-    let sequential = rnd.random_between(0, 1) > 0.6;
-    let group = rnd.random_between(0, 1) > 0.6;
+    let sequential = rnd.random_between(0, 1) > 0.5;
+    let group = rnd.random_between(0, 1) > 0.7;
     let tri = rnd.random_between(0, 1) > 0.8;
     let duo = rnd.random_between(0, 1) > 0.7;
     let wobbly = rnd.random_between(0, 1) > 0.6;
