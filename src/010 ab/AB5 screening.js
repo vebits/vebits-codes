@@ -168,7 +168,7 @@ function AB() {
     let duo = rnd.random_between(0, 1) > 0.7;
     let wobbly = rnd.random_between(0, 1) > 0.6;
     let straight = rnd.random_between(0, 1) > 0.95;
-
+    let swap = false;
     let glitched = rnd.random_between(0, 1) > 1;
 
     if (alpha) {
@@ -178,6 +178,10 @@ function AB() {
 
     if (outlined) {
       density = rnd.random_int(10, 32);
+    }
+
+    if (margin === 0 && rnd.random_between(0, 1) > 0.5) {
+      swap = true;
     }
 
     if (palette.name === "red mono" || palette.name === "green mono") {
@@ -239,7 +243,10 @@ function AB() {
 
     initAngleGrid(p, leftToRight, wobbly, straight);
     p.strokeJoin(p.BEVEL);
-
+    if (swap) {
+      p.translate(width, height);
+      p.rotate(p.PI);
+    }
     if (leftToRight) {
       drawLeftToRight(
         p,
@@ -276,9 +283,6 @@ function AB() {
       );
     }
     displayBorder(p, 32 * m, hex2hsl(palette.background)[0], palette.stroke);
-    p.imageMode(p.CENTER);
-    p.translate(width / 2, height / 2);
-    p.rotate(p.PI / 180);
   };
 
   const drawLeftToRight = (
