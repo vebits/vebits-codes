@@ -165,7 +165,7 @@ const Home = () => {
             </WorkLink>
             <ImagesContainer>
               <ImageContainer>
-                <Image src={pillars1} alt="Kronen" />
+                <Image src={pillars1} loading="lazy" alt="Kronen" />
                 <ImageLink
                   href="https://foundation.app/@vebits/foundation/109111"
                   target="_blank"
@@ -175,7 +175,7 @@ const Home = () => {
                 </ImageLink>
               </ImageContainer>
               <ImageContainer>
-                <Image src={pillars2} alt="Kronen" />
+                <Image src={pillars2} loading="lazy" alt="Kronen" />
                 <ImageLink
                   href="https://foundation.app/@vebits/foundation/109114"
                   target="_blank"
@@ -185,7 +185,7 @@ const Home = () => {
                 </ImageLink>
               </ImageContainer>
               <ImageContainer>
-                <Image src={pillars3} alt="Kronen" />
+                <Image src={pillars3} loading="lazy" alt="Kronen" />
                 <ImageLink
                   href="https://foundation.app/@vebits/foundation/109116"
                   target="_blank"
@@ -212,7 +212,7 @@ const Home = () => {
             </WorkLink>
             <ImagesContainer>
               <ImageContainer>
-                <Image src={cord1} alt="Kronen" />
+                <Image src={cord1} loading="lazy" alt="Kronen" />
                 <ImageLink
                   href="https://teia.art/objkt/67002"
                   target="_blank"
@@ -222,7 +222,7 @@ const Home = () => {
                 </ImageLink>
               </ImageContainer>
               <ImageContainer>
-                <Image src={cord2} alt="Kronen" />
+                <Image src={cord2} loading="lazy" alt="Kronen" />
                 <ImageLink
                   href="https://teia.art/objkt/67008"
                   target="_blank"
@@ -232,7 +232,7 @@ const Home = () => {
                 </ImageLink>
               </ImageContainer>
               <ImageContainer>
-                <Image src={cord3} alt="Kronen" />
+                <Image src={cord3} loading="lazy" alt="Kronen" />
                 <ImageLink
                   href="https://teia.art/objkt/67016"
                   target="_blank"
@@ -242,7 +242,7 @@ const Home = () => {
                 </ImageLink>
               </ImageContainer>
               <ImageContainer>
-                <Image src={cord4} alt="Kronen" />
+                <Image src={cord4} loading="lazy" alt="Kronen" />
                 <ImageLink
                   href="https://teia.art/objkt/67032"
                   target="_blank"
@@ -275,22 +275,6 @@ const Home = () => {
             </PGWorks>
           </PGSection>
         </WorksSection>
-        {/* <AboutSection>
-          <Title>About.</Title>
-          <Info>A collection of my generative art projects.</Info>
-        </AboutSection>
-        <ProjectSection>
-          <Title>Projects.</Title>
-          <StyledRRLink to="/sabers">001 sabers</StyledRRLink>
-          <StyledRRLink to="/bubba">002 bubba</StyledRRLink>
-          <StyledRRLink to="/flow-1">003 flow 1</StyledRRLink>
-          <StyledRRLink to="/stripes">004 stripes</StyledRRLink>
-          <StyledRRLink to="/color-shadows">005 color shadows</StyledRRLink>
-          <StyledRRLink to="/flow-2">006 flow 2</StyledRRLink>
-          <StyledRRLink to="/cordillera">007 cordillera</StyledRRLink>
-          <StyledRRLink to="/color-asteroids">008 color asteroids</StyledRRLink>
-          <StyledRRLink to="/color-circles">009 color circles</StyledRRLink>
-        </ProjectSection> */}
       </Page>
     </>
   );
