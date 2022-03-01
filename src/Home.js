@@ -102,8 +102,12 @@ const WorkLink = styled.a`
 
 const ImagesContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 12px;
+
+  > *:not(:last-child) {
+    margin-right: 24px;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -124,7 +128,7 @@ const ImageLink = styled.a`
 `;
 
 const Image = styled.img`
-  width: 90%;
+  width: 100%;
   object-fit: contain;
 `;
 
