@@ -12,6 +12,6 @@ export const Colors = {
     two: "#84a98c",
     three: "#52796f",
     four: "#354f52",
-    five: "#2f3e46",
+    five: "#000",
   },
 };

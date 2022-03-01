@@ -140,7 +140,6 @@ function Flow2() {
         </Info>
         <Sketch setup={setup} draw={draw} />
       </Page>
-      <Footer />
     </>
   );
 }

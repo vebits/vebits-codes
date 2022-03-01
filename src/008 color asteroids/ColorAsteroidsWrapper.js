@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-import Confetti from "008 color asteroids/ColorAsteroids";
+import Confetti from "008 color asteroids/confetti3";
 import Footer from "Footer";
 
 import { Colors } from "utils/constants";
@@ -75,7 +75,6 @@ function Parent() {
           </>
         )}
       </Page>
-      {id ? null : <Footer />}
     </>
   );
 }

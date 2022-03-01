@@ -75,7 +75,6 @@ function CordilleraWrapper({ children }) {
           </>
         )}
       </Page>
-      {id ? null : <Footer />}
     </>
   );
 }

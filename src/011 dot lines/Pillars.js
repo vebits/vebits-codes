@@ -75,8 +75,8 @@ if (window.innerHeight >= 1.5 * window.innerWidth) {
 /* const windowMargin = 0.75;
 width = width * windowMargin;
 height = height * windowMargin; */
-width = 4096;
-height = width * 1.5;
+/* width = 4096;
+height = width * 1.5; */
 
 console.log(width, height);
 var dim = Math.min(width, height);

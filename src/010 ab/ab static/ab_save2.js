@@ -1,16 +1,3 @@
-/* eslint-disable */
-function random_hash() {
-  let chars = "0123456789abcdef";
-  let result = "0x";
-  for (let i = 64; i > 0; --i)
-    result += chars[Math.floor(Math.random() * chars.length)];
-  return result;
-}
-
-const tokenData = {
-  hash: random_hash(),
-};
-console.log(tokenData);
 class Random {
   constructor() {
     this.useA = false;
@@ -79,8 +66,6 @@ if (window.innerHeight >= 1.2 * window.innerWidth) {
 let dim = Math.min(width, height);
 let m = dim / DEFAULT_SIZE;
 let w = 12 * m;
-let margin64 = 64 * m;
-let withPadding = false;
 const angleGrid = [];
 let cols, rows;
 let rnd;
@@ -102,53 +87,50 @@ function draw() {
     finalPalettes,
     finalPalettes.map((p) => p.weight)
   );
-  background(color(palette.background));
 
   let margin = weightFunction([0, 64, 128, 256], [2, 2, 1, 0.5]) * m;
-  let density = rnd.random_int(2, 32) * m;
+  let density = rnd.random_int(2, 32);
+
   let leftToRight = rnd.random_dec() > 0.5;
   let symmetry = rnd.random_dec() > 0.9;
+
   let colorStrat = weightFunction(["random", "sequential", "group"], [1, 3, 3]);
   let paletteSize = weightFunction(["full", "tri", "duo"], [3, 1, 1]);
+
   let alpha = rnd.random_dec() > 0.7;
-  let surface = weightFunction(["standard", "uneven", "even"], [3, 1, 0.5]);
+
+  let wobbly = rnd.random_dec() > 0.8;
+  let straight = rnd.random_dec() > 0.95;
+
   let outlined = rnd.random_dec() > 0.95;
   let noFillAtAll = rnd.random_dec() > 0.98;
   let swap = false;
 
-  if (margin === margin64) {
-    withPadding = true;
-    margin = 0;
-  }
-
-  if (surface === "uneven") {
-    w = 1 * m;
-  }
-
   if (alpha) {
-    colorStrat = "group";
+    group = true;
+    outlined = false;
   }
 
   if (outlined) {
-    density = rnd.random_int(10, 32) * m;
+    density = rnd.random_int(10, 32);
   }
 
-  if (margin === 0 && rnd.random_dec() > 0.9) {
+  if (margin === 0 && rnd.random_dec() > 0.9 && !symmetry) {
     swap = true;
   }
 
-  if (margin !== 0) {
-    strokeJoin(BEVEL);
+  if (palette.name === "Mono red" || palette.name === "Mono green") {
+    alpha = true;
+    outlined = false;
+    density = rnd.random_int(10, 32);
   }
 
   if (paletteSize === "duo") {
-    const duoColors = palette.duo[palette.background];
-    while (duoColors.length > 2) {
-      const index = Math.floor(rnd.random_dec() * duoColors.length);
-      if (duoColors[index] === palette.background) continue;
-      duoColors.splice(index, 1);
+    while (palette.colors.length > 2) {
+      const index = Math.floor(rnd.random_dec() * palette.colors.length);
+      if (palette.colors[index] === palette.background) continue;
+      palette.colors.splice(index, 1);
     }
-    palette.colors = duoColors;
     palette.stroke =
       palette.colors[0] === palette.background
         ? palette.colors[1]
@@ -161,81 +143,74 @@ function draw() {
       palette.colors.splice(index, 1);
     }
   }
-  console.log(palette);
 
-  if (outlined || noFillAtAll) {
-    if (palette.name === "Charcoal" && noFillAtAll) {
-      palette.stroke = "#fff";
-    }
-    stroke(palette.stroke);
-    strokeWeight(2 * m);
-  } else {
-    noStroke();
+  if (margin !== 0 && margin !== 64 * m) {
+    strokeJoin(BEVEL);
   }
+
+  let bgColor = color(palette.background);
+  background(bgColor);
+
+  initAngleGrid(leftToRight, wobbly, straight);
 
   if (swap) {
     translate(width, height);
     rotate(PI);
   }
 
-  initAngleGrid(leftToRight, surface, symmetry);
+  noFill();
+
   const polys = getPolys(leftToRight, margin, density);
 
-  // debugging
-  /* for (let x = 0; x < angleGrid.length; x++) {
-    for (let y = 0; y < angleGrid[x].length; y++) {
-      stroke(0);
-      push();
-      translate(x * w, y * w);
-      point(0, 0);
-      rotate(angleGrid[x][y]);
-      line(0, 0, 10, 0);
-      pop();
+  if (outlined || noFillAtAll) {
+    stroke(palette.stroke);
+    strokeWeight(2 * m);
+
+    if (noFillAtAll) {
+      noFill();
     }
-  } */
+  } else {
+    noStroke();
+  }
 
   loop1: for (let i = 0; i < polys.length; i++) {
-    if (polys[i].length < margin64) continue;
+    if (polys[i].length < 64 * m) {
+      continue;
+    }
 
     let mod = palette.colors.length;
     let fillColor;
-    if (colorStrat === "group") {
+    if (colorStrat === "group" && !(paletteSize === "duo")) {
       if (i % mod === 0) {
         continue;
       } else if (rnd.random_dec() > 0.2) {
-        fillColor = palette.colors[Math.ceil((i / 12) % mod) - 1];
+        fillColor = color(palette.colors[Math.ceil((i / 12) % mod) - 1]);
       } else {
-        fillColor =
-          palette.colors[rnd.random_int(0, palette.colors.length - 1)];
+        fillColor = color(
+          palette.colors[rnd.random_int(0, palette.colors.length - 1)]
+        );
       }
-    } else if (colorStrat === "sequential") {
-      fillColor = palette.colors[i % mod];
+    } else if (colorStrat === "sequential" && !(paletteSize === "duo")) {
+      fillColor = color(palette.colors[i % mod]);
     } else {
-      fillColor = palette.colors[rnd.random_int(0, palette.colors.length - 1)];
+      fillColor = color(
+        palette.colors[rnd.random_int(0, palette.colors.length - 1)]
+      );
     }
 
-    if (!(colorStrat === "sequential") && i <= 1) {
-      while (fillColor === palette.background) {
-        fillColor =
-          palette.colors[rnd.random_int(0, palette.colors.length - 1)];
-      }
-    }
-
-    fillColor = color(fillColor);
     if (alpha) {
       fillColor.setAlpha(rnd.random_num(0.1, 0.9));
     }
 
-    if (noFillAtAll) {
-      noFill();
-    } else {
+    if (!noFillAtAll) {
       fill(fillColor);
+    } else {
+      noFill();
     }
 
     beginShape();
     let last_x = 0;
     let last_y = 0;
-    let offset = 12 * m;
     if (polys[i].length % 2 !== 0) {
       polys[i].pop();
     }
@@ -245,7 +220,7 @@ function draw() {
           if (polys[i][polys[i].length - 1].x < width - margin - 2 * m)
             break loop1;
         } else {
-          if (polys[i][polys[i].length - 1].x > margin + offset) break loop1;
+          if (polys[i][polys[i].length - 1].x > margin + 8 * m) break loop1;
         }
         if (j > polys[i].length / 2) {
           if (j === 0) {
@@ -276,18 +251,29 @@ function draw() {
       }
     }
     last_x = Math.round(last_x);
-
+    let widthWithMargin = Math.round(width - 64 * m);
+    let heightWithMargin = Math.round(height - 64 * m);
+    let roundMargin = Math.round(64 * m);
     if (leftToRight) {
       if (margin === 0) {
-        if (last_x < width - margin - offset) {
+        if (last_x < width - margin - 2 * m) {
           vertex(last_x, height);
         } else {
           vertex(width, last_y);
           vertex(width, height);
         }
         vertex(0, height);
+      } else if (margin === 64 * m) {
+        if (last_x < width - margin - 8 * m) {
+          vertex(last_x, heightWithMargin);
+          vertex(64 * m, heightWithMargin);
+        } else {
+          vertex(widthWithMargin, last_y);
+          vertex(widthWithMargin, heightWithMargin);
+        }
+        vertex(Math.round(64 * m), heightWithMargin);
       } else {
-        if (last_x < width - margin - offset) {
+        if (last_x < width - margin - 8 * m) {
           vertex(last_x, height);
         } else {
           vertex(width - margin, last_y);
@@ -297,15 +283,24 @@ function draw() {
       }
     } else {
       if (margin === 0) {
-        if (last_x < width - margin - offset) {
+        if (last_x < width - margin - 8 * m) {
           vertex(last_x, height);
         } else {
           vertex(margin, last_y);
           vertex(margin, height);
         }
         vertex(width, height);
+      } else if (margin === 64 * m) {
+        if (last_x < margin + 8 * m) {
+          vertex(roundMargin, last_y);
+          vertex(roundMargin, heightWithMargin);
+        } else {
+          vertex(last_x, heightWithMargin);
+          vertex(widthWithMargin, heightWithMargin);
+        }
+        vertex(widthWithMargin, heightWithMargin);
       } else {
-        if (last_x < margin + offset) {
+        if (last_x < margin + 8 * m) {
           vertex(margin, last_y);
           vertex(0, height);
         } else {
@@ -317,11 +312,7 @@ function draw() {
     endShape(CLOSE);
   }
 
-  if (withPadding) {
-    drawPadding(margin64, palette.background);
-  }
   drawBorder(32 * m, palette.background, palette.stroke);
-  console.log(calculateFeatures(tokenData));
 }
 
 function Point(x, y) {
@@ -331,14 +322,14 @@ function Point(x, y) {
 
 function getPolys(leftToRight, margin, density) {
   const polys = [];
-  let margin64Padding = withPadding ? margin64 : margin;
-  for (let a = margin64Padding; a < height; a += density) {
+
+  for (let a = margin; a < height; a += density * m) {
     let x = leftToRight ? margin : width - margin;
     let y = a;
     let currentpoly = [];
 
     while (leftToRight ? x < width : x > margin) {
-      if (y < margin64Padding) {
+      if (y < margin) {
         currentpoly = [];
         break;
       }
@@ -347,7 +338,7 @@ function getPolys(leftToRight, margin, density) {
         x < margin ||
         x > width - (margin === 0 ? 0 : margin) ||
         y < margin ||
-        y > height - (withPadding ? margin64 : 0)
+        y > height - (margin === 64 * m ? 64 * m : 0)
       ) {
         break;
       }
@@ -376,10 +367,10 @@ function getPolys(leftToRight, margin, density) {
   return polys;
 }
 
-function initAngleGrid(leftToRight, expression, symmetry) {
+function initAngleGrid(leftToRight, wobbly, straight) {
   cols = floor(width / w);
   rows = floor(height / w);
-  const cord_scale = expression === "even" ? 0.005 : 0.05;
+  const cord_scale = wobbly ? 0.1 : straight ? 0.005 : 0.05;
 
   for (let x = 0; x < cols + 1; x++) {
     angleGrid.push([]);
@@ -389,27 +380,15 @@ function initAngleGrid(leftToRight, expression, symmetry) {
 
       noiseDetail(8, 0.2);
       const noise_val = noise(scaled_x, scaled_y);
+      const angle = map(
+        noise_val,
+        0.0,
+        1.0,
+        leftToRight ? (4 / 3) * PI : (2 / 3) * PI,
+        leftToRight ? (2 / 3) * PI : (4 / 3) * PI
+      );
 
-      let start, end;
-      if (leftToRight && expression === "even" && symmetry) {
-        start = (5 / 6) * PI;
-        end = PI;
-      } else if (!leftToRight && expression === "even" && symmetry) {
-        start = PI;
-        end = (7 / 6) * PI;
-      } else {
-        if (leftToRight) {
-          start = (2 / 3) * PI;
-          end = (4 / 3) * PI;
-        } else {
-          start = (4 / 3) * PI;
-          end = (2 / 3) * PI;
-        }
-      }
-
-      const angle = map(noise_val, 0.0, 1.0, start, end);
-
-      angleGrid[x].push(-angle);
+      angleGrid[x].push(angle);
     }
   }
 }
@@ -425,24 +404,6 @@ function weightFunction(items, weights) {
     }
   }
   return items[0];
-}
-
-function drawPadding(e, color) {
-  fill(color);
-  stroke(color);
-  strokeWeight(2 * m);
-  beginShape();
-  vertex(-e, -e);
-  vertex(width + e, -e);
-  vertex(width + e, height + e);
-  vertex(-e, height + e);
-  beginContour();
-  vertex(e, e);
-  vertex(e, height - e);
-  vertex(width - e, height - e);
-  vertex(width - e, e);
-  endContour();
-  endShape(CLOSE);
 }
 
 function drawBorder(e, color, s) {
@@ -471,32 +432,20 @@ function getPalettes() {
       colors: ["#f78888", "#f3d250", "#ececec", "#90ccf4", "#5da2d5"],
       stroke: "#000",
       background: rnd.random_choice(["#ececec", "#5da2d5"]),
-      duo: {
-        "#ececec": ["#f78888", "#ececec", "#90ccf4", "#5da2d5"],
-        "#5da2d5": ["#f3d250", "#ececec", "#5da2d5"],
-      },
       weight: 3,
     },
     {
       name: "Redwall",
       colors: ["#f0ede6", "#d8c3a5", "#8e8d8a", "#e98074", "#e84a4f"],
       stroke: "#000",
-      background: rnd.random_choice(["#e98074", "#f0ede6"]),
-      duo: {
-        "#f0ede6": ["#f0ede6", "#e98074", "#e84a4f"],
-        "#e98074": ["#f0ede6", "#e98074"],
-      },
+      background: rnd.random_choice(["#f0ede6", "#e98074"]),
       weight: 3,
     },
     {
       name: "Plio",
       colors: ["#edb7c7", "#f0ede6", "#bab2b5", "#123c69", "#ac3b61"],
       stroke: "#000",
-      background: rnd.random_choice(["#edb7c7", "#f0ede6"]),
-      duo: {
-        "#f0ede6": ["#f0ede6", "#123c69", "#ac3b61"],
-        "#edb7c7": ["#edb7c7", "#123c69", "#ac3b61"],
-      },
+      background: rnd.random_choice(["#f0ede6", "#edb7c7"]),
       weight: 3,
     },
     {
@@ -511,10 +460,6 @@ function getPalettes() {
       ],
       stroke: "#000",
       background: rnd.random_choice(["#f0ede6", "#e27d60"]),
-      duo: {
-        "#f0ede6": ["#f0ede6", "#e27d60", "#85dcbb", "#c38d9e", "#41b3a3"],
-        "#e27d60": ["#f0ede6", "#e27d60", "#85dcbb"],
-      },
       weight: 3,
     },
     {
@@ -522,9 +467,6 @@ function getPalettes() {
       colors: ["#f0ede6", "#207178", "#dc6378", "#f1c694", "#101652"],
       stroke: "#000",
       background: rnd.random_choice(["#f0ede6"]),
-      duo: {
-        "#f0ede6": ["#f0ede6", "#207178", "#dc6378", "#101652"],
-      },
       weight: 3,
     },
     {
@@ -532,21 +474,13 @@ function getPalettes() {
       colors: ["#464646", "#3c3c3c", "#323232", "#282828", "#1e1e1e"],
       stroke: "#fff",
       background: rnd.random_choice(["#1e1e1e"]),
-      duo: {
-        "#1e1e1e": ["#464646", "#3c3c3c", "#323232", "#1e1e1e"],
-      },
       weight: 1,
     },
     {
       name: "Wingate",
       colors: ["#260d0d", "#319190", "#ff4000", "#ffc803", "#f0ede6"],
       stroke: "#000",
-      background: rnd.random_choice(["#ff4000", "#319190", "#f0ede6"]),
-      duo: {
-        "#f0ede6": ["#260d0d", "#319190", "#ff4000", "#ffc803", "#f0ede6"],
-        "#319190": ["#260d0d", "#319190", "#ff4000", "#ffc803", "#f0ede6"],
-        "#ff4000": ["#260d0d", "#ff4000", "#f0ede6"],
-      },
+      background: rnd.random_choice(["#f0ede6", "#319190", "#ff4000"]),
       weight: 3,
     },
     {
@@ -554,11 +488,6 @@ function getPalettes() {
       colors: ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
       stroke: "#fff",
       background: rnd.random_choice(["#D9BDAD", "#D9653B", "#262626"]),
-      duo: {
-        "#D9BDAD": ["#D9BDAD", "#D9653B", "#D94625", "#262626"],
-        "#D9653B": ["#D9BDAD", "#D9653B", "#262626"],
-        "#262626": ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
-      },
       weight: 2,
     },
     {
@@ -566,11 +495,6 @@ function getPalettes() {
       colors: ["#A4B8BF", "#EBF0F2", "#6D878C", "#31403E", "#1A261C"],
       stroke: "#000",
       background: rnd.random_choice(["#EBF0F2", "#6D878C", "#1A261C"]),
-      duo: {
-        "#EBF0F2": ["#EBF0F2", "#6D878C", "#31403E", "#1A261C"],
-        "#6D878C": ["#EBF0F2", "#6D878C", "#1A261C"],
-        "#1A261C": ["#A4B8BF", "#EBF0F2", "#6D878C", "#1A261C"],
-      },
       weight: 2,
     },
     {
@@ -578,10 +502,6 @@ function getPalettes() {
       colors: ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#f0ede6"],
       stroke: "#000",
       background: rnd.random_choice(["#f0ede6", "#8ebdb6"]),
-      duo: {
-        "#f0ede6": ["#063940", "#195e63", "#3e838c", "#f0ede6"],
-        "#8ebdb6": ["#063940", "#195e63", "#8ebdb6"],
-      },
       weight: 3,
     },
     {
@@ -589,9 +509,6 @@ function getPalettes() {
       colors: ["#008584", "#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
       stroke: "#fff",
       background: rnd.random_choice(["#006666"]),
-      duo: {
-        "#006666": ["#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
-      },
       weight: 3,
     },
     {
@@ -599,10 +516,6 @@ function getPalettes() {
       colors: ["#1E0D2E", "#341F4F", "#59428A", "#8C83E0", "#C0C6FF"],
       stroke: "#000",
       background: rnd.random_choice(["#C0C6FF", "#59428A"]),
-      duo: {
-        "#C0C6FF": ["#1E0D2E", "#341F4F", "#59428A", "#C0C6FF"],
-        "#59428A": ["#1E0D2E", "#59428A", "#8C83E0", "#C0C6FF"],
-      },
       weight: 1,
     },
     {
@@ -610,9 +523,6 @@ function getPalettes() {
       colors: ["#F2911B", "#F2780C", "#F25C05", "#F24405", "#f0ede6"],
       stroke: "#000",
       background: rnd.random_choice(["#f0ede6"]),
-      duo: {
-        "#f0ede6": ["#F2911B", "#F2780C", "#F25C05", "#F24405", "#f0ede6"],
-      },
       weight: 3,
     },
     {
@@ -620,10 +530,21 @@ function getPalettes() {
       colors: ["#f0ede6", "#594842", "#D9998B", "#F2C1B6", "#D98B84"],
       stroke: "#000",
       background: rnd.random_choice(["#f0ede6"]),
-      duo: {
-        "#f0ede6": ["#f0ede6", "#594842", "#D98B84"],
-      },
       weight: 3,
+    },
+    {
+      name: "Mono red",
+      colors: ["#fff", "#fff"],
+      stroke: "#fff",
+      background: rnd.random_choice(["#951f2b"]),
+      weight: 0.5,
+    },
+    {
+      name: "Mono green",
+      colors: ["#fff", "#fff"],
+      stroke: "#fff",
+      background: rnd.random_choice(["#006666"]),
+      weight: 0.5,
     },
   ];
 }

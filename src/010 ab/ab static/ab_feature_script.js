@@ -1,17 +1,4 @@
-function calculateFeatures() {
-  /* eslint-disable */
-  function random_hash() {
-    let chars = "0123456789abcdef";
-    let result = "0x";
-    for (let i = 64; i > 0; --i)
-      result += chars[Math.floor(Math.random() * chars.length)];
-    return result;
-  }
-
-  const tokenData = {
-    hash: random_hash(),
-  };
-  console.log(tokenData);
+function calculateFeatures(tokenData) {
   class Random {
     constructor() {
       this.useA = false;
@@ -73,45 +60,29 @@ function calculateFeatures() {
     finalPalettes,
     finalPalettes.map((p) => p.weight)
   );
-  //palette = finalPalettes[0];
 
   let margin = weightFunction([0, 64, 128, 256], [2, 2, 1, 0.5]);
   let density = rnd.random_int(2, 32);
-
   let leftToRight = rnd.random_dec() > 0.5;
-  let symmetry = rnd.random_dec() > 0.95;
-
-  let color_strat = weightFunction(
-    ["random", "sequential", "group", "duo", "tri"],
-    [1, 3, 3, 1, 1]
-  );
-
+  let symmetry = rnd.random_dec() > 0.9;
+  let colorStrat = weightFunction(["Random", "Sequential", "Group"], [1, 3, 3]);
+  let paletteSize = weightFunction(["Full", "Duo", "Single"], [3, 1, 1]);
   let alpha = rnd.random_dec() > 0.7;
-
-  let wobbly = rnd.random_dec() > 0.8;
-  let straight = rnd.random_dec() > 0.95;
-
-  let outlined = rnd.random_dec() > 0.95;
-  let noFillAtAll = rnd.random_dec() > 0.98;
+  let surface = weightFunction(["Standard", "Uneven", "Even"], [3, 1, 0.5]);
+  let outlined = rnd.random_dec() > 0.9;
+  let noFillAtAll = rnd.random_dec() > 0.95;
   let swap = false;
 
   if (alpha) {
-    group = true;
-    outlined = false;
+    colorStrat = "Group";
   }
 
   if (outlined) {
     density = rnd.random_int(10, 32);
   }
 
-  if (margin === 0 && rnd.random_dec() > 0.9 && !symmetry) {
+  if ((margin === 0 || margin === 64) && rnd.random_dec() > 0.9) {
     swap = true;
-  }
-
-  if (palette.name === "red mono" || palette.name === "green mono") {
-    alpha = true;
-    outlined = false;
-    density = rnd.random_int(10, 32);
   }
 
   // helpers
@@ -125,33 +96,34 @@ function calculateFeatures() {
         return items[i];
       }
     }
+    return items[0];
   }
 
   function getPalettes() {
     return [
       {
-        name: "warm",
+        name: "Sandstone",
         colors: ["#f78888", "#f3d250", "#ececec", "#90ccf4", "#5da2d5"],
         stroke: "#000",
         background: rnd.random_choice(["#ececec", "#5da2d5"]),
         weight: 3,
       },
       {
-        name: "warm",
+        name: "Redwall",
         colors: ["#f0ede6", "#d8c3a5", "#8e8d8a", "#e98074", "#e84a4f"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6", "#e98074"]),
         weight: 3,
       },
       {
-        name: "candy",
+        name: "Plio",
         colors: ["#edb7c7", "#f0ede6", "#bab2b5", "#123c69", "#ac3b61"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6", "#edb7c7"]),
         weight: 3,
       },
       {
-        name: "candy",
+        name: "Oligo",
         colors: [
           "#f0ede6",
           "#e27d60",
@@ -165,97 +137,84 @@ function calculateFeatures() {
         weight: 3,
       },
       {
-        name: "candy",
+        name: "Kayenta",
         colors: ["#f0ede6", "#207178", "#dc6378", "#f1c694", "#101652"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6"]),
         weight: 3,
       },
       {
-        name: "charcoal",
+        name: "Charcoal",
         colors: ["#464646", "#3c3c3c", "#323232", "#282828", "#1e1e1e"],
         stroke: "#fff",
         background: rnd.random_choice(["#1e1e1e"]),
-        weight: 0.5,
+        weight: 1,
       },
       {
-        name: "red",
+        name: "Wingate",
         colors: ["#260d0d", "#319190", "#ff4000", "#ffc803", "#f0ede6"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6", "#319190", "#ff4000"]),
         weight: 3,
       },
       {
-        name: "lava",
+        name: "Magma",
         colors: ["#D9BDAD", "#D9653B", "#BF9C8F", "#D94625", "#262626"],
         stroke: "#fff",
         background: rnd.random_choice(["#D9BDAD", "#D9653B", "#262626"]),
         weight: 2,
       },
       {
-        name: "steel",
+        name: "Steel",
         colors: ["#A4B8BF", "#EBF0F2", "#6D878C", "#31403E", "#1A261C"],
         stroke: "#000",
         background: rnd.random_choice(["#EBF0F2", "#6D878C", "#1A261C"]),
         weight: 2,
       },
       {
-        name: "blue",
+        name: "Blue mineral",
         colors: ["#063940", "#195e63", "#3e838c", "#8ebdb6", "#f0ede6"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6", "#8ebdb6"]),
         weight: 3,
       },
       {
-        name: "claystone",
+        name: "Green mineral",
         colors: ["#008584", "#006666", "#f5f5f5", "#e9e9e9", "#cccccc"],
         stroke: "#fff",
         background: rnd.random_choice(["#006666"]),
         weight: 3,
       },
       {
-        name: "moonshine",
+        name: "Moonshine",
         colors: ["#1E0D2E", "#341F4F", "#59428A", "#8C83E0", "#C0C6FF"],
         stroke: "#000",
         background: rnd.random_choice(["#C0C6FF", "#59428A"]),
         weight: 1,
       },
       {
-        name: "firefox",
+        name: "Lava",
         colors: ["#F2911B", "#F2780C", "#F25C05", "#F24405", "#f0ede6"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6"]),
         weight: 3,
       },
       {
-        name: "firefox",
+        name: "Pink opal",
         colors: ["#f0ede6", "#594842", "#D9998B", "#F2C1B6", "#D98B84"],
         stroke: "#000",
         background: rnd.random_choice(["#f0ede6"]),
         weight: 3,
       },
-      {
-        name: "red mono",
-        colors: ["#fff", "#fff"],
-        stroke: "#fff",
-        background: rnd.random_choice(["#951f2b"]),
-        weight: 0.2,
-      },
-      {
-        name: "green mono",
-        colors: ["#fff", "#fff"],
-        stroke: "#fff",
-        background: rnd.random_choice(["#006666"]),
-        weight: 0.2,
-      },
     ];
   }
 
+  // features
   let scene =
     margin === 0
-      ? "Slice"
+      ? "Cross section"
       : margin === 64
-      ? "Slice 2"
+      ? "Cross section 2"
       : margin === 128
       ? "Hillside"
       : "Hillside 2";
@@ -270,18 +229,23 @@ function calculateFeatures() {
       : density >= 20 && density < 25
       ? "Low"
       : "Very low";
-
-  let flowDirection = "Flow direction";
+  console.log(outlined);
   return {
     Palette: palette.name,
     Scene: scene,
     Density: densityFeature,
-    flowDirection: symmetry
+    "Flow direction": symmetry
       ? "Both"
       : leftToRight
       ? "Left to right"
       : "Right to left",
+    Symmetric: symmetry ? "Close enough" : "No",
+    "Coloring strategy": noFillAtAll ? "None" : colorStrat,
+    "Color change": noFillAtAll ? "None" : alpha ? "Blend" : "Discrete",
+    Surface: surface,
+    "Palette size": noFillAtAll ? "Zero" : paletteSize,
+    Outlined: outlined || noFillAtAll ? "Yes" : "No",
+    "Overhanging cliff": swap ? "Yes" : "No",
+    "No fill": noFillAtAll ? "Yes" : "No",
   };
 }
-
-calculateFeatures();

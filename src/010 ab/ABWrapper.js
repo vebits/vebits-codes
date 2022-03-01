@@ -99,7 +99,6 @@ function ABWrapper({ children }) {
           </>
         )}
       </Page>
-      {id ? null : <Footer />}
     </>
   );
 }

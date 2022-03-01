@@ -78,7 +78,7 @@ if (window.innerHeight >= 1.5 * window.innerWidth) {
 /* const windowMargin = 0.75;
 width = width * windowMargin;
 height = height * windowMargin; */
-height = 1024;
+height = window.innerHeight;
 width = height * 1.5;
 
 console.log(width, height);
@@ -92,8 +92,8 @@ const bgColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
 const borderColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
 console.log(palette, bgColor, seed);
 
-const cell_w = 4 * m;
-const cell_h = 2 * m;
+const cell_w = 16 * m;
+const cell_h = 8 * m;
 const mid_w = width / 2;
 const mid_h = height / 2;
 
@@ -119,27 +119,41 @@ function Boxes() {
     shuffle(paperColors, rnd);
     const black = false;
     let i = 0;
-    for (let y = 250; y < height - 550; y += cell_h) {
-      for (let x = 0; x < width; x += cell_w) {
+    for (let y = 192; y < height - 128; y += cell_h) {
+      for (let x = 128; x < width - 192; x += cell_w) {
         i++;
-        drawWall2(
-          p,
-          x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
-          y,
-          rnd.random_choice([1, 2, 4]),
-          rnd.random_choice([1, 2, 4, 6, 8]),
-          rnd.random_choice([1, 2, 4]),
-          p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-          p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-          p.color(hex2hsl(paperColors[i % 12].hex)[0])
-        );
+        if (rnd.random_dec() > 0.3) {
+          drawWall2(
+            p,
+            x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
+            y,
+            rnd.random_choice([1, 2, 4]),
+            rnd.random_choice([1, 2, 4, 6, 8]),
+            rnd.random_choice([1, 2, 4]),
+            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
+            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
+            p.color(hex2hsl(paperColors[i % 12].hex)[0])
+          );
+        } else {
+          drawWall(
+            p,
+            x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
+            y,
+            rnd.random_choice([1, 2, 4, 8]),
+            rnd.random_choice([1, 2, 4, 6, 8]),
+            rnd.random_choice([1, 2, 4]),
+            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
+            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
+            p.color(hex2hsl(paperColors[i % 12].hex)[0])
+          );
+        }
       }
     }
     i = 0;
-    for (let y = 600; y < height - 200; y += cell_h) {
+    /* for (let y = 600; y < height - 200; y += cell_h) {
       for (let x = 0; x < width; x += cell_w) {
         i++;
-        drawWall2(
+        drawWall(
           p,
           x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
           y,
@@ -151,9 +165,9 @@ function Boxes() {
           p.color(hex2hsl(paperColors[i % 12].hex)[0])
         );
       }
-    }
+    } */
 
-    displayBorder(p, 96 * m, hex2hsl("#333533")[0]);
+    //displayBorder(p, 64 * m, hex2hsl("#333533")[0]);
     /*  drawWall2(
       p,
       mid_w,
@@ -525,7 +539,7 @@ function Boxes() {
   }
 
   function displayBorder(p, e, color) {
-    p.fill(hex2hsl("#333533")[0]); // f4f0e7 333533
+    p.fill(hex2hsl("#f4f0e7")[0]); // f4f0e7 333533
     p.stroke(100);
     p.strokeWeight(2 * m);
     p.strokeJoin(p.MITER);
@@ -535,7 +549,7 @@ function Boxes() {
     p.vertex(width + 1 * m, height + 1 * m);
     p.vertex(-1 * m, height + 1 * m);
     p.beginContour();
-    p.stroke(hex2hsl("#f4f0e7")[0]);
+    p.stroke(hex2hsl("#333533")[0]);
     p.vertex(e, e);
     p.vertex(e, height - e);
     p.vertex(width - e, height - e);

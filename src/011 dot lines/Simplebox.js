@@ -76,9 +76,9 @@ if (window.innerHeight >= 1.5 * window.innerWidth) {
 /* const windowMargin = 0.75;
 width = width * windowMargin;
 height = height * windowMargin; */
-width = 1024;
+/* width = 1024;
 height = width * 1.5;
-
+ */
 console.log(width, height);
 var dim = Math.min(width, height);
 var m = dim / DEFAULT_SIZE;
@@ -112,14 +112,14 @@ function Cassettes() {
   };
 
   const draw = (p) => {
-    generateGrid(p);
+    /* generateGrid(p);
     //drawLines(p);
     let i = 0;
     while (i < 500) {
       i++;
       drawWall2(
         p,
-        rnd.random_between(0),
+        rnd.random_between(0, 4),
         0,
         1,
         1,
@@ -127,7 +127,7 @@ function Cassettes() {
         rnd.random_int(0, 100),
         rnd.random_int(0, 100)
       );
-    }
+    } */
   };
 
   function drawWall2(p, x, y, height, width, depth, shade1, shade2, shade3) {

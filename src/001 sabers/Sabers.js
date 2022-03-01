@@ -107,7 +107,6 @@ function Sabers() {
         </Info>
         <Sketch setup={setup} draw={draw} />
       </Page>
-      <Footer />
     </>
   );
 }

@@ -6,6 +6,7 @@ import Random from "utils/random";
 import { random_hash } from "utils/random";
 import Point from "utils/point";
 import { hex2hsl } from "utils/color-converter";
+import texturize from "utils/textureBg";
 
 import Palettes from "nice-color-palettes/1000";
 
@@ -25,7 +26,7 @@ function ColorShadows() {
   let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
 
   var DEFAULT_SIZE = 1024;
-  const windowMargin = id ? 1 : 0.75;
+  const windowMargin = id ? 1 : 1;
   var width = window.innerWidth * windowMargin;
   var height = window.innerHeight * windowMargin;
   var dim = Math.min(width, height);
@@ -48,6 +49,16 @@ function ColorShadows() {
     const bgColor = hex2hsl(palette.shift());
     BASE_H = bgColor[1][0];
     p.background(BASE_H, BASE_S, BASE_B);
+    texturize(
+      p,
+      rnd,
+      750000,
+      rnd.random_between(10, 255),
+      10,
+      80,
+      width,
+      height
+    );
 
     let radius, xoff, yoff;
     if (res === 3) {

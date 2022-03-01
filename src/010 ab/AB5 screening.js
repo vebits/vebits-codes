@@ -32,13 +32,13 @@ function AB() {
   const setup = (p, canvasParentRef) => {
     tokenData = { hash: random_hash() };
     seed = parseInt(tokenData.hash.slice(0, 16), 16);
-    rnd = new Random(seed); // 23539090465365090
+    rnd = new Random(37938258934688940); // 23539090465365090
     console.log("SEED:", seed);
     //p.pixelDensity(1);
     p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.noLoop();
     p.colorMode(p.HSL);
-    p.noiseSeed(seed);
+    p.noiseSeed(37938258934688940);
 
     p.keyPressed = function () {
       if (p.keyCode === 80) p.saveCanvas("colorflow_" + hash, "png");

@@ -143,7 +143,6 @@ function Project() {
         </Info>
         <Sketch setup={setup} draw={draw} />
       </Page>
-      <Footer />
     </>
   );
 }

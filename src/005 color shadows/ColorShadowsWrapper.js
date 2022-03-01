@@ -58,7 +58,7 @@ const Date = styled.span`
 
 function Parent({ children }) {
   let { id } = useParams();
-
+  console.log(id);
   return (
     <>
       <Page id={id}>
@@ -75,7 +75,6 @@ function Parent({ children }) {
           </>
         )}
       </Page>
-      {id ? null : <Footer />}
     </>
   );
 }

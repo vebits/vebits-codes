@@ -280,7 +280,6 @@ function Bubba() {
         </Info>
         <Sketch setup={setup} draw={draw} />
       </Page>
-      <Footer />
     </>
   );
 }

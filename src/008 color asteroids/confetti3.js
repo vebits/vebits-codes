@@ -9,54 +9,6 @@ import { Colors } from "utils/constants";
 import { hex2hsl } from "utils/color-converter";
 
 import Palettes from "nice-color-palettes/1000";
-import Footer from "Footer";
-
-const Page = styled.main`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 32px 12px;
-  background-color: white;
-`;
-
-const StyledLink = css`
-  text-decoration: none;
-  color: ${Colors.palette.five};
-  border-bottom: solid 1px ${Colors.palette.five};
-  padding-bottom: 4px;
-  margin-bottom: 24px;
-  font-weight: 800;
-
-  :hover {
-    opacity: 0.7;
-  }
-`;
-
-const StyledRRLink = styled(Link)`
-  ${StyledLink}
-`;
-
-const Info = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
-  margin: 0;
-`;
-
-const Date = styled.span`
-  font-size: 1rem;
-  font-weight: 600;
-  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
-  margin: 0;
-  margin-bottom: 24px;
-`;
 
 function Flow3() {
   let { id } = useParams();
@@ -74,11 +26,15 @@ function Flow3() {
   console.log(seed);
 
   // DIMENSIONS
-  var DEFAULT_SIZE = 1024;
-  var width = window.innerWidth * 0.75;
-  var height = window.innerHeight * 0.75;
-  width = 1024;
-  height = 1024;
+  var DEFAULT_SIZE = 1000;
+  let width, height;
+  if (window.innerHeight >= 1.25 * window.innerWidth) {
+    width = window.innerWidth;
+    height = 1.25 * window.innerWidth;
+  } else {
+    height = window.innerHeight;
+    width = window.innerHeight / 1.25;
+  }
   var dim = Math.min(width, height);
   var m = dim / DEFAULT_SIZE;
 
@@ -86,7 +42,7 @@ function Flow3() {
   let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
 
   // PDS
-  var r = 20 * m;
+  var r = 10 * m;
   var k = 30;
   var w = r / Math.sqrt(2);
 
@@ -149,13 +105,17 @@ function Flow3() {
 
     console.log(sizes);
     const ploy = drawFlowField(p);
+    console.log(ploy[0]);
     for (let i = 0; i < ploy.length; i++) {
       if (ploy[i].length < 10) {
         continue;
       }
       //p.stroke(p.color(palette[rnd.random_int(0, palette.length - 1)]));
       p.strokeCap(p.PROJECT);
-      p.noStroke();
+      p.stroke(0);
+      p.strokeWeight(0.2);
+      p.rectMode(p.CENTER);
+      p.fill(p.color(paletteCopy[rnd.random_int(0, paletteCopy.length - 1)]));
       for (let j = 0; j < ploy[i].length; j++) {
         /* p.strokeWeight(p.noise(i, j) * 30);
         p.curveVertex(ploy[i][j].x, ploy[i][j].x); */
@@ -164,19 +124,14 @@ function Flow3() {
 
         const grid_angle = angleGrid[column_index][row_index];
 
-        if (rnd.random_between(0, 1) > 0.0) {
-          //p.fill(255);
-          p.push();
-          p.translate(ploy[i][j].x, ploy[i][j].y);
-          p.rotate(
-            grid_angle + rnd.random_between(0, 0.2) * rnd.random_choice([-1, 1])
-          );
-          p.fill(
-            p.color(paletteCopy[rnd.random_int(0, paletteCopy.length - 1)])
-          );
-          p.rect(0, 0, 4 * m, p.noise(grid_angle) * sizes[1] * m, 100);
-          p.pop();
-        }
+        //p.fill(255);
+        p.push();
+        p.translate(ploy[i][j].x, ploy[i][j].y);
+        p.rotate(
+          grid_angle + rnd.random_between(0, 0.2) * rnd.random_choice([-1, 1])
+        );
+        p.rect(0, 0, 10 * m, sizes[1] * m);
+        p.pop();
       }
     }
   };
@@ -195,12 +150,12 @@ function Flow3() {
       let x = ordered[f].x;
       let y = ordered[f].y;
       const currentpoly = [];
-      loop1: for (let i = 0; i < 64; i++) {
+      loop1: for (let i = 0; i < 200; i++) {
         if (x < 64 || x > width - 64 || y < 64 || y > height - 64) {
           break;
         }
         for (let v = 0; v < xy.length; v++) {
-          if (p.dist(x, y, xy[v].x, xy[v].y) < sizes[0] * m) {
+          if (p.dist(x, y, xy[v].x, xy[v].y) < (sizes[0] + 20) * m) {
             break loop1;
           }
         }
@@ -227,6 +182,7 @@ function Flow3() {
   function initPDS(p) {
     cols = p.floor(width / w);
     rows = p.floor(height / w);
+    let anglePlus = 0;
     for (let i = 0; i < cols * rows; i++) {
       grid[i] = undefined;
     }
@@ -240,9 +196,11 @@ function Flow3() {
         //p.noiseDetail(2, 0.45);
         const noise_val = p.noise(scaled_x, scaled_y);
         const angle = p.map(noise_val, 0.0, 1.0, 0.0, 2 * p.PI);
+        //const angle = anglePlus; //confetti
 
-        angleGrid[x].push(angle);
+        angleGrid[x].push(Math.round(angle * (p.PI / 4)));
       }
+      anglePlus += 0.04;
     }
 
     let x = 0;
@@ -327,19 +285,7 @@ function Flow3() {
     return array;
   }
 
-  return (
-    <>
-      <Page>
-        <StyledRRLink to="/">back to frontpage</StyledRRLink>
-        <Info>
-          <Title>confetti</Title>
-          <Date>15.05.2021</Date>
-        </Info>
-        <Sketch setup={setup} draw={draw} />
-      </Page>
-      <Footer />
-    </>
-  );
+  return <Sketch setup={setup} draw={draw} />;
 }
 
 export default Flow3;

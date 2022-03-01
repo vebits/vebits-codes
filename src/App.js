@@ -15,16 +15,18 @@ import Sabers from "001 sabers/Sabers";
 import Bubba from "002 bubba/Bubba";
 import Flow1 from "003 flow 1/Flow1";
 import Stripes from "004 stripes/Stripes";
-import ColorShadowsWrapper from "005 color shadows/ColorShadowsWrapper";
+import ColorShadows from "005 color shadows/ColorShadows";
 import Flow2 from "006 flow2/Flow2";
 import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
-import ColorAsteroidsWrapper from "008 color asteroids/ColorAsteroidsWrapper";
+import ColorAsteroidsWrapper from "008 color asteroids/confetti3";
 import ColorCircles from "009 color circles/ColorCircles";
 import ABWrapper from "010 ab/AB5 screening";
 import Pillars from "011 dot lines/Pillars";
 import Cassettes from "011 dot lines/Cassettes";
 import Squares from "012 squares/Squares";
-import Boxes from "011 dot lines/Simplebox";
+import Boxes from "011 dot lines/Boxes";
+import About from "pages/About";
+import Header from "Header";
 import Footer from "Footer";
 
 const GlobalStyle = createGlobalStyle`
@@ -35,9 +37,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: 'EB Garamond', sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
   }
   
   #root {
@@ -49,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   input {
-    font-family: 'EB Garamond', sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif;
   }
 
   a:hover, a:visited, a:link, a:active {
@@ -77,17 +80,15 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <ScrollToTop />
+        <Header />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
           <Route exact path="/sabers" component={Sabers} />
           <Route exact path="/bubba" component={Bubba} />
           <Route exact path="/flow-1" component={Flow1} />
           <Route exact path="/stripes" component={Stripes} />
-          <Route
-            exact
-            path="/color-shadows/:id?"
-            component={ColorShadowsWrapper}
-          />
+          <Route exact path="/color-shadows/:id?" component={ColorShadows} />
           <Route exact path="/flow-2" component={Flow2} />
           <Route exact path="/cordillera/:id?" component={CordilleraWrapper} />
           <Route
@@ -104,7 +105,7 @@ function App() {
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </>
   );
