@@ -678,14 +678,23 @@ function Strata() {
       <Section>
         <FeatureColumn>
           <H2>CLOSING THOUGHTS</H2>
-          <Paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+          <Paragraph className="max-w">
+            If you made it all the way down here, thank you for your interest in
+            my work. I really appreciate everyone taking time to study it and
+            hope you enjoyed this write-up.
+            <br />
+            <br />
+            If you mint or collect a Strata, I will be forever grateful. For
+            more updates on Strata-related things or generative art in general,
+            please visit my Twitter{" "}
+            <TextLink
+              href="https://twitter.com/vebits"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @vebits
+            </TextLink>
+            .
           </Paragraph>
         </FeatureColumn>
       </Section>
