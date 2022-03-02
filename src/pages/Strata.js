@@ -221,7 +221,7 @@ function Strata() {
               Kate Vass Galerie
             </TextLink>{" "}
             website, but all the details are not sorted out yet. Updates on
-            prints will follow shortly after the drop.
+            prints will follow shortly after the release date.
           </Paragraph>
         </FlexColumn>
         <ImageContainer>
