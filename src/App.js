@@ -7,8 +7,13 @@ import {
   useLocation,
 } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import "./utils.css";
 
 import Home from "Home";
+import About from "pages/About";
+import Strata from "pages/Strata";
+import Header from "Header";
+import Footer from "Footer";
 import NotFound from "NotFound";
 
 import Sabers from "001 sabers/Sabers";
@@ -25,9 +30,6 @@ import Pillars from "011 dot lines/Pillars";
 import Cassettes from "011 dot lines/Cassettes";
 import Squares from "012 squares/Squares";
 import Boxes from "011 dot lines/Boxes";
-import About from "pages/About";
-import Header from "Header";
-import Footer from "Footer";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -84,6 +86,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/strata" component={Strata} />
           <Route exact path="/sabers" component={Sabers} />
           <Route exact path="/bubba" component={Bubba} />
           <Route exact path="/flow-1" component={Flow1} />

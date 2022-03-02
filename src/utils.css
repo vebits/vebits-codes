@@ -1,0 +1,19 @@
+.mt {
+  margin-top: 24px !important;
+}
+
+.mb {
+  margin-bottom: 24px !important;
+}
+
+.max-w {
+  max-width: 700px;
+}
+
+.bold-500 {
+  font-weight: 500;
+}
+
+.it {
+  font-style: italic;
+}

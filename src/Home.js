@@ -4,6 +4,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
+import strata1 from "assets/images/strata01-min.png";
+import strata2 from "assets/images/strata02-min.png";
+import strata3 from "assets/images/strata03-min.png";
+
 import cord1 from "assets/images/cord01-min.png";
 import cord2 from "assets/images/cord02-min.png";
 import cord3 from "assets/images/cord03-min.png";
@@ -128,7 +132,7 @@ const ImageLink = styled.a`
 `;
 
 const Image = styled.img`
-  width: 100%;
+  width: ${(props) => (props.width ? `${props.width}%` : "100%")};
   object-fit: contain;
 `;
 
@@ -146,12 +150,88 @@ const PGLink = styled(Link)`
   }
 `;
 
+const StrataButtons = styled.div`
+  display: flex;
+  align-items: center;
+
+  > *:not(:last-child) {
+    margin-right: 12px;
+  }
+`;
+
+const StrataLink = styled(Link)`
+  font-size: 12px;
+  margin: 0;
+  font-weight: 400;
+  color: ${Colors.palette.five};
+  text-decoration: none;
+  padding: 6px 20px;
+
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const Home = () => {
   return (
     <>
       <Page>
         <WorksSection>
           <H1>WORKS</H1>
+          {/* <WorkSection>
+            <H2>Strata, 2022</H2>
+            <WorkDescription>
+              Strata explores the field of geology and more specifically rock
+              layering. In the physical world, layered rocks form when particles
+              settle from water or air. These layers of sedimentary rock are
+              called strata. In the digital world, the Strata algorithm
+              generates layer upon layer of colors to draw the impression of
+              rock layering. Each token hash decides the path Strata takes
+              through the generative space to the final output.
+            </WorkDescription>
+            <StrataButtons>
+              <WorkLink
+                href="https://www.artblocks.io/project/276"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                BROWSE ON ART BLOCKS
+              </WorkLink>
+              <StrataLink to="/strata">READ MORE</StrataLink>
+            </StrataButtons>
+            <ImagesContainer>
+              <ImageContainer>
+                <Image src={strata3} loading="lazy" alt="Kronen" />
+                <ImageLink
+                  href="https://artist-staging.artblocks.io/token/152000030"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ropsten test mint #30
+                </ImageLink>
+              </ImageContainer>
+              <ImageContainer>
+                <Image src={strata2} loading="lazy" alt="Kronen" />
+                <ImageLink
+                  href="https://artist-staging.artblocks.io/token/152000038"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ropsten test mint #38
+                </ImageLink>
+              </ImageContainer>
+              <ImageContainer>
+                <Image src={strata1} loading="lazy" alt="Kronen" />
+                <ImageLink
+                  href="https://artist-staging.artblocks.io/token/152000054"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ropsten test mint #54
+                </ImageLink>
+              </ImageContainer>
+            </ImagesContainer>
+          </WorkSection> */}
           <WorkSection>
             <H2>Pillars, 2021</H2>
             <WorkDescription>

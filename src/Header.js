@@ -38,6 +38,7 @@ const AboutLink = styled(Link)`
   font-weight: 400;
   color: ${Colors.palette.five};
   text-decoration: none;
+  padding: 6px 20px;
 
   :hover {
     text-decoration: underline;
