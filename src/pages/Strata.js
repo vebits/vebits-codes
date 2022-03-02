@@ -38,6 +38,7 @@ import s152000052 from "assets/images/152000052.png";
 import s152000054 from "assets/images/152000054.png";
 import s152000055 from "assets/images/152000055.png";
 import s152000056 from "assets/images/152000056.png";
+import s152000057 from "assets/images/152000057.png";
 import s152000058 from "assets/images/152000058.png";
 import s152000059 from "assets/images/152000059.png";
 import s152000060 from "assets/images/152000060.png";
@@ -384,9 +385,9 @@ function Strata() {
               imageText: "Group - Ropsten test mint #16",
             },
             {
-              src: s152000039,
-              num: "039",
-              imageText: "Sequential - Ropsten test mint #39",
+              src: s152000057,
+              num: "057",
+              imageText: "Sequential - Ropsten test mint #57",
             },
             {
               src: s152000048,
@@ -595,7 +596,7 @@ function Strata() {
             {
               src: s152000062,
               num: "062",
-              imageText: "Redwall - Ropsten te62 mint #55",
+              imageText: "Redwall - Ropsten test mint #62",
             },
             {
               src: s152000030,
