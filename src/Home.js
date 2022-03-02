@@ -197,7 +197,7 @@ const Home = () => {
               >
                 BROWSE ON ART BLOCKS
               </WorkLink>
-              <StrataLink to="/strata">READ MORE</StrataLink>
+              <StrataLink to="/strata">EXPLORE STRATA</StrataLink>
             </StrataButtons>
             <ImagesContainer>
               <ImageContainer>
