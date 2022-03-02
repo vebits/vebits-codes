@@ -212,15 +212,16 @@ function Strata() {
           </Paragraph>
           {RenderFeatures(["20x25cm", "40x50cm"])}
           <Paragraph>
+            I will offer prints through the{" "}
             <TextLink
               href="https://www.katevassgalerie.com/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Kate Vass Gallery
+              Kate Vass Galerie
             </TextLink>{" "}
-            is responsible for taking print orders, so please head over there if
-            you would like a print of your Strata.
+            website, but all the details are not sorted out yet. Updates on
+            prints will follow shortly after the drop.
           </Paragraph>
         </FlexColumn>
         <ImageContainer>
