@@ -263,7 +263,7 @@ function Strata() {
             "Mountain peak",
           ])}
           <Paragraph className="max-w">
-            The cross section view is like a vertical cut of a mountain while
+            The cross section views is like a vertical cut of a mountain while
             the mountainside views show whole mountains. These two extreme
             points are by design and encourages the viewer to imagine the space
             between.
@@ -636,7 +636,7 @@ function Strata() {
             There are four features that takes a boolean value and they are
             listed below. <span className="it">Symmetric</span> actually takes
             three values, but the reason for that is because there are two
-            diffrent variations of symmetry. One is{" "}
+            different variations of symmetry. One is{" "}
             <span className="it">near perfect</span> while the other is{" "}
             <span className="it">close enough</span>.
             <br />
