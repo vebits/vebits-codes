@@ -70,6 +70,10 @@ const Page = styled.main`
   padding: 24px 0px 256px 0px;
   max-width: 1280px;
   width: 100%;
+
+  @media (max-width: 1280px) {
+    padding: 24px 12px 256px 12px;
+  }
 `;
 
 const H1 = styled.h1`
@@ -88,6 +92,14 @@ const H2 = styled.h2`
 const Section = styled.section`
   display: flex;
   margin-top: 24px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    > *:last-child {
+      margin-top: 24px;
+    }
+  }
 `;
 
 const Paragraph = styled.p`

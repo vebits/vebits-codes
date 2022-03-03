@@ -12,6 +12,10 @@ const HeaderContainer = styled.header`
   max-width: 1280px;
   width: 100%;
   padding: 48px 0px;
+
+  @media (max-width: 1280px) {
+    padding: 48px 12px;
+  }
 `;
 
 const TitleLink = styled(Link)`
