@@ -128,6 +128,10 @@ const ImageLink = styled.a`
 const Image = styled.img`
   width: ${(props) => (props.width ? `${props.width}%` : "100%")};
   object-fit: contain;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const ImageRow = styled.div`
@@ -136,6 +140,15 @@ const ImageRow = styled.div`
 
   > *:not(:last-child) {
     margin-right: 24px;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+
+    > *:not(:last-child) {
+      margin-right: 0px;
+      margin-bottom: 24px;
+    }
   }
 `;
 

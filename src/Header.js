@@ -47,6 +47,10 @@ const AboutLink = styled(Link)`
   :hover {
     text-decoration: underline;
   }
+
+  @media (max-width: 1280px) {
+    padding: 6px 10px;
+  }
 `;
 
 const ExLink = styled.a`
@@ -59,6 +63,10 @@ const ExLink = styled.a`
 
   :hover {
     text-decoration: underline;
+  }
+
+  @media (max-width: 1280px) {
+    padding: 6px 10px;
   }
 `;
 
