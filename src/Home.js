@@ -27,6 +27,10 @@ const Page = styled.main`
 
   max-width: 1280px;
   width: 100%;
+
+  @media (max-width: 1280px) {
+    padding: 24px 12px 256px 12px;
+  }
 `;
 
 const H1 = styled.h1`
@@ -58,9 +62,11 @@ const PGDescription = styled.p`
 
 const PGWorks = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   > *:not(:last-child) {
     margin-right: 12px;
+    margin-bottom: 12px;
   }
 `;
 
@@ -111,6 +117,15 @@ const ImagesContainer = styled.div`
 
   > *:not(:last-child) {
     margin-right: 24px;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+
+    > *:not(:last-child) {
+      margin-right: 0px;
+      margin-bottom: 24px;
+    }
   }
 `;
 
