@@ -654,7 +654,7 @@ function Strata() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Jorge Ledzema
+              Jorge Ledezema
             </TextLink>
             . While showing him some early outputs of the Strata algorithm he
             sent me one back where he had rotate it upside down and said I
