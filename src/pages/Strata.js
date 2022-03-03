@@ -4,29 +4,42 @@ import { Link } from "react-router-dom";
 
 import s152000000 from "assets/images/152000000.png";
 import s152000001 from "assets/images/152000001.png";
+import s152000002 from "assets/images/152000002.png";
 import s152000003 from "assets/images/152000003.png";
 import s152000005 from "assets/images/152000005.png";
 import s152000006 from "assets/images/152000006.png";
+import s152000007 from "assets/images/152000007.png";
 import s152000008 from "assets/images/152000008.png";
 import s152000009 from "assets/images/152000009.png";
 import s152000010 from "assets/images/152000010.png";
+import s152000011 from "assets/images/152000011.png";
 import s152000012 from "assets/images/152000012.png";
+import s152000013 from "assets/images/152000013.png";
 import s152000014 from "assets/images/152000014.png";
+import s152000015 from "assets/images/152000015.png";
 import s152000016 from "assets/images/152000016.png";
 import s152000018 from "assets/images/152000018.png";
 import s152000019 from "assets/images/152000019.png";
+import s152000020 from "assets/images/152000020.png";
+import s152000021 from "assets/images/152000021.png";
 import s152000022 from "assets/images/152000022.png";
 import s152000023 from "assets/images/152000023.png";
 import s152000024 from "assets/images/152000024.png";
 import s152000025 from "assets/images/152000025.png";
 import s152000026 from "assets/images/152000026.png";
 import s152000027 from "assets/images/152000027.png";
+import s152000028 from "assets/images/152000028.png";
 import s152000030 from "assets/images/152000030.png";
 import s152000032 from "assets/images/152000032.png";
 import s152000034 from "assets/images/152000034.png";
 import s152000035 from "assets/images/152000035.png";
+import s152000036 from "assets/images/152000036.png";
+import s152000037 from "assets/images/152000037.png";
+import s152000038 from "assets/images/152000038.png";
 import s152000039 from "assets/images/152000039.png";
+import s152000040 from "assets/images/152000040.png";
 import s152000041 from "assets/images/152000041.png";
+import s152000042 from "assets/images/152000042.png";
 import s152000043 from "assets/images/152000043.png";
 import s152000044 from "assets/images/152000044.png";
 import s152000045 from "assets/images/152000045.png";
@@ -35,6 +48,7 @@ import s152000047 from "assets/images/152000047.png";
 import s152000048 from "assets/images/152000048.png";
 import s152000049 from "assets/images/152000049.png";
 import s152000052 from "assets/images/152000052.png";
+import s152000053 from "assets/images/152000053.png";
 import s152000054 from "assets/images/152000054.png";
 import s152000055 from "assets/images/152000055.png";
 import s152000056 from "assets/images/152000056.png";
@@ -45,6 +59,7 @@ import s152000060 from "assets/images/152000060.png";
 import s152000061 from "assets/images/152000061.png";
 import s152000062 from "assets/images/152000062.png";
 import s152000063 from "assets/images/152000063.png";
+import s152000064 from "assets/images/152000064.png";
 
 import { Colors } from "utils/constants";
 
@@ -225,13 +240,13 @@ function Strata() {
           </Paragraph>
         </FlexColumn>
         <ImageContainer>
-          <Image src={s152000054} width={80} loading="lazy" alt="Kronen" />
+          <Image src={s152000063} width={80} loading="lazy" alt="Kronen" />
           <ImageLink
             href="https://artist-staging.artblocks.io/token/152000054"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Ropsten test mint #54
+            Ropsten test mint #63
           </ImageLink>
         </ImageContainer>
       </Section>
@@ -255,24 +270,24 @@ function Strata() {
           </Paragraph>
           {RenderImageRow([
             {
-              src: s152000061,
-              num: "061",
-              imageText: "Cross section 1 - Ropsten test mint #61",
+              src: s152000027,
+              num: "027",
+              imageText: "Cross section 1 - Ropsten test mint #27",
             },
             {
-              src: s152000044,
-              num: "044",
-              imageText: "Cross section 2 - Ropsten test mint #44",
+              src: s152000030,
+              num: "030",
+              imageText: "Cross section 2 - Ropsten test mint #30",
             },
             {
-              src: s152000043,
-              num: "043",
-              imageText: "Mountainside 1 - Ropsten test mint #43",
+              src: s152000053,
+              num: "053",
+              imageText: "Mountainside 1 - Ropsten test mint #53",
             },
             {
-              src: s152000014,
-              num: "014",
-              imageText: "Mountainside 2 - Ropsten test mint #14",
+              src: s152000058,
+              num: "058",
+              imageText: "Mountainside 2 - Ropsten test mint #58",
             },
           ])}
         </FeatureColumn>
@@ -293,14 +308,14 @@ function Strata() {
               imageText: "Very low - Ropsten test mint #32",
             },
             {
-              src: s152000026,
-              num: "026",
-              imageText: "Medium - Ropsten test mint #26",
+              src: s152000048,
+              num: "048",
+              imageText: "Medium - Ropsten test mint #48",
             },
             {
-              src: s152000012,
-              num: "012",
-              imageText: "Very high - Ropsten test mint #12",
+              src: s152000001,
+              num: "001",
+              imageText: "Very high - Ropsten test mint #1",
             },
           ])}
         </FeatureColumn>
@@ -317,19 +332,19 @@ function Strata() {
           {RenderFeatures(["Left to right", "Right to left", "Both"])}
           {RenderImageRow([
             {
-              src: s152000049,
-              num: "049",
-              imageText: "Left to right - Ropsten test mint #49",
+              src: s152000052,
+              num: "052",
+              imageText: "Left to right - Ropsten test mint #52",
             },
             {
-              src: s152000045,
-              num: "045",
-              imageText: "Right to left - Ropsten test mint #45",
+              src: s152000003,
+              num: "003",
+              imageText: "Right to left - Ropsten test mint #3",
             },
             {
-              src: s152000027,
-              num: "027",
-              imageText: "Both - Ropsten test mint #27",
+              src: s152000036,
+              num: "036",
+              imageText: "Both - Ropsten test mint #36",
             },
           ])}
         </FeatureColumn>
@@ -347,19 +362,19 @@ function Strata() {
           {RenderFeatures(["Standard", "Even", "Uneven"])}
           {RenderImageRow([
             {
-              src: s152000003,
-              num: "003",
-              imageText: "Standard - Ropsten test mint #3",
+              src: s152000039,
+              num: "039",
+              imageText: "Standard - Ropsten test mint #39",
             },
             {
-              src: s152000058,
-              num: "058",
-              imageText: "Even - Ropsten test mint #58",
+              src: s152000047,
+              num: "047",
+              imageText: "Even - Ropsten test mint #47",
             },
             {
-              src: s152000041,
-              num: "041",
-              imageText: "Uneven - Ropsten test mint #41",
+              src: s152000018,
+              num: "018",
+              imageText: "Uneven - Ropsten test mint #18",
             },
           ])}
         </FeatureColumn>
@@ -386,14 +401,14 @@ function Strata() {
               imageText: "Group - Ropsten test mint #16",
             },
             {
-              src: s152000057,
-              num: "057",
-              imageText: "Sequential - Ropsten test mint #57",
+              src: s152000013,
+              num: "013",
+              imageText: "Sequential - Ropsten test mint #13",
             },
             {
-              src: s152000048,
-              num: "048",
-              imageText: "Random - Ropsten test mint #48",
+              src: s152000024,
+              num: "024",
+              imageText: "Random - Ropsten test mint #24",
             },
           ])}
         </FeatureColumn>
@@ -416,14 +431,14 @@ function Strata() {
           {RenderFeatures(["Discrete", "Blend"])}
           {RenderImageRow([
             {
-              src: s152000046,
-              num: "046",
-              imageText: "Discrete - Ropsten test mint #46",
+              src: s152000028,
+              num: "028",
+              imageText: "Discrete - Ropsten test mint #28",
             },
             {
-              src: s152000008,
-              num: "008",
-              imageText: "Blend - Ropsten test mint #8",
+              src: s152000043,
+              num: "043",
+              imageText: "Blend - Ropsten test mint #43",
             },
           ])}
         </FeatureColumn>
@@ -462,19 +477,19 @@ function Strata() {
           </Paragraph>
           {RenderImageRow([
             {
-              src: s152000018,
-              num: "018",
-              imageText: "Full - Ropsten test mint #18",
-            },
-            {
               src: s152000055,
               num: "055",
-              imageText: "Derived (duo) - Ropsten test mint #55",
+              imageText: "Full - Ropsten test mint #55",
             },
             {
-              src: s152000035,
-              num: "035",
-              imageText: "Derived (single) - Ropsten test mint #35",
+              src: s152000057,
+              num: "057",
+              imageText: "Derived (duo) - Ropsten test mint #57",
+            },
+            {
+              src: s152000015,
+              num: "015",
+              imageText: "Derived (single) - Ropsten test mint #15",
             },
           ])}
         </FeatureColumn>
@@ -483,7 +498,7 @@ function Strata() {
         <FeatureColumn>
           <H2>PALETTES</H2>
           <Paragraph className="max-w">
-            Strata can choose between 16 different palettes. Most of the names
+            Strata can choose between 17 different palettes. Most of the names
             are inspired by terms in geology, while others are named after my
             own perception when seeing them. Sunken, for example‚ is from taken
             from the video game Valheim and more specifically the{" "}
@@ -510,7 +525,7 @@ function Strata() {
             "Cañón",
             "Gneiss",
             "Green mineral",
-            "Jade",
+            "Jade*",
             "Kayenta",
             "Lava",
             "Limestone",
@@ -519,95 +534,97 @@ function Strata() {
             "Obsidian",
             "Pink opal",
             "Redwall",
+            "Ruby",
             "Sandstone",
             "Sunken",
           ])}
+          <Paragraph>* Not shown as it did not appear on Ropsten.</Paragraph>
           {RenderImageRow([
             {
-              src: s152000009,
-              num: "009",
-              imageText: "Basalt - Ropsten test mint #9",
+              src: s152000007,
+              num: "007",
+              imageText: "Basalt - Ropsten test mint #7",
+            },
+            {
+              src: s152000040,
+              num: "040",
+              imageText: "Blue mineral - Ropsten test mint #40",
             },
             {
               src: s152000056,
               num: "056",
-              imageText: "Blue mineral - Ropsten test mint #56",
+              imageText: "Cañón - Ropsten test mint #56",
             },
             {
-              src: s152000006,
-              num: "006",
-              imageText: "Cañón - Ropsten test mint #6",
-            },
-            {
-              src: s152000034,
-              num: "034",
-              imageText: "Gneiss - Ropsten test mint #34",
+              src: s152000061,
+              num: "061",
+              imageText: "Gneiss - Ropsten test mint #61",
             },
           ])}
           {RenderImageRow([
-            {
-              src: s152000024,
-              num: "024",
-              imageText: "Green mineral - Ropsten test mint #24",
-            },
-            {
-              src: s152000005,
-              num: "005",
-              imageText: "Jade - Ropsten test mint #5",
-            },
-            {
-              src: s152000000,
-              num: "000",
-              imageText: "Kayenta - Ropsten test mint #0",
-            },
-            {
-              src: s152000047,
-              num: "047",
-              imageText: "Lava - Ropsten test mint #47",
-            },
-          ])}
-          {RenderImageRow([
-            {
-              src: s152000025,
-              num: "025",
-              imageText: "Limestone - Ropsten test mint #25",
-            },
-            {
-              src: s152000001,
-              num: "001",
-              imageText: "Magma - Ropsten test mint #1",
-            },
-            {
-              src: s152000059,
-              num: "059",
-              imageText: "Moonshine - Ropsten test mint #59",
-            },
-            {
-              src: s152000019,
-              num: "019",
-              imageText: "Obsidian - Ropsten test mint #19",
-            },
-          ])}
-          {RenderImageRow([
-            {
-              src: s152000022,
-              num: "022",
-              imageText: "Pink opal - Ropsten test mint #22",
-            },
             {
               src: s152000062,
               num: "062",
-              imageText: "Redwall - Ropsten test mint #62",
+              imageText: "Green mineral - Ropsten test mint #62",
             },
             {
-              src: s152000030,
-              num: "030",
-              imageText: "Sandstone - Ropsten test mint #30",
+              src: s152000038,
+              num: "038",
+              imageText: "Kayenta - Ropsten test mint #38",
+            },
+            {
+              src: s152000011,
+              num: "011",
+              imageText: "Lava - Ropsten test mint #11",
+            },
+            {
+              src: s152000002,
+              num: "002",
+              imageText: "Limestone - Ropsten test mint #2",
+            },
+          ])}
+          {RenderImageRow([
+            {
+              src: s152000045,
+              num: "045",
+              imageText: "Magma - Ropsten test mint #45",
+            },
+            {
+              src: s152000049,
+              num: "049",
+              imageText: "Moonshine - Ropsten test mint #49",
+            },
+            {
+              src: s152000021,
+              num: "021",
+              imageText: "Obsidian - Ropsten test mint #21",
+            },
+            {
+              src: s152000010,
+              num: "010",
+              imageText: "Pink opal - Ropsten test mint #10",
+            },
+          ])}
+          {RenderImageRow([
+            {
+              src: s152000037,
+              num: "037",
+              imageText: "Redwall - Ropsten test mint #37",
+            },
+            {
+              src: s152000026,
+              num: "026",
+              imageText: "Ruby - Ropsten test mint #26",
             },
             {
               src: s152000060,
               num: "060",
-              imageText: "Sunken - Ropsten test mint #60",
+              imageText: "Sandstone - Ropsten test mint #60",
+            },
+            {
+              src: s152000019,
+              num: "019",
+              imageText: "Sunken - Ropsten test mint #19",
             },
           ])}
         </FeatureColumn>
@@ -649,30 +666,30 @@ function Strata() {
           </Paragraph>
           {RenderFeatures([
             "Symmetric",
-            "Outlined",
             "Overhanging cliff",
+            "Outlined",
             "No fill",
           ])}
           {RenderImageRow([
             {
-              src: s152000063,
-              num: "063",
-              imageText: "Symmetric - Ropsten test mint #63",
-            },
-            {
               src: s152000023,
               num: "023",
-              imageText: "Outlined - Ropsten test mint #23",
+              imageText: "Symmetric - Ropsten test mint #23",
             },
             {
-              src: s152000052,
-              num: "052",
-              imageText: "Overhanging cliff - Ropsten test mint #52",
+              src: s152000064,
+              num: "064",
+              imageText: "Overhanging cliff - Ropsten test mint #64",
             },
             {
-              src: s152000010,
-              num: "010",
-              imageText: "No fill - Ropsten test mint #10",
+              src: s152000042,
+              num: "042",
+              imageText: "Outlined - Ropsten test mint #42",
+            },
+            {
+              src: s152000020,
+              num: "020",
+              imageText: "No fill - Ropsten test mint #20",
             },
           ])}
         </FeatureColumn>
