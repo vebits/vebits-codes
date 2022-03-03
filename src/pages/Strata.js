@@ -376,7 +376,7 @@ function Strata() {
       </Section>
       <Section>
         <FeatureColumn>
-          <H2>Surface</H2>
+          <H2>SURFACE</H2>
           <Paragraph className="max-w">
             Surface can change the overall expression of an output
             significantly. <span className="it">Standard</span> has organic
@@ -628,7 +628,7 @@ function Strata() {
             "Sandstone",
             "Sunken",
           ])}
-          <Paragraph>* Not shown as it did not appear on Ropsten.</Paragraph>
+          <Paragraph>*Not shown as it did not appear on Ropsten.</Paragraph>
           {RenderImageRow([
             {
               src: s152000007,
