@@ -521,6 +521,71 @@ function Strata() {
       </Section>
       <Section>
         <FeatureColumn>
+          <H2>BOOLEAN FEATURES</H2>
+          <Paragraph className="max-w">
+            There are four features that takes a boolean value and they are
+            listed below. <span className="it">Symmetric</span> actually takes
+            three values, but the reason for that is because there are two
+            different variations of symmetry. One is{" "}
+            <span className="it">near perfect</span> while the other is{" "}
+            <span className="it">close enough</span>.
+            <br />
+            <br />
+            Each layer can be <span className="it">outlined</span> which I find
+            interesting as it gives the artwork a cartoonish characteristic.
+            <br />
+            <br />
+            The credit for the <span className="it">
+              Overhanging cliff
+            </span>{" "}
+            feature goes to{" "}
+            <TextLink
+              href="https://twitter.com/zjorge"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Jorge Ledezema
+            </TextLink>
+            . While showing him some early outputs of the Strata algorithm he
+            sent me one back where he had rotate it upside down and said I
+            needed to include that.
+            <br />
+            <br />
+            <span className="it">No fill</span> means exactly that, no layers
+            are filled with colors and only the outline is present.
+          </Paragraph>
+          {RenderFeatures([
+            "Symmetric",
+            "Overhanging cliff",
+            "Outlined",
+            "No fill",
+          ])}
+          {RenderImageRow([
+            {
+              src: s152000023,
+              num: "023",
+              imageText: "Symmetric - Ropsten test mint #23",
+            },
+            {
+              src: s152000064,
+              num: "064",
+              imageText: "Overhanging cliff - Ropsten test mint #64",
+            },
+            {
+              src: s152000042,
+              num: "042",
+              imageText: "Outlined - Ropsten test mint #42",
+            },
+            {
+              src: s152000020,
+              num: "020",
+              imageText: "No fill - Ropsten test mint #20",
+            },
+          ])}
+        </FeatureColumn>
+      </Section>
+      <Section>
+        <FeatureColumn>
           <H2>PALETTES</H2>
           <Paragraph className="max-w">
             Strata can choose between 17 different palettes. Most of the names
@@ -650,71 +715,6 @@ function Strata() {
               src: s152000019,
               num: "019",
               imageText: "Sunken - Ropsten test mint #19",
-            },
-          ])}
-        </FeatureColumn>
-      </Section>
-      <Section>
-        <FeatureColumn>
-          <H2>BOOLEAN FEATURES</H2>
-          <Paragraph className="max-w">
-            There are four features that takes a boolean value and they are
-            listed below. <span className="it">Symmetric</span> actually takes
-            three values, but the reason for that is because there are two
-            different variations of symmetry. One is{" "}
-            <span className="it">near perfect</span> while the other is{" "}
-            <span className="it">close enough</span>.
-            <br />
-            <br />
-            Each layer can be <span className="it">outlined</span> which I find
-            interesting as it gives the artwork a cartoonish characteristic.
-            <br />
-            <br />
-            The credit for the <span className="it">
-              Overhanging cliff
-            </span>{" "}
-            feature goes to{" "}
-            <TextLink
-              href="https://twitter.com/zjorge"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Jorge Ledezema
-            </TextLink>
-            . While showing him some early outputs of the Strata algorithm he
-            sent me one back where he had rotate it upside down and said I
-            needed to include that.
-            <br />
-            <br />
-            <span className="it">No fill</span> means exactly that, no layers
-            are filled with colors and only the outline is present.
-          </Paragraph>
-          {RenderFeatures([
-            "Symmetric",
-            "Overhanging cliff",
-            "Outlined",
-            "No fill",
-          ])}
-          {RenderImageRow([
-            {
-              src: s152000023,
-              num: "023",
-              imageText: "Symmetric - Ropsten test mint #23",
-            },
-            {
-              src: s152000064,
-              num: "064",
-              imageText: "Overhanging cliff - Ropsten test mint #64",
-            },
-            {
-              src: s152000042,
-              num: "042",
-              imageText: "Outlined - Ropsten test mint #42",
-            },
-            {
-              src: s152000020,
-              num: "020",
-              imageText: "No fill - Ropsten test mint #20",
             },
           ])}
         </FeatureColumn>
