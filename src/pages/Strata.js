@@ -211,7 +211,7 @@ function Strata() {
           <H2>BACKGROUND</H2>
           <Paragraph className="mb">
             Strata is a long form generative art series consisting of 650
-            editions releasing March xx 2022 on{" "}
+            editions releasing March 11 2022 on{" "}
             <TextLink
               href="https://www.artblocks.io/project/276"
               target="_blank"
