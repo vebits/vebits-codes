@@ -4,9 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-import strata1 from "assets/images/strata01-min.png";
-import strata2 from "assets/images/strata02-min.png";
-import strata3 from "assets/images/strata03-min.png";
+import strata1 from "assets/images/152000026.png";
+import strata2 from "assets/images/152000038.png";
+import strata3 from "assets/images/152000063.png";
 
 import cord1 from "assets/images/cord01-min.png";
 import cord2 from "assets/images/cord02-min.png";
@@ -193,7 +193,7 @@ const Home = () => {
       <Page>
         <WorksSection>
           <H1>WORKS</H1>
-          {/* <WorkSection>
+          <WorkSection>
             <H2>Strata, 2022</H2>
             <WorkDescription>
               Strata explores the field of geology and more specifically rock
@@ -218,11 +218,11 @@ const Home = () => {
               <ImageContainer>
                 <Image src={strata3} loading="lazy" alt="Kronen" />
                 <ImageLink
-                  href="https://artist-staging.artblocks.io/token/152000030"
+                  href="https://artist-staging.artblocks.io/token/152000063"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ropsten test mint #30
+                  Ropsten test mint #63
                 </ImageLink>
               </ImageContainer>
               <ImageContainer>
@@ -238,15 +238,15 @@ const Home = () => {
               <ImageContainer>
                 <Image src={strata1} loading="lazy" alt="Kronen" />
                 <ImageLink
-                  href="https://artist-staging.artblocks.io/token/152000054"
+                  href="https://artist-staging.artblocks.io/token/152000026"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ropsten test mint #54
+                  Ropsten test mint #26
                 </ImageLink>
               </ImageContainer>
             </ImagesContainer>
-          </WorkSection> */}
+          </WorkSection>
           <WorkSection>
             <H2>Pillars, 2021</H2>
             <WorkDescription>
