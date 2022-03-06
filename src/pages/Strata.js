@@ -723,8 +723,10 @@ function Strata() {
           <H2>CLOSING THOUGHTS</H2>
           <Paragraph className="max-w">
             If you made it all the way down here, thank you for your interest in
-            my work. I really appreciate everyone taking time to study it and
-            hope you enjoyed this write-up.
+            my work. I really appreciate everyone taking the time to study it
+            and hope you enjoyed this write-up. As the mints start to emerge,
+            the Ropsten mints on this site will be replaced, so keep an eye out
+            for that.
             <br />
             <br />
             If you{" "}
