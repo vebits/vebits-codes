@@ -380,7 +380,7 @@ function Strata() {
           <Paragraph className="max-w">
             Surface can change the overall expression of an output
             significantly. <span className="it">Standard</span> has organic
-            curves while <span className="it">even</span> is more straight
+            curves while <span className="it">even</span> has more straight
             lines. Lastly, an <span className="it">uneven</span> surface
             consists of more less smooth layers.
           </Paragraph>
@@ -497,8 +497,7 @@ function Strata() {
           ])}
           <Paragraph className="max-w">
             Each palette consists of at most four background colors Strata can
-            chose from. Below is three different ones from the{" "}
-            <span className="it">Magma</span> palette.
+            chose from.
           </Paragraph>
           {RenderImageRow([
             {
@@ -728,9 +727,25 @@ function Strata() {
             hope you enjoyed this write-up.
             <br />
             <br />
-            If you mint or collect a Strata, I will be forever grateful. For
-            more updates on Strata-related things or generative art in general,
-            please visit my Twitter{" "}
+            If you{" "}
+            <TextLink
+              href="https://www.artblocks.io/project/276"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              mint
+            </TextLink>{" "}
+            or{" "}
+            <TextLink
+              href="https://opensea.io/collection/strata-by-vebjorn-isaksen"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              collect
+            </TextLink>{" "}
+            a Strata, I will be forever grateful. For more updates on
+            Strata-related things or generative art in general, please visit my
+            Twitter{" "}
             <TextLink
               href="https://twitter.com/vebits"
               target="_blank"
