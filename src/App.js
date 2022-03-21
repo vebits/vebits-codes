@@ -26,10 +26,11 @@ import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 import ColorAsteroidsWrapper from "008 color asteroids/confetti3";
 import ColorCircles from "009 color circles/ColorCircles";
 import ABWrapper from "010 ab/AB5 screening";
-import Pillars from "011 dot lines/Pillars";
-import Cassettes from "011 dot lines/Cassettes";
-import Squares from "012 squares/Squares";
-import Boxes from "011 dot lines/Boxes";
+import Pillars from "011 isometric/Pillars";
+import Cassettes from "011 isometric/Cassettes";
+import Squares from "011 isometric/Squares";
+import Boxes from "011 isometric/Boxes";
+import FriederNake from "genart history/frieder nake/FriederNake";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -82,7 +83,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <ScrollToTop />
-        <Header />
+        {/* <Header /> */}
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
@@ -103,12 +104,12 @@ function App() {
           <Route exact path="/ab/:id?" component={ABWrapper} />
           <Route exact path="/pillars" component={Pillars} />
           <Route exact path="/cassettes" component={Cassettes} />
-          <Route exact path="/squares" component={Squares} />
           <Route exact path="/boxes" component={Boxes} />
+          <Route exact path="/nake" component={FriederNake} />
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );

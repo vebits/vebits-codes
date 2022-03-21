@@ -19,43 +19,6 @@ const Page = styled.main`
   background-color: white;
 `;
 
-const StyledLink = css`
-  text-decoration: none;
-  color: ${Colors.palette.five};
-  border-bottom: solid 1px ${Colors.palette.five};
-  padding-bottom: 4px;
-  margin-bottom: 24px;
-  font-weight: 800;
-
-  :hover {
-    opacity: 0.7;
-  }
-`;
-
-const StyledRRLink = styled(Link)`
-  ${StyledLink}
-`;
-
-const Info = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
-  margin: 0;
-`;
-
-const Date = styled.span`
-  font-size: 1rem;
-  font-weight: 600;
-  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
-  margin: 0;
-  margin-bottom: 24px;
-`;
-
 // TOKEN AND RANDOM
 const tokenData = { hash: random_hash() };
 const seed = parseInt(tokenData.hash.slice(0, 16), 16);
@@ -72,7 +35,7 @@ var m = height / DEFAULT_SIZE;
 function FriederNake() {
   const setup = (p, canvasParentRef) => {
     p.pixelDensity(1);
-    p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
+    p.createCanvas(width, height).parent(canvasParentRef);
     p.colorMode(p.HSB);
     p.noLoop();
 
@@ -132,11 +95,6 @@ function FriederNake() {
 
   return (
     <Page>
-      <StyledRRLink to="/">back to frontpage</StyledRRLink>
-      <Info>
-        <Title>jane</Title>
-        <Date>03.05.2021</Date>
-      </Info>
       <Sketch setup={setup} draw={draw} />
     </Page>
   );
