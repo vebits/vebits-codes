@@ -60,7 +60,7 @@ const Date = styled.span`
 // TOKEN AND RANDOM
 const tokenData = { hash: random_hash() };
 const seed = parseInt(tokenData.hash.slice(0, 16), 16);
-const rnd = new Random(4039234705026782);
+const rnd = new Random(seed);
 
 // DIMENSIONS
 let DEFAULT_SIZE = 1024; // kan endre mengde her!!

@@ -150,9 +150,8 @@ function Cassettes() {
         );
       }
     }
-    displayBorder(p, 96 * m, hex2hsl("#f0ede6")[0]);
     /* let x = mid_w / 64;
-      let y = mid_h / 32;
+    let y = mid_h / 32;
     const black = false;
     const usedCords = [];
     for (let i = 0; i < 2000; i++) {
@@ -198,6 +197,7 @@ function Cassettes() {
       }
       usedCords.push([x, y]);
     } */
+    displayBorder(p, 96 * m, hex2hsl("#f0ede6")[0]);
   };
 
   function drawWall(p, x, y, height, width, shade1, shade2, shade3) {

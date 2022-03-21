@@ -25,10 +25,9 @@ import Flow2 from "006 flow2/Flow2";
 import CordilleraWrapper from "007 cordillera/CordilleraWrapper";
 import ColorAsteroidsWrapper from "008 color asteroids/confetti3";
 import ColorCircles from "009 color circles/ColorCircles";
-import ABWrapper from "010 ab/AB5 screening";
-import Pillars from "011 isometric/Pillars";
+import ABWrapper from "010 strata (ab)/AB5 screening";
+import Pillars from "012 pillars/Pillars";
 import Cassettes from "011 isometric/Cassettes";
-import Squares from "011 isometric/Squares";
 import Boxes from "011 isometric/Boxes";
 import FriederNake from "genart history/frieder nake/FriederNake";
 

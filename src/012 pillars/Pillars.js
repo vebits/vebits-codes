@@ -10,7 +10,6 @@ import texturize from "utils/textureBg";
 
 import Palettes from "nice-color-palettes/1000";
 import paperColors from "paper-colors";
-import shuffle from "utils/shuffle";
 
 const Page = styled.main`
   flex: 1;
@@ -29,7 +28,6 @@ const StyledLink = css`
   padding-bottom: 4px;
   margin-bottom: 24px;
   font-weight: 800;
-
   :hover {
     opacity: 0.7;
   }
@@ -62,8 +60,8 @@ const Date = styled.span`
 // TOKEN AND RANDOM
 const tokenData = { hash: random_hash() };
 let seed = parseInt(tokenData.hash.slice(0, 16), 16);
-//seed = 45389777725926400; //["#a43935", "#771916", "#e2daca"] ["#5e7b75", "#3f615a", "#f0ede6"] ["#e8c064", "#e8b643", "#eae6d9"]
-const rnd = new Random(seed);
+seed = 5567045409101289; //["#a43935", "#771916", "#e2daca"] ["#5e7b75", "#3f615a", "#f0ede6"] ["#e8c064", "#e8b643", "#eae6d9"]
+const rnd = new Random(5567045409101289);
 
 // DIMENSIONS
 let DEFAULT_SIZE = 1024; // kan endre mengde her!!
@@ -78,8 +76,8 @@ if (window.innerHeight >= 1.5 * window.innerWidth) {
 /* const windowMargin = 0.75;
 width = width * windowMargin;
 height = height * windowMargin; */
-height = window.innerHeight;
-width = height * 1.5;
+width = 1024;
+height = width * 1.5;
 
 console.log(width, height);
 var dim = Math.min(width, height);
@@ -92,8 +90,8 @@ const bgColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
 const borderColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
 console.log(palette, bgColor, seed);
 
-const cell_w = 16 * m;
-const cell_h = 8 * m;
+const cell_w = 64 * m;
+const cell_h = 32 * m;
 const mid_w = width / 2;
 const mid_h = height / 2;
 
@@ -106,7 +104,7 @@ function Boxes() {
     p.noLoop();
     p.colorMode(p.HSL);
 
-    p.background(hex2hsl("#f4f0e7")[0]); //"#ffcd57"
+    p.background(hex2hsl("#333533")[0]); //"#ffcd57"
 
     p.keyPressed = function () {
       if (p.keyCode === 80) p.saveCanvas("cassettes_" + seed, "png");
@@ -116,180 +114,79 @@ function Boxes() {
   const draw = (p) => {
     //generateGrid(p);
     //drawLines(p);
-    shuffle(paperColors, rnd);
-    const black = false;
+
     let i = 0;
-    for (let y = 192; y < height - 128; y += cell_h) {
-      for (let x = 128; x < width - 192; x += cell_w) {
-        i++;
-        if (rnd.random_dec() > 0.3) {
-          drawWall2(
-            p,
-            x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
-            y,
-            rnd.random_choice([1, 2, 4]),
-            rnd.random_choice([1, 2, 4, 6, 8]),
-            rnd.random_choice([1, 2, 4]),
-            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-            p.color(hex2hsl(paperColors[i % 12].hex)[0])
-          );
-        } else {
-          drawWall(
-            p,
-            x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
-            y,
-            rnd.random_choice([1, 2, 4, 8]),
-            rnd.random_choice([1, 2, 4, 6, 8]),
-            rnd.random_choice([1, 2, 4]),
-            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-            p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-            p.color(hex2hsl(paperColors[i % 12].hex)[0])
-          );
-        }
-      }
-    }
-    i = 0;
-    /* for (let y = 600; y < height - 200; y += cell_h) {
-      for (let x = 0; x < width; x += cell_w) {
-        i++;
+    const black = false;
+    for (let y = 0; y < height + 64; y += 32 * m * 4) {
+      i++;
+      for (let x = 0; x < width; x += 64 * m * 2) {
+        const color = p.color(hex2hsl(palette[i % 5])[0]);
         drawWall(
           p,
-          x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
+          i % 2 === 0 ? x : x + 64 * m,
           y,
-          rnd.random_choice([1, 2, 4]),
-          rnd.random_choice([1, 2, 4, 6, 8]),
-          rnd.random_choice([1, 2, 4]),
-          p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-          p.color(hex2hsl(paperColors[i % 12].hex)[0]),
-          p.color(hex2hsl(paperColors[i % 12].hex)[0])
+          rnd.random_choice([6]),
+          rnd.random_choice([1]) / 2,
+          42,
+          42,
+          86
         );
       }
-    } */
-
-    displayBorder(p, 64 * m, hex2hsl("#333533")[0]);
-    /*  drawWall2(
-      p,
-      mid_w,
-      mid_h,
-      rnd.random_choice([5]),
-      rnd.random_choice([5]),
-      rnd.random_choice([5]),
-      hex2hsl("#000000")[0],
-      42,
-      86
-    ); */
+    }
+    displayBorder(p, 96 * m, hex2hsl("#333533")[0]);
   };
 
-  function drawWall2(p, x, y, height, width, depth, shade1, shade2, shade3) {
-    p.strokeJoin(p.ROUND);
-    p.strokeWeight(1 * m);
-
-    shade1.setAlpha(rnd.random_between(0.5, 1));
-    shade2.setAlpha(rnd.random_between(0.5, 1));
-    shade3.setAlpha(rnd.random_between(0.5, 1));
-
-    // draw top
-    p.fill(shade1);
-    p.stroke(hex2hsl("#333533")[0]);
-    p.stroke(shade1);
-    p.quad(
-      x,
-      y - cell_h * height,
-      x + (cell_w / 2) * width,
-      y - cell_h * height - (cell_h / 2) * width,
-      x + (cell_w / 2) * width + (cell_w / 2) * depth,
-      y - cell_h * height - (cell_h / 2) * width + (cell_h / 2) * depth,
-      x + (cell_w / 2) * depth,
-      y - cell_h * height + (cell_h / 2) * depth
-    );
-
-    // draw left side
-    p.fill(shade2);
-    p.stroke(shade2);
-    p.quad(
-      x,
-      y,
-      x,
-      y - cell_h * height,
-      x + (cell_w / 2) * depth,
-      y - cell_h * height + +(cell_h / 2) * depth,
-      x + (cell_w / 2) * depth,
-      y + (cell_h / 2) * depth
-    );
-
-    // draw right side
-    p.fill(shade3);
-    p.stroke(shade3);
-    p.quad(
-      x + (cell_w / 2) * depth,
-      y + (cell_h / 2) * depth,
-      x + (cell_w / 2) * depth,
-      y - cell_h * height + (cell_h / 2) * depth,
-      x + (cell_w / 2) * width + (cell_w / 2) * depth,
-      y - cell_h * height - (cell_h / 2) * width + (cell_h / 2) * depth,
-      x + (cell_w / 2) * width + (cell_w / 2) * depth,
-      y - (cell_h / 2) * width + (cell_h / 2) * depth
-    );
-
-    /* p.stroke(shade1);
-    p.strokeWeight(1);
-    for (let i = 0; i < height * 8; i++) {
-      p.line(
-        x,
-        y - (cell_h * i) / 8,
-        x + cell_w / 2,
-        y - (cell_h * i) / 8 + cell_h / 2
-      );
-    } */
-  }
-
-  function drawWall(p, x, y, height, width, depth, shade1, shade2, shade3) {
+  function drawWall(p, x, y, height, width, shade1, shade2, shade3) {
     p.strokeJoin(p.ROUND);
     p.strokeWeight(2 * m);
 
     // draw top
 
-    p.noStroke();
+    p.stroke(hex2hsl("#ffffff")[0]);
     p.strokeWeight(2 * m);
-    const color = shade1;
-    p.fill(color);
-    p.stroke(color);
+    p.fill(
+      hex2hsl(
+        paperColors[Math.floor(rnd.random_between(0, 1) * paperColors.length)]
+          .hex
+      )[0]
+    );
 
     const side = rnd.random_int(1, 3);
+    console.log(side);
     if (rnd.random_between(0, 1) > 0.0) {
-      p.quad(
-        x,
-        y - cell_h * height,
-        x + (cell_w / 2) * width,
-        y - cell_h * height - (cell_h / 2) * width,
-        x + cell_w / 2 + (cell_w / 2) * width,
-        y - cell_h * height - (cell_h / 2) * width + cell_h / 2,
-        x + cell_w / 2,
-        y + cell_h / 2 - cell_h * height
-      );
-
-      p.quad(
-        x,
-        y - cell_h * height,
-        x + cell_w / 2,
-        y + cell_h / 2 - cell_h * height,
-        x + cell_w / 2,
-        y + cell_h / 2,
-        x,
-        y
-      );
-
-      p.quad(
-        x + cell_w / 2,
-        y + cell_h / 2,
-        x + (cell_w / 2) * width + cell_w / 2,
-        y - (cell_h / 2) * width + cell_h / 2,
-        x + (cell_w / 2) * width + cell_w / 2,
-        y - cell_h * height - (cell_h / 2) * width + cell_h / 2,
-        x + cell_w / 2,
-        y - cell_h * height + cell_h / 2
-      );
+      if (side === 1)
+        p.quad(
+          x,
+          y - cell_h * height,
+          x + (cell_w / 2) * width,
+          y - cell_h * height - (cell_h / 2) * width,
+          x + cell_w / 2 + (cell_w / 2) * width,
+          y - cell_h * height - (cell_h / 2) * width + cell_h / 2,
+          x + cell_w / 2,
+          y + cell_h / 2 - cell_h * height
+        );
+      if (side === 2)
+        p.quad(
+          x,
+          y - cell_h * height,
+          x + cell_w / 2,
+          y + cell_h / 2 - cell_h * height,
+          x + cell_w / 2,
+          y + cell_h / 2,
+          x,
+          y
+        );
+      if (side === 3)
+        p.quad(
+          x + cell_w / 2,
+          y + cell_h / 2,
+          x + (cell_w / 2) * width + cell_w / 2,
+          y - (cell_h / 2) * width + cell_h / 2,
+          x + (cell_w / 2) * width + cell_w / 2,
+          y - cell_h * height - (cell_h / 2) * width + cell_h / 2,
+          x + cell_w / 2,
+          y - cell_h * height + cell_h / 2
+        );
       /* p.stroke(100);
       if (side === 4) {
         for (let i = 1; i < height * 8; i++) {
@@ -312,7 +209,7 @@ function Boxes() {
         }
       } */
     }
-    p.stroke(hex2hsl("#333533")[0]);
+
     if (rnd.random_between(0, 1) > 0.3 && side !== 1)
       p.line(
         x,
@@ -380,7 +277,6 @@ function Boxes() {
         x + cell_w / 2,
         y + cell_h / 2
       );
-
     if (rnd.random_between(0, 1) > 0.5)
       p.line(
         x + cell_w / 2,
@@ -388,7 +284,6 @@ function Boxes() {
         x + (cell_w / 2) * width + cell_w / 2,
         y - (cell_h / 2) * width + cell_h / 2
       );
-
     if (rnd.random_between(0, 1) > 0.5)
       p.line(
         x + cell_w / 2,
@@ -404,7 +299,7 @@ function Boxes() {
 
     // draw top
 
-    p.stroke(hex2hsl("#ffffff")[0]);
+    p.stroke(hex2hsl("#000000")[0]);
     p.strokeWeight(2 * m);
     p.fill(
       hex2hsl(
@@ -538,7 +433,7 @@ function Boxes() {
   }
 
   function displayBorder(p, e, color) {
-    p.fill(hex2hsl("#f4f0e7")[0]); // f4f0e7 333533
+    p.fill(hex2hsl("#333533")[0]); // f0ede6 333533
     p.stroke(100);
     p.strokeWeight(2 * m);
     p.strokeJoin(p.MITER);
@@ -548,7 +443,7 @@ function Boxes() {
     p.vertex(width + 1 * m, height + 1 * m);
     p.vertex(-1 * m, height + 1 * m);
     p.beginContour();
-    p.stroke(hex2hsl("#333533")[0]);
+    p.stroke(hex2hsl("#f0ede6")[0]);
     p.vertex(e, e);
     p.vertex(e, height - e);
     p.vertex(width - e, height - e);
