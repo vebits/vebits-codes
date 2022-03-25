@@ -42,7 +42,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'IBM Plex Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
   }
   
   #root {
@@ -82,7 +81,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <ScrollToTop />
-        {/* <Header /> */}
+        <Header />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
@@ -108,7 +107,7 @@ function App() {
           <Route path="/404" component={NotFound} />
           <Redirect to="/404" />
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </>
   );

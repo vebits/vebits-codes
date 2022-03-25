@@ -1,10 +1,63 @@
 import React from "react";
+import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
+
 import Sketch from "react-p5";
 import Random, { random_hash } from "utils/random";
+import { Colors } from "utils/constants";
 import { hex2hsl } from "utils/color-converter";
+import texturize from "utils/textureBg";
+
 import Palettes from "nice-color-palettes/1000";
 import paperColors from "paper-colors";
 import shuffle from "utils/shuffle";
+
+const Page = styled.main`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 12px;
+  background-color: white;
+`;
+
+const StyledLink = css`
+  text-decoration: none;
+  color: ${Colors.palette.five};
+  border-bottom: solid 1px ${Colors.palette.five};
+  padding-bottom: 4px;
+  margin-bottom: 24px;
+  font-weight: 800;
+
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
+const StyledRRLink = styled(Link)`
+  ${StyledLink}
+`;
+
+const Info = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
+  margin: 0;
+`;
+
+const Date = styled.span`
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${(props) => (props.inverted ? "white" : Colors.palette.five)};
+  margin: 0;
+  margin-bottom: 24px;
+`;
 
 // TOKEN AND RANDOM
 const tokenData = { hash: random_hash() };
@@ -64,17 +117,17 @@ function Boxes() {
     //generateGrid(p);
     //drawLines(p);
     shuffle(paperColors, rnd);
-
+    const black = false;
     let i = 0;
     for (let y = 0 * m; y < height - 0 * m; y += cell_h) {
       for (let x = 0 * m; x < width - 0 * m; x += cell_w) {
         i++;
-        if (rnd.random_dec() > 0.5) {
+        if (rnd.random_dec() > 0.3) {
           drawWall2(
             p,
             x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
             y,
-            rnd.random_choice([1, 2, 4, 8]),
+            rnd.random_choice([1, 2, 4]),
             rnd.random_choice([1, 2, 4, 6, 8]),
             rnd.random_choice([1, 2, 4]),
             p.color(hex2hsl(paperColors[i % 12].hex)[0]),
@@ -96,8 +149,36 @@ function Boxes() {
         }
       }
     }
+    i = 0;
+    /* for (let y = 600; y < height - 200; y += cell_h) {
+      for (let x = 0; x < width; x += cell_w) {
+        i++;
+        drawWall(
+          p,
+          x + rnd.random_int(0, 2) * cell_w * rnd.random_choice([-1, 1]),
+          y,
+          rnd.random_choice([1, 2, 4]),
+          rnd.random_choice([1, 2, 4, 6, 8]),
+          rnd.random_choice([1, 2, 4]),
+          p.color(hex2hsl(paperColors[i % 12].hex)[0]),
+          p.color(hex2hsl(paperColors[i % 12].hex)[0]),
+          p.color(hex2hsl(paperColors[i % 12].hex)[0])
+        );
+      }
+    } */
 
     displayBorder(p, 32 * m, hex2hsl("#f4f0e7")[0]);
+    /*  drawWall2(
+      p,
+      mid_w,
+      mid_h,
+      rnd.random_choice([5]),
+      rnd.random_choice([5]),
+      rnd.random_choice([5]),
+      hex2hsl("#000000")[0],
+      42,
+      86
+    ); */
   };
 
   function drawWall2(p, x, y, height, width, depth, shade1, shade2, shade3) {
@@ -151,7 +232,7 @@ function Boxes() {
       y - (cell_h / 2) * width + (cell_h / 2) * depth
     );
 
-    /*  p.stroke(shade1);
+    /* p.stroke(shade1);
     p.strokeWeight(1);
     for (let i = 0; i < height * 8; i++) {
       p.line(
@@ -254,6 +335,7 @@ function Boxes() {
         y + cell_h / 2 - cell_h * height
       );
     if (rnd.random_between(0, 1) > 0.3 && side === 3) {
+      console.log(side, "here");
       p.line(
         x + cell_w / 2,
         y + cell_h / 2 - cell_h * height,
@@ -456,10 +538,10 @@ function Boxes() {
   }
 
   function displayBorder(p, e, color) {
-    p.fill("#fff"); // f4f0e7 333533
-    p.stroke("#333533");
+    p.fill(hex2hsl("#333533")[0]); // f4f0e7 333533
+    p.stroke(100);
     p.strokeWeight(2 * m);
-    //p.noStroke();
+    p.noStroke();
     p.strokeJoin(p.MITER);
     p.beginShape();
     p.vertex(-1 * m, -1 * m);

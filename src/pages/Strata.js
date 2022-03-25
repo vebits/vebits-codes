@@ -250,18 +250,29 @@ function Strata() {
             characteristic, beautiful defined felt structure, to display Strata
             best. The prints will ship unframed and two sizes will be available:
           </Paragraph>
-          {RenderFeatures(["20x25cm", "40x50cm"])}
+          {RenderFeatures([
+            "20x25cm (w/ 5mm white border)",
+            "40x50cm (w/ 5mm white border)",
+          ])}
           <Paragraph>
             I will offer prints through the{" "}
             <TextLink
-              href="https://www.katevassgalerie.com/"
+              href="https://www.katevassgalerie.com/strata-prints-by-vebjoern-isaksen"
               target="_blank"
               rel="noopener noreferrer"
             >
               Kate Vass Galerie
             </TextLink>{" "}
-            website, but all the details are not sorted out yet. Updates on
-            prints will follow shortly after the release date.
+            website, and all the information about the prints should be there.
+            If you still have some questions, please reach out to me on Twitter{" "}
+            <TextLink
+              href="https://twitter.com/vebits"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @vebits
+            </TextLink>
+            .
           </Paragraph>
         </FlexColumn>
         <ImageContainer>
