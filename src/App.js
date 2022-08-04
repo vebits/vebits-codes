@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import {
   BrowserRouter,
   Route,
-  Redirect,
-  Switch,
+  Routes,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import "./utils.css";
@@ -82,31 +82,34 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <Header />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/strata" component={Strata} />
-          <Route exact path="/sabers" component={Sabers} />
-          <Route exact path="/bubba" component={Bubba} />
-          <Route exact path="/flow-1" component={Flow1} />
-          <Route exact path="/stripes" component={Stripes} />
-          <Route exact path="/color-shadows/:id?" component={ColorShadows} />
-          <Route exact path="/flow-2" component={Flow2} />
-          <Route exact path="/cordillera/:id?" component={CordilleraWrapper} />
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/strata" element={<Strata />} />
+          <Route exact path="/sabers" element={<Sabers />} />
+          <Route exact path="/bubba" element={<Bubba />} />
+          <Route exact path="/flow-1" element={<Flow1 />} />
+          <Route exact path="/stripes" element={<Stripes />} />
+          <Route exact path="/color-shadows/:id?" element={<ColorShadows />} />
+          <Route exact path="/flow-2" element={<Flow2 />} />
+          <Route
+            exact
+            path="/cordillera/:id?"
+            element={<CordilleraWrapper />}
+          />
           <Route
             exact
             path="/color-asteroids/:id?"
-            component={ColorAsteroidsWrapper}
+            element={<ColorAsteroidsWrapper />}
           />
-          <Route exact path="/color-circles" component={ColorCircles} />
-          <Route exact path="/ab/:id?" component={ABWrapper} />
-          <Route exact path="/pillars" component={Pillars} />
-          <Route exact path="/cassettes" component={Cassettes} />
-          <Route exact path="/boxes" component={Boxes} />
-          <Route exact path="/nake" component={FriederNake} />
-          <Route path="/404" component={NotFound} />
-          <Redirect to="/404" />
-        </Switch>
+          <Route exact path="/color-circles" element={<ColorCircles />} />
+          <Route exact path="/ab/:id?" element={<ABWrapper />} />
+          <Route exact path="/pillars" element={<Pillars />} />
+          <Route exact path="/cassettes" element={<Cassettes />} />
+          <Route exact path="/boxes" element={<Boxes />} />
+          <Route exact path="/nake" element={<FriederNake />} />
+        </Routes>
         <Footer />
       </BrowserRouter>
     </>
