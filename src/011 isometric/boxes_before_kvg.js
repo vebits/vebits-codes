@@ -78,8 +78,8 @@ if (window.innerHeight >= 1.5 * window.innerWidth) {
 /* const windowMargin = 0.75;
 width = width * windowMargin;
 height = height * windowMargin; */
-/* height = window.innerHeight;
-width = height * 1.5; */
+/* height = 15000;
+width = 10000; */
 
 console.log(width, height);
 var dim = Math.min(width, height);
@@ -102,6 +102,7 @@ const mid_h = height / 2;
 function Boxes() {
   const setup = (p, canvasParentRef) => {
     p.pixelDensity(1);
+    console.log(width, height);
     p.createCanvas(width, height, p.SVG).parent(canvasParentRef);
     p.noLoop();
     p.colorMode(p.HSL);

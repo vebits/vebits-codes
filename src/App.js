@@ -28,7 +28,7 @@ import ColorCircles from "009 color circles/ColorCircles";
 import ABWrapper from "010 strata (ab)/AB5 screening";
 import Pillars from "012 pillars/Pillars";
 import Cassettes from "011 isometric/Cassettes";
-import Boxes from "011 isometric/Boxes";
+import Boxes from "011 isometric/boxes_final";
 import FriederNake from "genart history/frieder nake/FriederNake";
 
 const GlobalStyle = createGlobalStyle`
