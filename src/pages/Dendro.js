@@ -295,7 +295,7 @@ function Dendro() {
             early age, I've been captivated by the natural world, and as I began
             creating generative art, I sought out patterns and ideas from
             nature. My initial exploration of this concept was through my
-            long-term generative project,{" "}
+            long-form generative project,{" "}
             <TextLink
               href="https://www.artblocks.io/project/276"
               target="_blank"
