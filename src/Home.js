@@ -4,6 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
+import dendro2 from "assets/images/dendro02.png";
+import dendro3 from "assets/images/dendro03.png";
+
 import strata1 from "assets/images/152000026.png";
 import strata2 from "assets/images/152000038.png";
 import strata3 from "assets/images/152000063.png";
@@ -156,6 +159,13 @@ const Image = styled.img`
   object-fit: contain;
 `;
 
+const ImageText = styled.p`
+  font-size: 14px;
+  color: ${Colors.palette.five};
+  align-self: flex-start;
+  margin-top: 8px;
+`;
+
 const PGLink = styled(Link)`
   background-color: #e1dccb;
   padding: 6px 20px;
@@ -198,6 +208,37 @@ const Home = () => {
       <Page>
         <WorksSection>
           <H1>WORKS</H1>
+          <WorkSection>
+            <H2>Dendro, 2023</H2>
+            <WorkDescription>
+              Dendro is a generative art project inspired by the beauty of tree
+              rings. Each year, trees add a new ring to their trunks, recording
+              their growth and responding to the changing seasons and
+              environmental conditions. These rings tell a story of the tree's
+              life. By replicating these patterns, the project captures the
+              rhythmic and organic qualities of nature.
+            </WorkDescription>
+            <StrataButtons>
+              <WorkLink
+                href="https://www.artblocks.io/project/276"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                BROWSE ON ART BLOCKS
+              </WorkLink>
+              <StrataLink to="/dendro">EXPLORE DENDRO</StrataLink>
+            </StrataButtons>
+            <ImagesContainer>
+              <ImageContainer>
+                <Image src={dendro2} loading="lazy" alt="Kronen" />
+                <ImageText>Out-of-band #1</ImageText>
+              </ImageContainer>
+              <ImageContainer>
+                <Image src={dendro3} loading="lazy" alt="Kronen" />
+                <ImageText>Out-of-band #2</ImageText>
+              </ImageContainer>
+            </ImagesContainer>
+          </WorkSection>
           <WorkSection>
             <H2>Strata, 2022</H2>
             <WorkDescription>

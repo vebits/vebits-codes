@@ -12,6 +12,7 @@ import "./utils.css";
 import Home from "Home";
 import About from "pages/About";
 import Strata from "pages/Strata";
+import Dendro from "pages/Dendro";
 import Header from "Header";
 import Footer from "Footer";
 import NotFound from "NotFound";
@@ -28,7 +29,7 @@ import ColorCircles from "009 color circles/ColorCircles";
 import ABWrapper from "010 strata (ab)/AB5 screening";
 import Pillars from "012 pillars/Pillars";
 import Cassettes from "011 isometric/Cassettes";
-import Boxes from "011 isometric/boxes_final";
+import Boxes from "011 isometric/Boxes";
 import FriederNake from "genart history/frieder nake/FriederNake";
 
 const GlobalStyle = createGlobalStyle`
@@ -87,6 +88,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/strata" element={<Strata />} />
+          <Route exact path="/dendro" element={<Dendro />} />
           <Route exact path="/sabers" element={<Sabers />} />
           <Route exact path="/bubba" element={<Bubba />} />
           <Route exact path="/flow-1" element={<Flow1 />} />

@@ -26,8 +26,8 @@ if (window.innerHeight >= 1.5 * window.innerWidth) {
 let dim = Math.min(width, height);
 let m = dim / 1e3;
 
-height = 9000;
-width = 6000;
+/* height = 9000;
+width = 6000; */
 console.log(width, height);
 
 const cell_w = 16 * m;
