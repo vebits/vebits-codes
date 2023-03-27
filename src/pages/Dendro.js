@@ -185,8 +185,9 @@ function Dendro() {
               Art Blocks
             </TextLink>
             . The project, in its entirety, is stored immutably on the Ethereum
-            blockchain. This write-up dives into how the Dendro algorithm works
-            and provides an overview of the different features.
+            blockchain. This write-up dives into how the Dendro algorithm works,
+            some philosophical thoughts, and in the future an overview of the
+            different features.
             <br />
             <br />
             Dendro is a generative art project inspired by the beauty of tree
@@ -238,8 +239,7 @@ function Dendro() {
             tree rings. This field, known as dendrochronology, involves the
             examination of tree rings to gather a wide range of information not
             only about the tree itself but also about the various factors that
-            have influenced it over time. What follow is more or less some
-            philosophical thoughts about everything surrounding this project.
+            have influenced it over time.
           </Paragraph>
           <H3>TIME</H3>
           <Paragraph className="mb">
@@ -262,9 +262,11 @@ function Dendro() {
             daily life, the milestones of aging, and the significant events that
             shape our personal and collective histories. Unlike tree time, human
             time can feel both fleeting and infinite, depending on our
-            perspective and the events we are experiencing. Our experience of
-            time is also influenced by our cultural backgrounds, as different
-            cultures have their own ways of measuring and valuing time.
+            perspective and the events we are experiencing. Modern society has
+            also largely adopted the clock as a means of designating and
+            organizing our days. Despite this, our experience of time remains
+            deeply influenced by our cultural backgrounds, as different cultures
+            have their own ways of measuring and valuing time.
             <br />
             <br />
             Blockchain time is a newer concept that refers to the way that
@@ -340,11 +342,18 @@ function Dendro() {
             , and many more.
             <br />
             <br />
-            Technically, Dendro explores the patterns of tree rings and I found
-            it interesting to explore the intersection between art and science.
-            While the technical aspect of the project may not be groundbreaking,
-            the use of generative art techniques to create colorful and vivid
-            animations of the rings is visually engaging and beautiful.
+            Technically, Dendro is an exploration of the mesmerizing patterns
+            found in tree rings, and this project offers a captivating
+            intersection between art and science. Through the use of generative
+            art techniques, I was able to create vibrant and colorful outputs
+            that showcase the rings' natural beauty in a visually stunning
+            manner. For future work, I would like to explore more technical
+            aspects of this. Like one could use image processing techniques to
+            analyze images of real tree rings and extract data such as the
+            thickness of each ring, the spacing between them, and the overall
+            shape of the rings. Then one use this data to create generative art
+            pieces that mimic the patterns and textures found in actual tree
+            rings.
             <br />
             <br />
             Conceptually, this project is innovative in its approach to using
