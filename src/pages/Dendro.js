@@ -348,12 +348,12 @@ function Dendro() {
             art techniques, I was able to create vibrant and colorful outputs
             that showcase the rings' natural beauty in a visually stunning
             manner. For future work, I would like to explore more technical
-            aspects of this. Like one could use image processing techniques to
-            analyze images of real tree rings and extract data such as the
-            thickness of each ring, the spacing between them, and the overall
-            shape of the rings. Then one use this data to create generative art
-            pieces that mimic the patterns and textures found in actual tree
-            rings.
+            aspects of this project. Like one could use image processing
+            techniques to analyze images of real tree rings and extract data
+            such as the thickness of each ring, the spacing between them, and
+            the overall shape of the rings. Then use this data to create
+            generative art pieces that mimic the patterns and textures found in
+            actual tree rings.
             <br />
             <br />
             Conceptually, this project is innovative in its approach to using
