@@ -374,9 +374,8 @@ function Dendro() {
             nature. The animations bring the images to life and add an element
             of surprise and delight that I hope capture the viewer's attention.
             <br />
-            <br />
-            While Dendro may not be groundbreaking from a technical standpoint,
-            its conceptual and aesthetic innovation make it a unique and
+            <br />I have had so much fun making this project and I think its
+            technical, conceptual and aesthetic innovation make it a unique and
             exciting addition to the world of generative art. By exploring the
             intersection between art and science, we can push the boundaries of
             what we consider to be art, and opening up new avenues for creative
