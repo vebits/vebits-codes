@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { Colors } from "utils/constants";
 
 import dendro1 from "assets/images/dendro01.png";
+import dendro2 from "assets/images/dendro02.png";
+import dendro3 from "assets/images/dendro03.png";
 import dendro4 from "assets/images/dendro04.png";
 import dendro5 from "assets/images/dendro05.png";
 import dendro6 from "assets/images/dendro06.png";
@@ -394,15 +396,15 @@ function Dendro() {
       </Section>
       <Section>
         <ImageContainer>
-          <Image src={dendro4} width={100} loading="lazy" />
+          <Image src={dendro2} width={100} loading="lazy" />
           <ImageText>Out-of-band #4</ImageText>
         </ImageContainer>
         <ImageContainer>
-          <Image src={dendro5} width={100} loading="lazy" />
+          <Image src={dendro3} width={100} loading="lazy" />
           <ImageText>Out-of-band #5</ImageText>
         </ImageContainer>
         <ImageContainer>
-          <Image src={dendro6} width={100} loading="lazy" />
+          <Image src={dendro5} width={100} loading="lazy" />
           <ImageText>Out-of-band #6</ImageText>
         </ImageContainer>
       </Section>
