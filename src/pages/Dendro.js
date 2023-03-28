@@ -400,11 +400,11 @@ function Dendro() {
           <ImageText>Out-of-band #4</ImageText>
         </ImageContainer>
         <ImageContainer>
-          <Image src={dendro3} width={100} loading="lazy" />
+          <Image src={dendro5} width={100} loading="lazy" />
           <ImageText>Out-of-band #5</ImageText>
         </ImageContainer>
         <ImageContainer>
-          <Image src={dendro5} width={100} loading="lazy" />
+          <Image src={dendro3} width={100} loading="lazy" />
           <ImageText>Out-of-band #6</ImageText>
         </ImageContainer>
       </Section>
