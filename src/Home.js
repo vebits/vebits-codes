@@ -208,7 +208,7 @@ const Home = () => {
       <Page>
         <WorksSection>
           <H1>WORKS</H1>
-          {/* <WorkSection>
+          <WorkSection>
             <H2>Dendro, 2023</H2>
             <WorkDescription>
               Dendro is a generative art project inspired by the beauty of tree
@@ -220,11 +220,11 @@ const Home = () => {
             </WorkDescription>
             <StrataButtons>
               <WorkLink
-                href="https://www.artblocks.io/project/276"
+                href="https://www.artblocks.io/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                BROWSE ON ART BLOCKS
+                ART BLOCKS WEBSITE
               </WorkLink>
               <StrataLink to="/dendro">EXPLORE DENDRO</StrataLink>
             </StrataButtons>
@@ -238,7 +238,7 @@ const Home = () => {
                 <ImageText>Out-of-band #2</ImageText>
               </ImageContainer>
             </ImagesContainer>
-          </WorkSection> */}
+          </WorkSection>
           <WorkSection>
             <H2>Strata, 2022</H2>
             <WorkDescription>
