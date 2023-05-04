@@ -178,9 +178,9 @@ function Dendro() {
           <H2>BACKGROUND</H2>
           <Paragraph className="mb">
             Dendro is a long form generative art series consisting of 275
-            editions releasing April XX 2023 on{" "}
+            editions releasing August 21 2023 on{" "}
             <TextLink
-              href="https://www.artblocks.io/project/276"
+              href="https://www.artblocks.io/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -419,7 +419,7 @@ function Dendro() {
             <br />
             <br />
             For more updates on Dendro-related things, some sneak peaks of
-            Goerli mints or generative art in general, please visit my Twitter{" "}
+            test mints or generative art in general, please visit my Twitter{" "}
             <TextLink
               href="https://twitter.com/vebits"
               target="_blank"
