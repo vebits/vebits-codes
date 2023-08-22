@@ -79,7 +79,6 @@ height = height * windowMargin; */
 width = 1024;
 height = width * 1.5;
 
-console.log(width, height);
 var dim = Math.min(width, height);
 var m = dim / DEFAULT_SIZE;
 
@@ -88,7 +87,6 @@ let palette = Palettes[rnd.random_int(0, Palettes.length - 1)];
 let paletteBg = Palettes[rnd.random_int(0, Palettes.length - 1)];
 const bgColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
 const borderColor = paletteBg[rnd.random_int(0, paletteBg.length - 1)];
-console.log(palette, bgColor, seed);
 
 const cell_w = 64 * m;
 const cell_h = 32 * m;

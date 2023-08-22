@@ -13,6 +13,7 @@ import Home from "Home";
 import About from "pages/About";
 import Strata from "pages/Strata";
 import Dendro from "pages/Dendro";
+import DendroGenerator from "pages/DendroGenerator";
 import Header from "Header";
 import Footer from "Footer";
 import NotFound from "NotFound";
@@ -89,6 +90,7 @@ function App() {
           <Route exact path="/about" element={<About />} />
           <Route exact path="/strata" element={<Strata />} />
           <Route exact path="/dendro" element={<Dendro />} />
+          <Route exact path="/dendro/generator" element={<DendroGenerator />} />
           <Route exact path="/sabers" element={<Sabers />} />
           <Route exact path="/bubba" element={<Bubba />} />
           <Route exact path="/flow-1" element={<Flow1 />} />
