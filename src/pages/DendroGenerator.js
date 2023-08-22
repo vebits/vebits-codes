@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Colors } from "utils/constants";
+
 const Page = styled.main`
   flex: 1;
   display: flex;
@@ -18,6 +20,12 @@ const H1 = styled.h1`
   font-size: 24px;
   margin: 0;
   font-weight: 400;
+  margin-right: 24px;
+`;
+
+const HeaderAndButton = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const IFrame = styled.iframe`
@@ -25,6 +33,32 @@ const IFrame = styled.iframe`
   flex: 1;
   border: none;
   padding: 0px;
+`;
+
+const RefreshButton = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+
+  align-self: center;
+  margin-top: 24px;
+  background-color: #e1dccb;
+  padding: 6px 20px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: ${Colors.palette.five};
+
+  :hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1280px) {
+    padding: 6px 10px;
+  }
 `;
 
 function Dendro() {
@@ -881,10 +915,18 @@ function Dendro() {
     </html>
 `;
 
+  const handleRefreshClick = () => {
+    document.getElementById("Dendro").contentWindow.location.reload();
+  };
+
   return (
     <Page>
       <H1>DENDRO GENERATOR</H1>
-      <IFrame title="Dendro" srcDoc={iframeContent} />
+
+      <IFrame title="Dendro" srcDoc={iframeContent} id="Dendro" />
+      <RefreshButton onClick={handleRefreshClick}>
+        GENERATE SAMPLE
+      </RefreshButton>
     </Page>
   );
 }
